@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MealScheduleController;
 use App\Http\Controllers\Api\OnboardingController;
+use App\Http\Controllers\Api\WeightLogController;
 use App\Http\Controllers\Api\WorkoutScheduleController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/meal-schedules/sync', [MealScheduleController::class, 'sync']);
     Route::put('/meal-schedules/{meal_schedule}', [MealScheduleController::class, 'update']);
     Route::delete('/meal-schedules/{meal_schedule}', [MealScheduleController::class, 'destroy']);
+
+    Route::get('/weight-logs', [WeightLogController::class, 'index']);
+    Route::post('/weight-logs', [WeightLogController::class, 'store']);
+    Route::put('/weight-logs/{weight_log}', [WeightLogController::class, 'update']);
+    Route::delete('/weight-logs/{weight_log}', [WeightLogController::class, 'destroy']);
 });
