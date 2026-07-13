@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\MealScheduleController;
 use App\Http\Controllers\Api\OnboardingController;
+use App\Http\Controllers\Api\WorkoutScheduleController;
 use Illuminate\Support\Facades\Route;
 
 // Auth
@@ -19,4 +21,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/onboarding/step3', [OnboardingController::class, 'step3']);
     Route::post('/onboarding/step4', [OnboardingController::class, 'step4']);
     Route::post('/onboarding/step5', [OnboardingController::class, 'step5']);
+
+    Route::get('/workout-schedules', [WorkoutScheduleController::class, 'index']);
+    Route::post('/workout-schedules', [WorkoutScheduleController::class, 'store']);
+    Route::post('/workout-schedules/sync', [WorkoutScheduleController::class, 'sync']);
+    Route::put('/workout-schedules/{workout_schedule}', [WorkoutScheduleController::class, 'update']);
+    Route::delete('/workout-schedules/{workout_schedule}', [WorkoutScheduleController::class, 'destroy']);
+
+    Route::get('/meal-schedules', [MealScheduleController::class, 'index']);
+    Route::post('/meal-schedules', [MealScheduleController::class, 'store']);
+    Route::post('/meal-schedules/sync', [MealScheduleController::class, 'sync']);
+    Route::put('/meal-schedules/{meal_schedule}', [MealScheduleController::class, 'update']);
+    Route::delete('/meal-schedules/{meal_schedule}', [MealScheduleController::class, 'destroy']);
 });
