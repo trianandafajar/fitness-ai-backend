@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MealScheduleController;
 use App\Http\Controllers\Api\OnboardingController;
@@ -39,4 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/weight-logs', [WeightLogController::class, 'store']);
     Route::put('/weight-logs/{weight_log}', [WeightLogController::class, 'update']);
     Route::delete('/weight-logs/{weight_log}', [WeightLogController::class, 'destroy']);
+
+    Route::get('/attendances', [AttendanceController::class, 'index']);
+    Route::get('/attendances/today', [AttendanceController::class, 'today']);
+    Route::post('/attendances', [AttendanceController::class, 'store']);
+    Route::get('/attendances/{attendance}', [AttendanceController::class, 'show']);
 });

@@ -76,4 +76,46 @@ class AiProviderService
 
         return $response->json();
     }
+
+    public function vision(string $prompt, string $imageBase64, array $options = []): array
+    {
+        $imageDataUri = 'data:image/jpeg;base64,' . $imageBase64;
+
+        $messages = [
+            [
+                'role' => 'user',
+                'content' => [
+                    ['type' => 'text', 'text' => $prompt],
+                    ['type' => 'image_url', 'image_url' => ['url' => $imageDataUri]],
+                ],
+            ],
+        ];
+
+        try {
+            return $this->callOpenAIVision($messages, $options);
+        } catch (\Throwable $e) {
+            Log::error('OpenAI Vision API failed', [
+                'error' => $e->getMessage(),
+            ]);
+
+            throw $e;
+        }
+    }
+
+    protected function callOpenAIVision(array $messages, array $options): array
+    {
+        $response = Http::withToken($this->openaiKey)
+            ->timeout(120)
+            ->post("{$this->openaiUrl}/chat/completions", array_merge([
+                'model' => $options['model'] ?? 'gpt-4o-mini',
+                'messages' => $messages,
+                'max_tokens' => $options['max_tokens'] ?? 1024,
+            ], $options['extra'] ?? []));
+
+        if ($response->failed()) {
+            throw new \RuntimeException('OpenAI Vision API error: '.$response->body());
+        }
+
+        return $response->json();
+    }
 }

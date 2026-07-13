@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->hasMany(WeightLog::class);
     }
 
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token, $this->email));
