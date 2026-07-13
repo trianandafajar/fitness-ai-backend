@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\KpiTrackingController;
+use App\Http\Controllers\Api\MealLogController;
 use App\Http\Controllers\Api\MealScheduleController;
 use App\Http\Controllers\Api\OnboardingController;
 use App\Http\Controllers\Api\WeightLogController;
@@ -45,4 +47,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/attendances/today', [AttendanceController::class, 'today']);
     Route::post('/attendances', [AttendanceController::class, 'store']);
     Route::get('/attendances/{attendance}', [AttendanceController::class, 'show']);
+
+    Route::get('/meal-logs', [MealLogController::class, 'index']);
+    Route::get('/meal-logs/today', [MealLogController::class, 'today']);
+    Route::post('/meal-logs', [MealLogController::class, 'store']);
+    Route::put('/meal-logs/{meal_log}', [MealLogController::class, 'update']);
+    Route::delete('/meal-logs/{meal_log}', [MealLogController::class, 'destroy']);
+
+    Route::get('/kpi', [KpiTrackingController::class, 'index']);
+    Route::get('/kpi/current', [KpiTrackingController::class, 'current']);
 });

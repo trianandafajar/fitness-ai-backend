@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\WeightLogged;
 use App\Http\Controllers\Controller;
 use App\Models\WeightLog;
 use Carbon\Carbon;
@@ -44,6 +45,8 @@ class WeightLogController extends Controller
                 'notes' => $validated['notes'] ?? null,
             ],
         );
+
+        event(new WeightLogged($log));
 
         return response()->json($log, 201);
     }

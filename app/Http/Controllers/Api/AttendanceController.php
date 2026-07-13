@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\AttendanceLogged;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessAttendancePhoto;
 use App\Models\WorkoutSchedule;
@@ -88,6 +89,8 @@ class AttendanceController extends Controller
         ]);
 
         ProcessAttendancePhoto::dispatch($attendance);
+
+        event(new AttendanceLogged($attendance));
 
         $attendance->load('workoutSchedule');
 

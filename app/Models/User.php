@@ -44,6 +44,31 @@ class User extends Authenticatable
         return $this->hasMany(Attendance::class);
     }
 
+    public function goals(): HasMany
+    {
+        return $this->hasMany(UserGoal::class);
+    }
+
+    public function mealLogs(): HasMany
+    {
+        return $this->hasMany(MealLog::class);
+    }
+
+    public function aiRecommendations(): HasMany
+    {
+        return $this->hasMany(AiRecommendation::class);
+    }
+
+    public function kpiTrackings(): HasMany
+    {
+        return $this->hasMany(KpiTracking::class);
+    }
+
+    public function activeGoal(): HasOne
+    {
+        return $this->hasOne(UserGoal::class)->where('status', 'active');
+    }
+
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token, $this->email));
