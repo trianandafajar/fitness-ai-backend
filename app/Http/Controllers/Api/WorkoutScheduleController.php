@@ -24,6 +24,7 @@ class WorkoutScheduleController extends Controller
                     WHEN 'sunday' THEN 7
                 END
             ")
+            ->orderBy('scheduled_time')
             ->get();
 
         return response()->json($schedules);
@@ -33,6 +34,7 @@ class WorkoutScheduleController extends Controller
     {
         $validated = $request->validate([
             'day_of_week' => ['required', Rule::in(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])],
+            'scheduled_time' => 'nullable|date_format:H:i',
             'exercises' => 'required|array|min:1',
             'exercises.*.name' => 'required|string|max:255',
             'exercises.*.sets' => 'nullable|integer|min:1',
@@ -44,6 +46,7 @@ class WorkoutScheduleController extends Controller
             [
                 'user_id' => $request->user()->id,
                 'day_of_week' => $validated['day_of_week'],
+                'scheduled_time' => $validated['scheduled_time'] ?? null,
             ],
             ['exercises' => $validated['exercises']],
         );
@@ -59,6 +62,7 @@ class WorkoutScheduleController extends Controller
 
         $validated = $request->validate([
             'day_of_week' => ['required', Rule::in(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])],
+            'scheduled_time' => 'nullable|date_format:H:i',
             'exercises' => 'required|array|min:1',
             'exercises.*.name' => 'required|string|max:255',
             'exercises.*.sets' => 'nullable|integer|min:1',
@@ -87,6 +91,7 @@ class WorkoutScheduleController extends Controller
         $validated = $request->validate([
             'schedules' => 'required|array',
             'schedules.*.day_of_week' => ['required', Rule::in(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])],
+            'schedules.*.scheduled_time' => 'nullable|date_format:H:i',
             'schedules.*.exercises' => 'required|array|min:1',
             'schedules.*.exercises.*.name' => 'required|string|max:255',
             'schedules.*.exercises.*.sets' => 'nullable|integer|min:1',
@@ -95,17 +100,24 @@ class WorkoutScheduleController extends Controller
         ]);
 
         $userId = $request->user()->id;
-        $incomingDays = collect($validated['schedules'])->pluck('day_of_week');
 
-        WorkoutSchedule::where('user_id', $userId)
-            ->whereNotIn('day_of_week', $incomingDays)
-            ->delete();
+        $incomingKeys = collect($validated['schedules'])->map(
+            fn($s) => $s['day_of_week'] . '|' . ($s['scheduled_time'] ?? '')
+        );
+
+        WorkoutSchedule::where('user_id', $userId)->get()->each(function ($schedule) use ($incomingKeys) {
+            $key = $schedule->day_of_week . '|' . ($schedule->scheduled_time ?? '');
+            if (!$incomingKeys->contains($key)) {
+                $schedule->delete();
+            }
+        });
 
         $schedules = collect($validated['schedules'])->map(function ($item) use ($userId) {
             return WorkoutSchedule::updateOrCreate(
                 [
                     'user_id' => $userId,
                     'day_of_week' => $item['day_of_week'],
+                    'scheduled_time' => $item['scheduled_time'] ?? null,
                 ],
                 ['exercises' => $item['exercises']],
             );

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable([
     'user_id',
     'day_of_week',
+    'scheduled_time',
     'exercises',
 ])]
 class WorkoutSchedule extends Model

@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->hasMany(KpiTracking::class);
     }
 
+    public function workoutSchedules(): HasMany
+    {
+        return $this->hasMany(WorkoutSchedule::class);
+    }
+
     public function activeGoal(): HasOne
     {
         return $this->hasOne(UserGoal::class)->where('status', 'active');

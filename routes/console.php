@@ -14,3 +14,7 @@ Schedule::job(new GenerateWeeklyKpiReportJob)
     ->mondays()
     ->at('00:10')
     ->description('Generate weekly KPI reports with AI summary');
+
+Schedule::command('workout:send-reminders')
+    ->everyMinute()
+    ->description('Send workout reminders 15 min before and at scheduled time');
