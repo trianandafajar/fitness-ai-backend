@@ -20,16 +20,20 @@ class SendWorkoutReminders extends Command
         $dayOfWeek = strtolower($now->format('l'));
         $today = $now->format('Y-m-d');
 
-        $onTime = $now->format('H:i:00');
-        $preTime = $now->copy()->addMinutes(15)->format('H:i:00');
+        $onTime = $now->format('H:i');
+        $preTime = $now->copy()->addMinutes(15)->format('H:i');
 
         $schedules = WorkoutSchedule::where('day_of_week', $dayOfWeek)
-            ->whereIn('scheduled_time', [$onTime, $preTime])
+            ->where(function ($q) use ($onTime, $preTime) {
+                $q->whereRaw("TO_CHAR(scheduled_time, 'HH24:MI') = ?", [$onTime])
+                  ->orWhereRaw("TO_CHAR(scheduled_time, 'HH24:MI') = ?", [$preTime]);
+            })
             ->with('user')
             ->get();
 
         foreach ($schedules as $schedule) {
-            $reminderType = $schedule->scheduled_time === $onTime ? 'on_time' : 'pre';
+            $schedHHMM = substr($schedule->scheduled_time, 0, 5);
+            $reminderType = $schedHHMM === $onTime ? 'on_time' : 'pre';
 
             $alreadySent = DB::table('notifications')
                 ->where('type', WorkoutReminderNotification::class)

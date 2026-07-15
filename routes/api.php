@@ -5,9 +5,12 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\KpiTrackingController;
 use App\Http\Controllers\Api\MealLogController;
 use App\Http\Controllers\Api\MealScheduleController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OnboardingController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\WeightLogController;
 use App\Http\Controllers\Api\WorkoutScheduleController;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 // Auth
@@ -56,4 +59,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/kpi', [KpiTrackingController::class, 'index']);
     Route::get('/kpi/current', [KpiTrackingController::class, 'current']);
+
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+
+    Route::put('/profile', [ProfileController::class, 'update']);
 });
+
+Broadcast::routes(['middleware' => ['auth:sanctum']]);

@@ -18,6 +18,7 @@ class WorkoutSchedule extends Model
     {
         return [
             'exercises' => 'array',
+            'scheduled_time' => 'string',
         ];
     }
 
