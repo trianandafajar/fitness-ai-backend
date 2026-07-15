@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserGoal;
 use App\Models\UserProfile;
 use App\Services\AiProviderService;
 use Illuminate\Http\JsonResponse;
@@ -51,6 +52,14 @@ class OnboardingController extends Controller
             'goal_weight_kg' => $validated['goal_weight_kg'] ?? null,
             'onboarding_step' => 2,
         ]);
+
+        $request->user()->goals()->updateOrCreate(
+            ['status' => 'active'],
+            [
+                'goal_type' => $validated['fitness_goal'],
+                'target_weight_kg' => $validated['goal_weight_kg'] ?? null,
+            ]
+        );
 
         return response()->json([
             'message' => 'Step 2 completed',
