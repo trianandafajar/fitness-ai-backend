@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\WorkoutSchedule;
+use App\Services\ExerciseEnrichmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class WorkoutScheduleController extends Controller
 {
+    public function __construct(
+        protected ExerciseEnrichmentService $enrichment,
+    ) {}
+
     public function index(Request $request): JsonResponse
     {
         $schedules = WorkoutSchedule::where('user_id', $request->user()->id)
@@ -40,7 +45,17 @@ class WorkoutScheduleController extends Controller
             'exercises.*.sets' => 'nullable|integer|min:1',
             'exercises.*.reps' => 'nullable|integer|min:1',
             'exercises.*.notes' => 'nullable|string|max:500',
+            'exercises.*.description' => 'nullable|string|max:1000',
+            'exercises.*.category' => 'nullable|string|max:100',
+            'exercises.*.rest_seconds' => 'nullable|integer|min:0',
+            'exercises.*.estimated_calories' => 'nullable|integer|min:0',
+            'skip_enrichment' => 'nullable|boolean',
         ]);
+
+        $exercises = $validated['exercises'];
+        if (empty($validated['skip_enrichment'])) {
+            $exercises = $this->enrichment->enrich($exercises);
+        }
 
         $schedule = WorkoutSchedule::updateOrCreate(
             [
@@ -48,7 +63,7 @@ class WorkoutScheduleController extends Controller
                 'day_of_week' => $validated['day_of_week'],
                 'scheduled_time' => $validated['scheduled_time'] ?? null,
             ],
-            ['exercises' => $validated['exercises']],
+            ['exercises' => $exercises],
         );
 
         return response()->json($schedule, 201);
@@ -68,8 +83,19 @@ class WorkoutScheduleController extends Controller
             'exercises.*.sets' => 'nullable|integer|min:1',
             'exercises.*.reps' => 'nullable|integer|min:1',
             'exercises.*.notes' => 'nullable|string|max:500',
+            'exercises.*.description' => 'nullable|string|max:1000',
+            'exercises.*.category' => 'nullable|string|max:100',
+            'exercises.*.rest_seconds' => 'nullable|integer|min:0',
+            'exercises.*.estimated_calories' => 'nullable|integer|min:0',
+            'skip_enrichment' => 'nullable|boolean',
         ]);
 
+        $exercises = $validated['exercises'];
+        if (empty($validated['skip_enrichment'])) {
+            $exercises = $this->enrichment->enrich($exercises);
+        }
+
+        $validated['exercises'] = $exercises;
         $workoutSchedule->update($validated);
 
         return response()->json($workoutSchedule);
@@ -97,6 +123,11 @@ class WorkoutScheduleController extends Controller
             'schedules.*.exercises.*.sets' => 'nullable|integer|min:1',
             'schedules.*.exercises.*.reps' => 'nullable|integer|min:1',
             'schedules.*.exercises.*.notes' => 'nullable|string|max:500',
+            'schedules.*.exercises.*.description' => 'nullable|string|max:1000',
+            'schedules.*.exercises.*.category' => 'nullable|string|max:100',
+            'schedules.*.exercises.*.rest_seconds' => 'nullable|integer|min:0',
+            'schedules.*.exercises.*.estimated_calories' => 'nullable|integer|min:0',
+            'skip_enrichment' => 'nullable|boolean',
         ]);
 
         $userId = $request->user()->id;
@@ -113,16 +144,34 @@ class WorkoutScheduleController extends Controller
         });
 
         $schedules = collect($validated['schedules'])->map(function ($item) use ($userId) {
+            $exercises = $item['exercises'];
+            if (empty($item['skip_enrichment'])) {
+                $exercises = $this->enrichment->enrich($exercises);
+            }
+
             return WorkoutSchedule::updateOrCreate(
                 [
                     'user_id' => $userId,
                     'day_of_week' => $item['day_of_week'],
                     'scheduled_time' => $item['scheduled_time'] ?? null,
                 ],
-                ['exercises' => $item['exercises']],
+                ['exercises' => $exercises],
             );
         });
 
         return response()->json($schedules);
+    }
+
+    public function enrichExercise(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'sets' => 'nullable|integer|min:1',
+            'reps' => 'nullable|integer|min:1',
+        ]);
+
+        $enriched = $this->enrichment->enrichSingle($validated);
+
+        return response()->json($enriched);
     }
 }

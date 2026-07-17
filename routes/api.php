@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/workout-schedules', [WorkoutScheduleController::class, 'index']);
     Route::post('/workout-schedules', [WorkoutScheduleController::class, 'store']);
     Route::post('/workout-schedules/sync', [WorkoutScheduleController::class, 'sync']);
+    Route::post('/workout-schedules/enrich-exercise', [WorkoutScheduleController::class, 'enrichExercise']);
     Route::put('/workout-schedules/{workout_schedule}', [WorkoutScheduleController::class, 'update']);
     Route::delete('/workout-schedules/{workout_schedule}', [WorkoutScheduleController::class, 'destroy']);
 
