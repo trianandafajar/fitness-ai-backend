@@ -54,7 +54,7 @@
         ],
         "production": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fca5a5\" \"php artisan reverb:start\" \"php artisan horizon\" \"php artisan schedule:work\" --names=reverb,horizon,scheduler"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fca5a5\" \"php artisan reverb:start --host=0.0.0.0 --port=8081\" \"php artisan horizon\" \"php artisan schedule:work\" --names=reverb,horizon,scheduler"
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
