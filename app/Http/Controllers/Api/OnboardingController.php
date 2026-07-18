@@ -15,15 +15,22 @@ class OnboardingController extends Controller
     public function step1(Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'name' => 'required|string|max:255',
             'date_of_birth' => 'required|date|before:today|after:' . now()->subYears(120)->format('Y-m-d'),
             'gender' => ['required', Rule::in(['male', 'female', 'other'])],
+            'height_cm' => 'required|numeric|min:50|max:300',
+            'weight_kg' => 'required|numeric|min:10|max:500',
         ]);
 
-        $profile = $this->getOrCreateProfile($request->user()->id, 1);
+        $user = $request->user();
+        $user->update(['name' => $validated['name']]);
 
+        $profile = $this->getOrCreateProfile($user->id, 1);
         $profile->update([
             'date_of_birth' => $validated['date_of_birth'],
             'gender' => $validated['gender'],
+            'height_cm' => $validated['height_cm'],
+            'weight_kg' => $validated['weight_kg'],
             'onboarding_step' => 1,
         ]);
 
@@ -36,30 +43,23 @@ class OnboardingController extends Controller
     public function step2(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'height_cm' => 'required|numeric|min:50|max:300',
-            'weight_kg' => 'required|numeric|min:10|max:500',
-            'fitness_goal' => 'required|string|max:255',
-            'activity_level' => ['required', Rule::in(['low', 'medium', 'high'])],
-            'goal_weight_kg' => 'nullable|numeric|min:10|max:500',
+            'dietary_preferences' => 'nullable|array',
+            'dietary_preferences.*' => 'string',
+            'dietary_restrictions' => 'nullable|array',
+            'dietary_restrictions.*' => 'string',
+            'allergies' => 'nullable|array',
+            'allergies.*' => 'string',
+            'medical_conditions' => 'nullable|string|max:1000',
         ]);
 
         $profile = $this->requireStep($request->user()->id, 1);
         $profile->update([
-            'height_cm' => $validated['height_cm'],
-            'weight_kg' => $validated['weight_kg'],
-            'fitness_goal' => $validated['fitness_goal'],
-            'activity_level' => $validated['activity_level'],
-            'goal_weight_kg' => $validated['goal_weight_kg'] ?? null,
+            'dietary_preferences' => $validated['dietary_preferences'] ?? [],
+            'dietary_restrictions' => $validated['dietary_restrictions'] ?? [],
+            'allergies' => $validated['allergies'] ?? [],
+            'medical_conditions' => $validated['medical_conditions'] ?? null,
             'onboarding_step' => 2,
         ]);
-
-        $request->user()->goals()->updateOrCreate(
-            ['status' => 'active'],
-            [
-                'goal_type' => $validated['fitness_goal'],
-                'target_weight_kg' => $validated['goal_weight_kg'] ?? null,
-            ]
-        );
 
         return response()->json([
             'message' => 'Step 2 completed',
@@ -70,21 +70,17 @@ class OnboardingController extends Controller
     public function step3(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'dietary_preferences' => 'nullable|array',
-            'dietary_preferences.*' => 'string',
-            'dietary_restrictions' => 'nullable|array',
-            'dietary_restrictions.*' => 'string',
-            'allergies' => 'nullable|array',
-            'allergies.*' => 'string',
-            'medical_conditions' => 'nullable|string|max:1000',
+            'exercise_frequency' => ['required', Rule::in(['never', '1-2', '3-4', '5+'])],
+            'exercise_types' => 'required|array|min:1',
+            'exercise_types.*' => 'string',
+            'injuries' => 'nullable|string|max:1000',
         ]);
 
         $profile = $this->requireStep($request->user()->id, 2);
         $profile->update([
-            'dietary_preferences' => $validated['dietary_preferences'] ?? [],
-            'dietary_restrictions' => $validated['dietary_restrictions'] ?? [],
-            'allergies' => $validated['allergies'] ?? [],
-            'medical_conditions' => $validated['medical_conditions'] ?? null,
+            'exercise_frequency' => $validated['exercise_frequency'],
+            'exercise_types' => $validated['exercise_types'],
+            'injuries' => $validated['injuries'] ?? null,
             'onboarding_step' => 3,
         ]);
 
@@ -97,19 +93,26 @@ class OnboardingController extends Controller
     public function step4(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'exercise_frequency' => ['required', Rule::in(['never', '1-2', '3-4', '5+'])],
-            'exercise_types' => 'required|array|min:1',
-            'exercise_types.*' => 'string',
-            'injuries' => 'nullable|string|max:1000',
+            'fitness_goal' => 'required|string|max:255',
+            'activity_level' => ['required', Rule::in(['low', 'medium', 'high'])],
+            'goal_weight_kg' => 'nullable|numeric|min:10|max:500',
         ]);
 
         $profile = $this->requireStep($request->user()->id, 3);
         $profile->update([
-            'exercise_frequency' => $validated['exercise_frequency'],
-            'exercise_types' => $validated['exercise_types'],
-            'injuries' => $validated['injuries'] ?? null,
+            'fitness_goal' => $validated['fitness_goal'],
+            'activity_level' => $validated['activity_level'],
+            'goal_weight_kg' => $validated['goal_weight_kg'] ?? null,
             'onboarding_step' => 4,
         ]);
+
+        $request->user()->goals()->updateOrCreate(
+            ['status' => 'active'],
+            [
+                'goal_type' => $validated['fitness_goal'],
+                'target_weight_kg' => $validated['goal_weight_kg'] ?? null,
+            ]
+        );
 
         return response()->json([
             'message' => 'Step 4 completed',
