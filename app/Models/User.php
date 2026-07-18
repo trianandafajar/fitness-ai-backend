@@ -78,4 +78,9 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token, $this->email));
     }
+
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'user.' . $this->id;
+    }
 }
