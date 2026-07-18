@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\UserGoal;
 use App\Models\UserProfile;
+use App\Services\AiEnrichmentService;
 use App\Services\AiProviderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class OnboardingController extends Controller
@@ -130,26 +132,54 @@ class OnboardingController extends Controller
 
         try {
             $response = $ai->chat([
-                ['role' => 'system', 'content' => 'You are a professional fitness and nutrition assistant. Provide an initial analysis based on the user onboarding data. Respond in JSON format with keys: summary, recommendations, meal_suggestions, exercise_suggestions.'],
+                ['role' => 'system', 'content' => 'You are a professional fitness and nutrition assistant. Provide an initial analysis based on the user onboarding data. Respond in JSON format with keys: summary, recommendations, meal_suggestions (each line is a meal like "Grilled Chicken with Rice"), exercise_suggestions (each line is an exercise like "Bench Press - 4x12"). Use specific exercise and food names that are commonly known.'],
                 ['role' => 'user', 'content' => $prompt],
             ], [
                 'temperature' => 0.7,
                 'max_tokens' => 2048,
             ]);
 
-            $aiResult = json_decode($response['choices'][0]['message']['content'] ?? '{}', true);
+            $content = $response['choices'][0]['message']['content'] ?? '{}';
+            // Strip markdown code fences if AI wraps JSON in them
+            $content = preg_replace('/^```(?:json)?\s*\n?|\n?```\s*$/i', '', trim($content));
+            $aiResult = json_decode($content, true);
+
+            if (!is_array($aiResult)) {
+                Log::warning('AI returned invalid JSON in step5', [
+                    'user_id' => $request->user()->id,
+                    'raw' => substr($content, 0, 500),
+                ]);
+                $aiResult = [
+                    'summary' => 'AI analysis format error.',
+                    'recommendations' => 'Please try again later.',
+                    'meal_suggestions' => '',
+                    'exercise_suggestions' => '',
+                ];
+            }
+
+            // Enrich with images from database and create schedules
+            $enrichment = app(AiEnrichmentService::class);
+            $enriched = $enrichment->enrichAndSave($request->user()->id, $aiResult);
 
             $profile->update([
                 'onboarding_step' => 5,
                 'profile_completed' => true,
+                'ai_analysis' => $enriched,
             ]);
 
             return response()->json([
                 'message' => 'Onboarding completed',
                 'profile_completed' => true,
-                'ai_analysis' => $aiResult,
+                'ai_analysis' => $enriched,
             ]);
         } catch (\Throwable $e) {
+            Log::error('AI analysis failed in step5', [
+                'user_id' => $request->user()->id,
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
             $profile->update([
                 'onboarding_step' => 5,
                 'profile_completed' => true,

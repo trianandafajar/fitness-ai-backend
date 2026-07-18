@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ExerciseController;
+use App\Http\Controllers\Api\FoodController;
 use App\Http\Controllers\Api\KpiTrackingController;
 use App\Http\Controllers\Api\MealLogController;
 use App\Http\Controllers\Api\MealScheduleController;
@@ -65,6 +67,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
     Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+
+    Route::get('/exercises', [ExerciseController::class, 'index']);
+    Route::get('/foods', [FoodController::class, 'index']);
+    Route::get('/ai-analysis', function (\Illuminate\Http\Request $r) {
+        $profile = $r->user()->profile;
+        return response()->json(['data' => $profile?->ai_analysis]);
+    });
 
     Route::put('/profile', [ProfileController::class, 'update']);
 });

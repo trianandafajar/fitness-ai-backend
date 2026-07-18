@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'injuries',
     'onboarding_step',
     'profile_completed',
+    'ai_analysis',
 ])]
 class UserProfile extends Model
 {
@@ -40,6 +41,7 @@ class UserProfile extends Model
             'exercise_types' => 'array',
             'onboarding_step' => 'integer',
             'profile_completed' => 'boolean',
+            'ai_analysis' => 'array',
         ];
     }
 
