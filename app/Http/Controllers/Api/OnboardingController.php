@@ -39,7 +39,7 @@ class OnboardingController extends Controller
             'height_cm' => 'required|numeric|min:50|max:300',
             'weight_kg' => 'required|numeric|min:10|max:500',
             'fitness_goal' => 'required|string|max:255',
-            'activity_level' => ['required', Rule::in(['sedentary', 'light', 'moderate', 'active', 'very_active'])],
+            'activity_level' => ['required', Rule::in(['low', 'medium', 'high'])],
             'goal_weight_kg' => 'nullable|numeric|min:10|max:500',
         ]);
 

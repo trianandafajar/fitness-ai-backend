@@ -27,7 +27,7 @@ class ProfileController extends Controller
             'height_cm' => 'nullable|numeric|min:50|max:300',
             'weight_kg' => 'nullable|numeric|min:10|max:500',
             'fitness_goal' => 'nullable|string|max:255',
-            'activity_level' => ['nullable', Rule::in(['sedentary', 'light', 'moderate', 'active', 'very_active'])],
+            'activity_level' => ['nullable', Rule::in(['low', 'medium', 'high'])],
             'goal_weight_kg' => 'nullable|numeric|min:10|max:500',
             'dietary_preferences' => 'nullable|array',
             'dietary_preferences.*' => 'string',
