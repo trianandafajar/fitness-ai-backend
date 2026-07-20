@@ -132,7 +132,13 @@ class OnboardingController extends Controller
 
         try {
             $response = $ai->chat([
-                ['role' => 'system', 'content' => 'You are a professional fitness and nutrition assistant. Provide an initial analysis based on the user onboarding data. Respond in JSON format with keys: summary, recommendations, meal_suggestions (each line is a meal like "Grilled Chicken with Rice"), exercise_suggestions (each line is an exercise like "Bench Press - 4x12"). Use specific exercise and food names that are commonly known.'],
+                ['role' => 'system', 'content' => 'You are a professional fitness and nutrition assistant. Analyze user onboarding data and respond in JSON. Keep everything short and actionable.
+- "summary": 1-2 sentences max.
+- "recommendations": array of 3-4 short strings (e.g. "Focus on compound lifts", "Eat 120g protein daily").
+- "workout_plan": string describing weekly schedule (e.g. "3x/week: Mon, Wed, Fri at 07:00").
+- "meal_suggestions": array of strings, each format: "Food name | meal_time | time". Example: "Oatmeal with Banana | breakfast | 07:30".
+- "exercise_suggestions": array of strings, each format: "Exercise name - sets x reps | day_of_week | time". Example: "Bench Press - 4x12 | monday,thursday | 07:00".
+Use specific exercise and food names. meal_time must be one of: breakfast, lunch, dinner, snack. day_of_week must be one or comma-separated from: monday,tuesday,wednesday,thursday,friday,saturday,sunday.'],
                 ['role' => 'user', 'content' => $prompt],
             ], [
                 'temperature' => 0.7,
@@ -151,7 +157,8 @@ class OnboardingController extends Controller
                 ]);
                 $aiResult = [
                     'summary' => 'AI analysis format error.',
-                    'recommendations' => 'Please try again later.',
+                    'recommendations' => ['Please try again later.'],
+                    'workout_plan' => '',
                     'meal_suggestions' => '',
                     'exercise_suggestions' => '',
                 ];
