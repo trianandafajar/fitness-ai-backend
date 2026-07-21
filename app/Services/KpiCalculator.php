@@ -14,6 +14,10 @@ use Illuminate\Support\Collection;
 
 class KpiCalculator
 {
+    public function __construct(
+        private readonly StreakService $streaks,
+    ) {}
+
     public function calculateDaily(User $user, Carbon $date): KpiTracking
     {
         $dayOfWeek = strtolower($date->format('l'));
@@ -264,33 +268,7 @@ class KpiCalculator
 
     protected function calculateConsistencyScore(User $user, Carbon $date): int
     {
-        $streak = 0;
-        $current = $date->copy();
-
-        for ($i = 0; $i < 30; $i++) {
-            $dayOfWeek = strtolower($current->format('l'));
-
-            $hasSchedule = WorkoutSchedule::where('user_id', $user->id)
-                ->where('day_of_week', $dayOfWeek)
-                ->exists();
-
-            if (!$hasSchedule) {
-                $current->subDay();
-                continue;
-            }
-
-            $attended = Attendance::where('user_id', $user->id)
-                ->whereDate('checked_in_at', $current)
-                ->where('status', 'verified')
-                ->exists();
-
-            if ($attended) {
-                $streak++;
-                $current->subDay();
-            } else {
-                break;
-            }
-        }
+        $streak = $this->streaks->currentCount($user, $date);
 
         return match (true) {
             $streak >= 14 => 100,

@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\MealScheduleController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OnboardingController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\StreakController;
 use App\Http\Controllers\Api\WeightLogController;
 use App\Http\Controllers\Api\WorkoutScheduleController;
 use Illuminate\Support\Facades\Broadcast;
@@ -62,6 +63,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/kpi', [KpiTrackingController::class, 'index']);
     Route::get('/kpi/current', [KpiTrackingController::class, 'current']);
+
+    Route::get('/streak/calendar', [StreakController::class, 'calendar']);
+    Route::get('/streak/count', [StreakController::class, 'count']);
 
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
