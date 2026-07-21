@@ -85,10 +85,10 @@ class AttendanceController extends Controller
             'longitude' => $validated['longitude'],
             'address' => $validated['address'] ?? null,
             'checked_in_at' => now(),
-            'status' => 'pending',
+            'status' => 'verified',
         ]);
 
-        ProcessAttendancePhoto::dispatch($attendance);
+        // ProcessAttendancePhoto::dispatch($attendance);
 
         event(new AttendanceLogged($attendance));
 
