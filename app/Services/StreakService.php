@@ -33,7 +33,7 @@ class StreakService
         ];
     }
 
-    public function getRange(User $user, string $startDate, int $days = 4): array
+    public function getRange(User $user, string $startDate, int $days = 16): array
     {
         $rangeStart = Carbon::createFromFormat('Y-m-d', $startDate, config('app.timezone'))->startOfDay();
         $rangeEnd = $rangeStart->copy()->addDays($days - 1)->endOfDay();
