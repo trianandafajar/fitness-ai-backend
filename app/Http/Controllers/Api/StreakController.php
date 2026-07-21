@@ -11,6 +11,19 @@ class StreakController extends Controller
 {
     public function calendar(Request $request, StreakService $streaks): JsonResponse
     {
+        if ($request->filled('start_date')) {
+            $validated = $request->validate([
+                'start_date' => ['required', 'date_format:Y-m-d'],
+                'days' => ['sometimes', 'integer', 'min:1', 'max:14'],
+            ]);
+
+            return response()->json($streaks->getRange(
+                $request->user(),
+                $validated['start_date'],
+                $validated['days'] ?? 4,
+            ));
+        }
+
         $validated = $request->validate([
             'month' => ['required', 'date_format:Y-m'],
         ]);

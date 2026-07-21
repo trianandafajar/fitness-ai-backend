@@ -28,12 +28,22 @@ class StreakService
 
         return [
             'month' => $monthStart->format('Y-m'),
-            'summary' => [
-                'streak_days' => collect($days)->where('status', self::STATUS_STREAK)->count(),
-                'failed_days' => collect($days)->where('status', self::STATUS_FAILED)->count(),
-                'pending_days' => collect($days)->where('status', self::STATUS_PENDING)->count(),
-            ],
+            'summary' => $this->getSummary($days),
             'days' => array_values($days),
+        ];
+    }
+
+    public function getRange(User $user, string $startDate, int $days = 4): array
+    {
+        $rangeStart = Carbon::createFromFormat('Y-m-d', $startDate, config('app.timezone'))->startOfDay();
+        $rangeEnd = $rangeStart->copy()->addDays($days - 1)->endOfDay();
+        $range = $this->getStatuses($user, $rangeStart, $rangeEnd, Carbon::today());
+
+        return [
+            'start_date' => $rangeStart->format('Y-m-d'),
+            'end_date' => $rangeEnd->format('Y-m-d'),
+            'summary' => $this->getSummary($range),
+            'days' => array_values($range),
         ];
     }
 
@@ -112,6 +122,15 @@ class StreakService
         }
 
         return $days;
+    }
+
+    private function getSummary(array $days): array
+    {
+        return [
+            'streak_days' => collect($days)->where('status', self::STATUS_STREAK)->count(),
+            'failed_days' => collect($days)->where('status', self::STATUS_FAILED)->count(),
+            'pending_days' => collect($days)->where('status', self::STATUS_PENDING)->count(),
+        ];
     }
 
     private function getStatus(
