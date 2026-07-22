@@ -126,6 +126,14 @@ class OnboardingController extends Controller
     {
         $profile = $this->requireStep($request->user()->id, 4);
 
+        if ($profile->profile_completed && $profile->ai_analysis !== null) {
+            return response()->json([
+                'message' => 'Onboarding already completed',
+                'profile_completed' => true,
+                'ai_analysis' => $profile->ai_analysis,
+            ]);
+        }
+
         $ai = app(AiProviderService::class);
 
         $prompt = $this->buildAiPrompt($profile, $request->user());
@@ -188,15 +196,15 @@ Use specific exercise and food names. meal_time must be one of: breakfast, lunch
             ]);
 
             $profile->update([
-                'onboarding_step' => 5,
-                'profile_completed' => true,
+                'onboarding_step' => 4,
+                'profile_completed' => false,
             ]);
 
             return response()->json([
-                'message' => 'Onboarding completed, but AI analysis unavailable. Please try again later.',
-                'profile_completed' => true,
+                'message' => 'AI analysis unavailable. Please try again.',
+                'profile_completed' => false,
                 'ai_analysis' => null,
-            ]);
+            ], 503);
         }
     }
 
