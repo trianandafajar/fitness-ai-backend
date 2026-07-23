@@ -144,8 +144,9 @@ class OnboardingController extends Controller
 - "summary": 1-2 sentences max.
 - "recommendations": array of 3-4 short strings (e.g. "Focus on compound lifts", "Eat 120g protein daily").
 - "workout_plan": string describing weekly schedule (e.g. "3x/week: Mon, Wed, Fri at 07:00").
-- "meal_suggestions": array of strings, each format: "Food name | meal_time | time". Example: "Oatmeal with Banana | breakfast | 07:30".
+- "meal_suggestions": array of strings, each format: "Food name | meal_time | time". Example: "Oatmeal with Banana | breakfast | 07:30". Generate 2-3 different food options per meal_time (breakfast, lunch, dinner, snack).
 - "exercise_suggestions": array of strings, each format: "Exercise name - sets x reps | day_of_week | time". Example: "Bench Press - 4x12 | monday,thursday | 07:00".
+IMPORTANT: Generate 4-6 exercises per workout day. For example, if the user works out Mon/Wed/Fri, each of those days should have 4-6 different exercises (e.g. Bench Press, Squat, Rows, Shoulder Press, Bicep Curl, Tricep Extension).
 Use specific exercise and food names. meal_time must be one of: breakfast, lunch, dinner, snack. day_of_week must be one or comma-separated from: monday,tuesday,wednesday,thursday,friday,saturday,sunday.'],
                 ['role' => 'user', 'content' => $prompt],
             ], [
