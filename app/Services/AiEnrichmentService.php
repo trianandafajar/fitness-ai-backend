@@ -198,17 +198,29 @@ class AiEnrichmentService
             'snack' => '15:30',
         ];
 
+        // Group enriched meals by meal_time
+        $grouped = [];
         foreach ($enrichedMeals as $item) {
             $foodName = $item['food']['name'] ?? null;
             if (!$foodName) continue;
 
             $mealTime = $item['meal_time'] ?? 'breakfast';
             if (!in_array($mealTime, $validMealTimes)) $mealTime = 'breakfast';
-            $time = $item['time'] ?? $defaultTimes[$mealTime];
 
-            // Create across Mon-Fri
-            $weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
-            foreach ($weekdays as $day) {
+            $grouped[$mealTime][] = $item;
+        }
+
+        $weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+
+        foreach ($grouped as $mealTime => $items) {
+            $time = $items[0]['time'] ?? $defaultTimes[$mealTime];
+            $foodCount = count($items);
+
+            foreach ($weekdays as $index => $day) {
+                // Rotate food options across days
+                $item = $items[$index % $foodCount];
+                $foodName = $item['food']['name'] ?? '';
+
                 $schedule = MealSchedule::firstOrCreate(
                     [
                         'user_id' => $userId,
@@ -221,18 +233,17 @@ class AiEnrichmentService
                     ]
                 );
 
-                $items = $schedule->items ?? [];
+                $existingItems = $schedule->items ?? [];
+                $existingFoods = array_map(fn($i) => strtolower($i['food'] ?? $i['name'] ?? ''), $existingItems);
 
-                // Avoid duplicates
-                $existingFoods = array_map(fn($i) => strtolower($i['food'] ?? $i['name'] ?? ''), $items);
-                if (in_array(strtolower($foodName), $existingFoods)) continue;
-
-                $items[] = [
-                    'food' => $foodName,
-                    'portion' => '1 serving',
-                    'notes' => '',
-                ];
-                $schedule->update(['items' => $items]);
+                if (!in_array(strtolower($foodName), $existingFoods)) {
+                    $existingItems[] = [
+                        'food' => $foodName,
+                        'portion' => '1 serving',
+                        'notes' => '',
+                    ];
+                    $schedule->update(['items' => $existingItems]);
+                }
             }
         }
     }
