@@ -35,6 +35,9 @@ class WorkoutReminderNotification extends Notification implements ShouldBroadcas
             'exercises' => $this->schedule->exercises,
             'reminder_type' => $this->reminderType,
             'message' => $message,
+            'description' => $this->reminderType === 'pre'
+                ? 'Get ready for your scheduled workout.'
+                : 'Your scheduled workout is starting now.',
         ];
     }
 
