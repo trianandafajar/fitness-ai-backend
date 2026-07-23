@@ -46,14 +46,19 @@ class AiProviderService
         $response = Http::withToken($this->deepseekKey)
             ->timeout(120)
             ->post("{$this->deepseekUrl}/chat/completions", array_merge([
-                'model' => $options['model'] ?? 'deepseek-chat',
+                'model' => $options['model'] ?? 'deepseek-v4-flash',
                 'messages' => $messages,
-                'temperature' => $options['temperature'] ?? 0.7,
-                'max_tokens' => $options['max_tokens'] ?? 2048,
+                'thinking' => [
+                    'type' => $options['thinking'] ?? 'enabled',
+                ],
+                'reasoning_effort' => $options['reasoning_effort'] ?? 'medium',
+                'max_tokens' => $options['max_tokens'] ?? 4096,
             ], $options['extra'] ?? []));
 
         if ($response->failed()) {
-            throw new \RuntimeException('Deepseek API error: '.$response->body());
+            throw new \RuntimeException(
+                'Deepseek API error: '.$response->body()
+            );
         }
 
         return $response->json();

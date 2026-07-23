@@ -140,19 +140,48 @@ class OnboardingController extends Controller
 
         try {
             $response = $ai->chat([
-                ['role' => 'system', 'content' => 'You are a professional fitness and nutrition assistant. Analyze user onboarding data and respond in JSON. Keep everything short and actionable.
-- "summary": 1-2 sentences max.
-- "recommendations": array of 3-4 short strings (e.g. "Focus on compound lifts", "Eat 120g protein daily").
-- "workout_plan": string describing weekly schedule (e.g. "3x/week: Mon, Wed, Fri at 07:00").
-- "meal_suggestions": array of strings, each format: "Food name | meal_time | time". Example: "Oatmeal with Banana | breakfast | 07:30". Generate 2-3 different food options per meal_time (breakfast, lunch, dinner, snack).
-- "exercise_suggestions": array of strings, each format: "Exercise name - sets x reps | day_of_week | time". Example: "Bench Press - 4x12 | monday,thursday | 07:00".
-IMPORTANT: Generate 4-6 exercises per workout day. For example, if the user works out Mon/Wed/Fri, each of those days should have 4-6 different exercises (e.g. Bench Press, Squat, Rows, Shoulder Press, Bicep Curl, Tricep Extension).
-Use specific exercise and food names. meal_time must be one of: breakfast, lunch, dinner, snack. day_of_week must be one or comma-separated from: monday,tuesday,wednesday,thursday,friday,saturday,sunday.'],
+                ['role' => 'system', 'content' => 'You are a professional fitness and nutrition consultant. Think step-by-step like a human trainer before producing the final JSON.
+
+### YOUR THINKING PROCESS (do not output this — use it to guide your JSON)
+1. Analyze the user profile: fitness goal, activity level, exercise frequency, injuries, dietary preferences, age, weight.
+2. Assess their **fitness level**: 
+   - If frequency is "never" or "1-2" → BEGINNER. Recommend 3-4 exercises per day, lighter sets/reps (3x10-12).
+   - If frequency is "3-4" → INTERMEDIATE. Recommend 4-5 exercises per day, moderate sets/reps (3-4x10-12).
+   - If frequency is "5+" → ADVANCED. Recommend 5-6 exercises per day, higher volume (4x10-15).
+3. Consider injuries/medical conditions — avoid risky exercises.
+4. Match meal suggestions to dietary preferences and goals (e.g. high protein for muscle gain, low-calorie for weight loss).
+5. Ensure the total weekly volume makes sense — do NOT overwhelm a beginner with 6 exercises a day.
+
+### OUTPUT FORMAT — Respond ONLY with valid JSON:
+{
+  "summary": "1-2 sentence personalized summary",
+  "recommendations": ["3-4 short actionable tips"],
+  "workout_plan": "e.g. 3x/week: Mon, Wed, Fri at 07:00",
+  "exercise_suggestions": [
+    "Exercise name - sets x reps | day_of_week | time"
+  ],
+  "meal_suggestions": [
+    "Food name | meal_time | time"
+  ]
+}
+
+### RULES
+- exercise_suggestions: Each item format is "Exercise name - sets x reps | day_of_week | time". Example: "Bench Press - 4x12 | monday,thursday | 07:00".
+- meal_suggestions: Each item format is "Food name | meal_time | time". Example: "Oatmeal with Banana | breakfast | 07:30". Give 1-2 food options per meal_time.
+- day_of_week must be one or comma-separated from: monday,tuesday,wednesday,thursday,friday,saturday,sunday.
+- meal_time must be one of: breakfast, lunch, dinner, snack.
+- Use specific exercise and food names (real, well-known exercises and foods).
+- ADAPT the number of exercises per day to the user level — do NOT always give maximum.'],
                 ['role' => 'user', 'content' => $prompt],
-            ], [
-                'temperature' => 0.7,
-                'max_tokens' => 2048,
-            ]);
+            ],   [
+        'extra' => [
+            'thinking' => [
+                'type' => 'enabled',
+            ],
+            'reasoning_effort' => 'high',
+        ],
+        'max_tokens' => 4096,
+    ]);
 
             $content = $response['choices'][0]['message']['content'] ?? '{}';
             // Strip markdown code fences if AI wraps JSON in them
