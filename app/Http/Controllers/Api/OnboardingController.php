@@ -146,8 +146,8 @@ class OnboardingController extends Controller
 1. Analyze the user profile: fitness goal, activity level, exercise frequency, injuries, dietary preferences, age, weight.
 2. Assess their **fitness level**: 
    - If frequency is "never" or "1-2" → BEGINNER. Recommend 3-4 exercises per day, lighter sets/reps (3x10-12).
-   - If frequency is "3-4" → INTERMEDIATE. Recommend 4-5 exercises per day, moderate sets/reps (3-4x10-12).
-   - If frequency is "5+" → ADVANCED. Recommend 5-6 exercises per day, higher volume (4x10-15).
+   - If frequency is "1-3" → INTERMEDIATE. Recommend 4-5 exercises per day, moderate sets/reps (3-4x10-12).
+   - If frequency is "3+" → ADVANCED. Recommend 5-6 exercises per day, higher volume (4x10-15).
 3. Consider injuries/medical conditions — avoid risky exercises.
 4. Match meal suggestions to dietary preferences and goals (e.g. high protein for muscle gain, low-calorie for weight loss).
 5. Ensure the total weekly volume makes sense — do NOT overwhelm a beginner with 6 exercises a day.
