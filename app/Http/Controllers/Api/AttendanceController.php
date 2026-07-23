@@ -81,8 +81,8 @@ class AttendanceController extends Controller
         $attendance = $request->user()->attendances()->create([
             'workout_schedule_id' => $schedule->id,
             'photo' => $photoPath,
-            'latitude' => $validated['latitude'],
-            'longitude' => $validated['longitude'],
+            'latitude' => $validated['latitude'] ?? null,
+            'longitude' => $validated['longitude'] ?? null,
             'address' => $validated['address'] ?? null,
             'checked_in_at' => now(),
             'status' => 'verified',
