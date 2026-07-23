@@ -126,10 +126,10 @@ class OnboardingController extends Controller
     {
         $profile = $this->requireStep($request->user()->id, 4);
 
-        if ($profile->profile_completed && $profile->ai_analysis !== null) {
+        if ($profile->onboarding_step >= 5 && $profile->ai_analysis !== null) {
             return response()->json([
-                'message' => 'Onboarding already completed',
-                'profile_completed' => true,
+                'message' => 'Analysis already completed',
+                'profile_completed' => false,
                 'ai_analysis' => $profile->ai_analysis,
             ]);
         }
@@ -178,13 +178,12 @@ Use specific exercise and food names. meal_time must be one of: breakfast, lunch
 
             $profile->update([
                 'onboarding_step' => 5,
-                'profile_completed' => true,
                 'ai_analysis' => $enriched,
             ]);
 
             return response()->json([
-                'message' => 'Onboarding completed',
-                'profile_completed' => true,
+                'message' => 'Analysis complete. Confirm to finish onboarding.',
+                'profile_completed' => false,
                 'ai_analysis' => $enriched,
             ]);
         } catch (\Throwable $e) {
@@ -206,6 +205,27 @@ Use specific exercise and food names. meal_time must be one of: breakfast, lunch
                 'ai_analysis' => null,
             ], 503);
         }
+    }
+
+    public function complete(Request $request): JsonResponse
+    {
+        $profile = $this->requireStep($request->user()->id, 5);
+
+        if ($profile->profile_completed) {
+            return response()->json([
+                'message' => 'Onboarding already completed',
+                'profile_completed' => true,
+            ]);
+        }
+
+        $profile->update([
+            'profile_completed' => true,
+        ]);
+
+        return response()->json([
+            'message' => 'Onboarding completed successfully',
+            'profile_completed' => true,
+        ]);
     }
 
     private function getOrCreateProfile(int $userId, int $expectedStep): UserProfile
