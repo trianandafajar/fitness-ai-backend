@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ExerciseController;
@@ -82,6 +83,19 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::put('/profile', [ProfileController::class, 'update']);
+
+    // Admin routes
+    Route::middleware('admin')->prefix('admin')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard']);
+
+        Route::post('/exercises', [ExerciseController::class, 'store']);
+        Route::put('/exercises/{exercise}', [ExerciseController::class, 'update']);
+        Route::delete('/exercises/{exercise}', [ExerciseController::class, 'destroy']);
+
+        Route::post('/foods', [FoodController::class, 'store']);
+        Route::put('/foods/{food}', [FoodController::class, 'update']);
+        Route::delete('/foods/{food}', [FoodController::class, 'destroy']);
+    });
 });
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
