@@ -18,13 +18,8 @@ class FoodController extends Controller
             $query->where('category', $request->category);
         }
 
-        $foods = $query->orderBy('name')->get()->map(function ($food) {
-            $food->image_url = $food->image ? Storage::disk('public')->url($food->image) : null;
-            return $food;
-        });
-
         return response()->json([
-            'data' => $foods,
+            'data' => $query->orderBy('name')->get(),
         ]);
     }
 
@@ -83,7 +78,7 @@ class FoodController extends Controller
 
     public function destroy(Food $food): JsonResponse
     {
-        if ($food->image) {
+        if ($food->image && !str_starts_with($food->image, 'http')) {
             Storage::disk('public')->delete($food->image);
         }
 

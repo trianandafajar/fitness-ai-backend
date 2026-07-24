@@ -18,13 +18,8 @@ class ExerciseController extends Controller
             $query->where('category', $request->category);
         }
 
-        $exercises = $query->orderBy('name')->get()->map(function ($exercise) {
-            $exercise->image_url = $exercise->image ? Storage::disk('public')->url($exercise->image) : null;
-            return $exercise;
-        });
-
         return response()->json([
-            'data' => $exercises,
+            'data' => $query->orderBy('name')->get(),
         ]);
     }
 
@@ -83,7 +78,7 @@ class ExerciseController extends Controller
 
     public function destroy(Exercise $exercise): JsonResponse
     {
-        if ($exercise->image) {
+        if ($exercise->image && !str_starts_with($exercise->image, 'http')) {
             Storage::disk('public')->delete($exercise->image);
         }
 
