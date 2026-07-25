@@ -14,8 +14,14 @@ class FoodController extends Controller
     {
         $query = Food::query();
 
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
         }
 
         return response()->json([
@@ -27,7 +33,7 @@ class FoodController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
+            'category_id' => 'required|exists:food_categories,id',
             'image' => 'nullable|image|max:2048',
             'calories_per_100g' => 'required|numeric|min:0',
             'protein_per_100g' => 'required|numeric|min:0',
@@ -52,7 +58,7 @@ class FoodController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
+            'category_id' => 'required|exists:food_categories,id',
             'image' => 'nullable|image|max:2048',
             'calories_per_100g' => 'required|numeric|min:0',
             'protein_per_100g' => 'required|numeric|min:0',

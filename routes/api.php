@@ -3,8 +3,9 @@
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\DayController;
+use App\Http\Controllers\Api\ExerciseCategoryController;
 use App\Http\Controllers\Api\ExerciseController;
+use App\Http\Controllers\Api\FoodCategoryController;
 use App\Http\Controllers\Api\FoodController;
 use App\Http\Controllers\Api\KpiTrackingController;
 use App\Http\Controllers\Api\MealLogController;
@@ -80,6 +81,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/exercises', [ExerciseController::class, 'index']);
     Route::get('/foods', [FoodController::class, 'index']);
+    Route::get('/exercise-categories', [ExerciseCategoryController::class, 'index']);
+    Route::get('/food-categories', [FoodCategoryController::class, 'index']);
     Route::get('/ai-analysis', function (\Illuminate\Http\Request $r) {
         $profile = $r->user()->profile;
         return response()->json(['data' => $profile?->ai_analysis]);
@@ -98,6 +101,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/foods', [FoodController::class, 'store']);
         Route::put('/foods/{food}', [FoodController::class, 'update']);
         Route::delete('/foods/{food}', [FoodController::class, 'destroy']);
+
+        Route::post('/exercise-categories', [ExerciseCategoryController::class, 'store']);
+        Route::put('/exercise-categories/{exerciseCategory}', [ExerciseCategoryController::class, 'update']);
+        Route::delete('/exercise-categories/{exerciseCategory}', [ExerciseCategoryController::class, 'destroy']);
+
+        Route::post('/food-categories', [FoodCategoryController::class, 'store']);
+        Route::put('/food-categories/{foodCategory}', [FoodCategoryController::class, 'update']);
+        Route::delete('/food-categories/{foodCategory}', [FoodCategoryController::class, 'destroy']);
     });
 });
 

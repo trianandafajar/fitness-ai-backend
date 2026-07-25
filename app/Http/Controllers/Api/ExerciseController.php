@@ -14,8 +14,14 @@ class ExerciseController extends Controller
     {
         $query = Exercise::query();
 
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
         }
 
         return response()->json([
@@ -30,7 +36,7 @@ class ExerciseController extends Controller
             'equipment' => 'nullable|string|max:255',
             'target_muscles' => 'nullable|array',
             'target_muscles.*' => 'string',
-            'category' => 'required|string|max:255',
+            'category_id' => 'required|exists:exercise_categories,id',
             'image' => 'nullable|image|max:2048',
             'description' => 'nullable|string',
         ]);
@@ -38,8 +44,6 @@ class ExerciseController extends Controller
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('exercises', 'public');
         }
-
-        unset($validated['image_file']);
 
         $exercise = Exercise::create($validated);
 
@@ -56,7 +60,7 @@ class ExerciseController extends Controller
             'equipment' => 'nullable|string|max:255',
             'target_muscles' => 'nullable|array',
             'target_muscles.*' => 'string',
-            'category' => 'required|string|max:255',
+            'category_id' => 'required|exists:exercise_categories,id',
             'image' => 'nullable|image|max:2048',
             'description' => 'nullable|string',
         ]);

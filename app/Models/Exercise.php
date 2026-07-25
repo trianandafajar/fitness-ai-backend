@@ -3,21 +3,32 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 
 class Exercise extends Model
 {
     protected $fillable = [
-        'name', 'equipment', 'target_muscles', 'category', 'image', 'description',
+        'name', 'category_id', 'equipment', 'target_muscles', 'image', 'description',
     ];
 
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url', 'category'];
 
     protected function casts(): array
     {
         return [
             'target_muscles' => 'array',
         ];
+    }
+
+    public function categoryModel(): BelongsTo
+    {
+        return $this->belongsTo(ExerciseCategory::class, 'category_id');
+    }
+
+    public function getCategoryAttribute(): ?string
+    {
+        return $this->categoryModel?->slug;
     }
 
     public function getImageUrlAttribute(): ?string
