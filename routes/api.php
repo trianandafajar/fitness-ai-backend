@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DayController;
 use App\Http\Controllers\Api\ExerciseCategoryController;
 use App\Http\Controllers\Api\ExerciseController;
 use App\Http\Controllers\Api\FoodCategoryController;
