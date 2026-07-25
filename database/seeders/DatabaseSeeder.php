@@ -17,16 +17,6 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Test User', 'password' => \Illuminate\Support\Facades\Hash::make('password')]
         );
 
-        User::firstOrCreate(
-            ['email' => 'admin@fitness.ai'],
-            [
-                'name' => 'Admin',
-                'password' => \Illuminate\Support\Facades\Hash::make('password'),
-                'is_admin' => true,
-                'email_verified_at' => now(),
-            ]
-        );
-
         $this->call([
             ExerciseSeeder::class,
             FoodSeeder::class,
