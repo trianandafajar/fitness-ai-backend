@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DayController;
 use App\Http\Controllers\Api\ExerciseController;
 use App\Http\Controllers\Api\FoodController;
 use App\Http\Controllers\Api\KpiTrackingController;
@@ -33,6 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/onboarding/step4', [OnboardingController::class, 'step4']);
     Route::post('/onboarding/step5', [OnboardingController::class, 'step5']);
     Route::post('/onboarding/complete', [OnboardingController::class, 'complete']);
+
+    Route::get('/days/{date}', [DayController::class, 'index']);
 
     Route::get('/workout-schedules', [WorkoutScheduleController::class, 'index']);
     Route::post('/workout-schedules', [WorkoutScheduleController::class, 'store']);
