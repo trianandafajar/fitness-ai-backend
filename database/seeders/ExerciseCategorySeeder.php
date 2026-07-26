@@ -20,10 +20,18 @@ class ExerciseCategorySeeder extends Seeder
             ['name' => 'Power', 'slug' => 'power'],
             ['name' => 'Plyometric', 'slug' => 'plyometric'],
             ['name' => 'Strength', 'slug' => 'strength'],
+            ['name' => 'Endurance', 'slug' => 'endurance'],
+            ['name' => 'Balance', 'slug' => 'balance'],
+            ['name' => 'Stability', 'slug' => 'stability'],
+            ['name' => 'Technique', 'slug' => 'technique'],
+            ['name' => 'Recovery', 'slug' => 'recovery'],
         ];
 
         foreach ($categories as $cat) {
-            ExerciseCategory::create($cat);
+            ExerciseCategory::firstOrCreate(
+                ['slug' => $cat['slug']],
+                ['name' => $cat['name']]
+            );
         }
     }
 }

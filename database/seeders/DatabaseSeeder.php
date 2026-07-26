@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             ExerciseCategorySeeder::class,
             FoodCategorySeeder::class,
             TreadmillExerciseSeeder::class,
+            EllipticalTrainerSeeder::class,
+            StationaryBikeSeeder::class,
             FoodSeeder::class,
         ]);
     }
