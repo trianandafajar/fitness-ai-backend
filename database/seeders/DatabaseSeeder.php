@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             TreadmillExerciseSeeder::class,
             EllipticalTrainerSeeder::class,
             StationaryBikeSeeder::class,
+            SpinBikeSeeder::class,
             FoodSeeder::class,
         ]);
     }
