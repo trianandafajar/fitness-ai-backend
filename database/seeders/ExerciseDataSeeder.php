@@ -31,6 +31,13 @@ class ExerciseDataSeeder extends Seeder
             MiniBandSeeder::class,
             ResistanceBandTubeSeeder::class,
             ChainsSeeder::class,
+            RowingMachineSeeder::class,
+            StairClimberSeeder::class,
+            StepmillSeeder::class,
+            ArcTrainerSeeder::class,
+            AirBikeSeeder::class,
+            SkiErgSeeder::class,
+            VerticalClimberSeeder::class,
         ]);
     }
 }
