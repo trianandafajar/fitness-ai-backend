@@ -61,6 +61,7 @@ class ExerciseDataSeeder extends Seeder
             PecDeckMachineSeeder::class,
             RearDeltMachineSeeder::class,
             AbdominalCrunchMachineSeeder::class,
+            RotaryTorsoMachineSeeder::class,
         ]);
     }
 }
