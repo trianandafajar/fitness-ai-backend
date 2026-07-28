@@ -38,6 +38,7 @@ class ExerciseDataSeeder extends Seeder
             AirBikeSeeder::class,
             SkiErgSeeder::class,
             VerticalClimberSeeder::class,
+            JacobLadderSeeder::class,
         ]);
     }
 }
