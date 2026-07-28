@@ -39,6 +39,23 @@ class ExerciseDataSeeder extends Seeder
             SkiErgSeeder::class,
             VerticalClimberSeeder::class,
             JacobLadderSeeder::class,
+            TreadclimberSeeder::class,
+            BenchPressFlatSeeder::class,
+            BenchPressInclineSeeder::class,
+            BenchPressDeclineSeeder::class,
+            SmithMachineSeeder::class,
+            SquatRackSeeder::class,
+            PowerRackSeeder::class,
+            MonoliftSeeder::class,
+            LegPressMachineSeeder::class,
+            HackSquatMachineSeeder::class,
+            LegExtensionMachineSeeder::class,
+            LegCurlMachineSeeder::class,
+            CalfRaiseMachineSeeder::class,
+            GluteKickbackMachineSeeder::class,
+            HipAbductorMachineSeeder::class,
+            ChestPressMachineSeeder::class,
+            ShoulderPressMachineSeeder::class,
         ]);
     }
 }
