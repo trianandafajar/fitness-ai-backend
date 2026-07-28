@@ -56,6 +56,11 @@ class ExerciseDataSeeder extends Seeder
             HipAbductorMachineSeeder::class,
             ChestPressMachineSeeder::class,
             ShoulderPressMachineSeeder::class,
+            BackExtensionMachineSeeder::class,
+            LateralRaiseMachineSeeder::class,
+            PecDeckMachineSeeder::class,
+            RearDeltMachineSeeder::class,
+            AbdominalCrunchMachineSeeder::class,
         ]);
     }
 }
