@@ -29,7 +29,8 @@ class ExerciseDataSeeder extends Seeder
             TreadmillExerciseSeeder::class,
             SpeedLadderSeeder::class,
             MiniBandSeeder::class,
-            ResistanceBandTubeSeeder::class
+            ResistanceBandTubeSeeder::class,
+            ChainsSeeder::class,
         ]);
     }
 }
