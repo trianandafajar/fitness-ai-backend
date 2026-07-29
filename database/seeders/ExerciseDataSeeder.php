@@ -111,6 +111,7 @@ class ExerciseDataSeeder extends Seeder
             MassageStickSeeder::class,
             HypericeSeeder::class,
             SledSeeder::class,
+            MiniTrampolineSeeder::class,
         ]);
     }
 }
