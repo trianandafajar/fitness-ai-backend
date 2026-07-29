@@ -32,6 +32,8 @@ class ExerciseCategorySeeder extends Seeder
             ['name' => 'Hypertrophy', 'slug' => 'hypertrophy'],
             ['name' => 'Mobility', 'slug' => 'mobility'],
             ['name' => 'Functional', 'slug' => 'functional'],
+            ['name' => 'Carry', 'slug' => 'carry'],
+            ['name' => 'Flexibility', 'slug' => 'flexibility'],
         ];
 
         foreach ($categories as $cat) {

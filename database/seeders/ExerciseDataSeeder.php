@@ -80,6 +80,14 @@ class ExerciseDataSeeder extends Seeder
             DumbbellSeeder::class,
             BarbellSeeder::class,
             EZCurlBarSeeder::class,
+            TrapBarSeeder::class,
+            SwissBarSeeder::class,
+            CamberedBarSeeder::class,
+            SafetySquatBarSeeder::class,
+            LogBarSeeder::class,
+            AxleBarSeeder::class,
+            WeightPlatesSeeder::class,
+            KettlebellSeeder::class,
         ]);
     }
 }
