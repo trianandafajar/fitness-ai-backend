@@ -158,9 +158,8 @@ class ExerciseDataSeeder extends Seeder
             AdjustableBenchSeeder::class,
             FlatBenchSeeder::class,
             DeclineBenchSeeder::class,
-            SitUpBenchSeeder::class,
-            RomanChairHyperextensionBenchSeeder::class,
-            CaptainChairSeeder::class,
+            SitUpBenchSeeder::class, //
+            CaptainChairSeeder::class, //
         ]);
     }
 }

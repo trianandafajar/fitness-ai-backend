@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class SitUpBenchSeeder extends Seeder
 {
@@ -34,25 +36,40 @@ class SitUpBenchSeeder extends Seeder
             ['name' => 'Sit-Up Bench Weighted Russian Twist', 'equipment' => 'Sit-up Bench, Weight Plate/Dumbbell', 'category_slug' => 'strength', 'target_muscles' => ['Obliques', 'Core', 'Hip Flexors', 'Shoulders', 'Rectus Abdominis'], 'description' => 'Hold weight during Russian twist. Added rotational core resistance.'],
             ['name' => 'Sit-Up Bench V-Up', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Rectus Abdominis', 'Hip Flexors', 'Core', 'Shoulders', 'Quadriceps'], 'description' => 'Simultaneously raise legs and torso to V-shape. Full core.'],
             ['name' => 'Sit-Up Bench Jackknife', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Rectus Abdominis', 'Hip Flexors', 'Core', 'Shoulders', 'Hamstrings'], 'description' => 'Legs straight. Raise legs and torso together. V-up variation.'],
-            ['name' => 'Sit-Up Bench Isometric Hold (Plank on Bench)', 'equipment' => 'Sit-up Bench', 'category_slug' => 'core', 'target_muscles' => ['Core', 'Shoulders', 'Chest', 'Triceps', 'Glutes', 'Stabilizers'], 'description' => 'Elbows or hands on bench. Hold plank position. Core stability.'],
-            ['name' => 'Sit-Up Bench Side Plank', 'equipment' => 'Sit-up Bench', 'category_slug' => 'core', 'target_muscles' => ['Obliques', 'Core', 'Shoulders', 'Glutes', 'Hip Abductors', 'Stabilizers'], 'description' => 'Side plank on bench. Oblique isometric stability.'],
+            ['name' => 'Sit-Up Bench Isometric Hold (Plank on Bench)', 'equipment' => 'Sit-up Bench', 'category_slug' => 'stability', 'target_muscles' => ['Core', 'Shoulders', 'Chest', 'Triceps', 'Glutes', 'Stabilizers'], 'description' => 'Elbows or hands on bench. Hold plank position. Core stability.'],
+            ['name' => 'Sit-Up Bench Side Plank', 'equipment' => 'Sit-up Bench', 'category_slug' => 'stability', 'target_muscles' => ['Obliques', 'Core', 'Shoulders', 'Glutes', 'Hip Abductors', 'Stabilizers'], 'description' => 'Side plank on bench. Oblique isometric stability.'],
             ['name' => 'Sit-Up Bench Flutter Kick', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Lower Abs', 'Hip Flexors', 'Quadriceps', 'Core', 'Iliopsoas'], 'description' => 'Lie on bench. Alternating small kicks. Lower ab endurance.'],
             ['name' => 'Sit-Up Bench Scissor Kick', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Lower Abs', 'Hip Flexors', 'Quadriceps', 'Core', 'Adductors'], 'description' => 'Alternate crossing legs. Lower ab and hip flexor.'],
             ['name' => 'Sit-Up Bench Reverse Crunch with Hip Lift', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Lower Abs', 'Hip Flexors', 'Core', 'Iliopsoas', 'Rectus Abdominis'], 'description' => 'Raise hips off bench, curl knees to chest. Advanced lower ab.'],
             ['name' => 'Sit-Up Bench Seated Knee Tuck', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Lower Abs', 'Hip Flexors', 'Core', 'Iliopsoas', 'Rectus Abdominis'], 'description' => 'Sit on bench. Lean back, tuck knees to chest. Dynamic lower ab.'],
             ['name' => 'Sit-Up Bench Decline Russian Twist', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Obliques', 'Core', 'Hip Flexors', 'Shoulders', 'Rectus Abdominis'], 'description' => 'Decline position. Russian twist with gravity resistance.'],
             ['name' => 'Sit-Up Bench Pike (Jackknife Variation)', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Core', 'Shoulders', 'Hip Flexors', 'Hamstrings', 'Rectus Abdominis'], 'description' => 'Feet on bench, hands on floor. Pike hips up. Core and shoulder.'],
-            ['name' => 'Sit-Up Bench Isometric Hollow Hold', 'equipment' => 'Sit-up Bench', 'category_slug' => 'core', 'target_muscles' => ['Core (Rectus Abdominis, Transversus)', 'Hip Flexors', 'Shoulders'], 'description' => 'Hold hollow body position on bench. Core endurance.'],
+            ['name' => 'Sit-Up Bench Isometric Hollow Hold', 'equipment' => 'Sit-up Bench', 'category_slug' => 'stability', 'target_muscles' => ['Core (Rectus Abdominis, Transversus)', 'Hip Flexors', 'Shoulders'], 'description' => 'Hold hollow body position on bench. Core endurance.'],
             ['name' => 'Sit-Up Bench Toes-to-Bar (Modified)', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Lower Abs', 'Hip Flexors', 'Core', 'Lats', 'Obliques'], 'description' => 'Hold supports. Lift toes to bench top. Advanced core.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/sit-up-bench');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
