@@ -115,6 +115,7 @@ class ExerciseDataSeeder extends Seeder
             CoreTrainerSeeder::class,
             PullUpTowerSeeder::class,
             ParallelBarsSeeder::class,
+            RomanChairSeeder::class,
             YokeSeeder::class,
             FarmersWalkHandlesSeeder::class,
             AtlasStoneSeeder::class,
