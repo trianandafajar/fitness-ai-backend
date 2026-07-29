@@ -116,6 +116,7 @@ class ExerciseDataSeeder extends Seeder
             CoreTrainerSeeder::class,
             PullUpTowerSeeder::class,
             ParallelBarsSeeder::class,
+            RomanChairSeeder::class,
         ]);
     }
 }
