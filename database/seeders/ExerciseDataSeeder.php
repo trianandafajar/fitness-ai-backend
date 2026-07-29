@@ -115,6 +115,7 @@ class ExerciseDataSeeder extends Seeder
             SkippingRopeSeeder::class,
             CoreTrainerSeeder::class,
             PullUpTowerSeeder::class,
+            ParallelBarsSeeder::class,
         ]);
     }
 }
