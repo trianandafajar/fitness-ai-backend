@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class DeclineBenchSeeder extends Seeder
 {
@@ -48,13 +50,28 @@ class DeclineBenchSeeder extends Seeder
             ['name' => 'Decline Bench Dumbbell Reverse Wrist Curl', 'equipment' => 'Decline Bench', 'category_slug' => 'strength', 'target_muscles' => ['Forearm Extensors', 'Wrist Extensors', 'Brachioradialis'], 'description' => 'Sit on decline. Reverse wrist curl. Forearm extensor isolation.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/decline-bench');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
