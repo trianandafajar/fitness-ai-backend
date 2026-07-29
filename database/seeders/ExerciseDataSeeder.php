@@ -155,7 +155,7 @@ class ExerciseDataSeeder extends Seeder
             StandingAbductorSeeder::class,
             InnerOuterThighComboSeeder::class,
             FunctionalTrainerCableMachineSeeder::class,
-            AdjustableBenchSeeder::class,
+            AdjustableBenchSeeder::class, 
             FlatBenchSeeder::class, //
             DeclineBenchSeeder::class, //
             SitUpBenchSeeder::class, //
