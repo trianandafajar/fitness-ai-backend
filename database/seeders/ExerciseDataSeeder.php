@@ -113,6 +113,8 @@ class ExerciseDataSeeder extends Seeder
             SledSeeder::class,
             MiniTrampolineSeeder::class,
             SkippingRopeSeeder::class,
+            CoreTrainerSeeder::class,
+            PullUpTowerSeeder::class,
         ]);
     }
 }
