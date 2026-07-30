@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\File\File;
 
 class MonoliftSeeder extends Seeder
 {
@@ -133,8 +135,18 @@ class MonoliftSeeder extends Seeder
                 'description' => 'Set the monolift hooks just above head height, press the bar from a dead stop at the sticking point. The hooks retract allowing a full lockout without a liftoff.',
             ],
         ];
+        $sourceDir = public_path('execises/monolift');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
 
-        foreach ($exercises as $data) {
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
             $categoryId = $categories[$data['category_slug']] ?? null;
             unset($data['category_slug']);
             $data['category_id'] = $categoryId;
