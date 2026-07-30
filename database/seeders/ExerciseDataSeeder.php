@@ -150,7 +150,7 @@ class ExerciseDataSeeder extends Seeder
             CalfPressSeeder::class,
             DonkeyCalfRaiseMachineSeeder::class,
             RotaryCalfMachineSeeder::class,
-            PendulumSissySquatSeeder::class,
+            PendulumSissySquatSeeder::class,//
             ReverseHyperextensionMachineSeeder::class,//
             InnerOuterThighComboSeeder::class,//
             FunctionalTrainerCableMachineSeeder::class, //
