@@ -147,7 +147,7 @@ class ExerciseDataSeeder extends Seeder
             StandingLegCurlSeeder::class,
             SeatedLegCurlSeeder::class,
             LyingLegCurlSeeder::class,
-            CalfPressSeeder::class,
+            CalfPressSeeder::class,//
             DonkeyCalfRaiseMachineSeeder::class,//
             RotaryCalfMachineSeeder::class,//
             PendulumSissySquatSeeder::class,//
