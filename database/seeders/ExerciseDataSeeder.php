@@ -20,23 +20,23 @@ class ExerciseDataSeeder extends Seeder
 
         $this->call([
             ExerciseCategorySeeder::class,
-            AgilityConesSeeder::class,
-            AgilityHurdlesSeeder::class,
-            EllipticalTrainerSeeder::class,
-            SpeedLadderSeeder::class,
-            SpinBikeSeeder::class,
-            StationaryBikeSeeder::class,
-            TreadmillExerciseSeeder::class,
-            MiniBandSeeder::class,
-            ResistanceBandTubeSeeder::class,
-            ChainsSeeder::class,
-            RowingMachineSeeder::class,
-            StairClimberSeeder::class,
-            StepmillSeeder::class,
-            ArcTrainerSeeder::class,
-            AirBikeSeeder::class,
-            SkiErgSeeder::class,
-            VerticalClimberSeeder::class,
+            AgilityConesSeeder::class, //
+            AgilityHurdlesSeeder::class, //
+            EllipticalTrainerSeeder::class, //
+            SpeedLadderSeeder::class, //
+            SpinBikeSeeder::class,//
+            StationaryBikeSeeder::class,//
+            TreadmillExerciseSeeder::class,//
+            MiniBandSeeder::class,//
+            ResistanceBandTubeSeeder::class,//
+            ChainsSeeder::class,//
+            RowingMachineSeeder::class,//
+            StairClimberSeeder::class,//
+            StepmillSeeder::class,//
+            ArcTrainerSeeder::class,//
+            AirBikeSeeder::class,//
+            SkiErgSeeder::class,//
+            VerticalClimberSeeder::class,//
             JacobLadderSeeder::class,
             TreadclimberSeeder::class,
             BenchPressFlatSeeder::class,
@@ -154,8 +154,8 @@ class ExerciseDataSeeder extends Seeder
             ReverseHyperextensionMachineSeeder::class,
             StandingAbductorSeeder::class,
             InnerOuterThighComboSeeder::class,
-            FunctionalTrainerCableMachineSeeder::class,
-            AdjustableBenchSeeder::class, 
+            FunctionalTrainerCableMachineSeeder::class, //
+            AdjustableBenchSeeder::class,//
             FlatBenchSeeder::class, //
             DeclineBenchSeeder::class, //
             SitUpBenchSeeder::class, //
