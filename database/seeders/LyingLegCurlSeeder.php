@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class LyingLegCurlSeeder extends Seeder
 {
@@ -47,13 +49,28 @@ class LyingLegCurlSeeder extends Seeder
             ['name' => 'Lying Leg Curl Unilateral Pause Reps', 'equipment' => 'Lying Leg Curl', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Core', 'Calves', 'Glutes', 'Stabilizers'], 'description' => 'Single-leg curl with pause at peak. Unilateral time under tension.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/lying-leg-curl');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }

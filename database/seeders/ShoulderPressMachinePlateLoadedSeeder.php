@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class ShoulderPressMachinePlateLoadedSeeder extends Seeder
 {
@@ -49,13 +51,28 @@ class ShoulderPressMachinePlateLoadedSeeder extends Seeder
             ['name' => 'Shoulder Press Machine Squeeze Press', 'equipment' => 'Shoulder Press Machine Plate-Loaded', 'category_slug' => 'strength', 'target_muscles' => ['Deltoids', 'Upper Chest', 'Triceps', 'Core', 'Traps', 'Serratus Anterior'], 'description' => 'Squeeze shoulders at top of press. Peak contraction emphasis.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/shoulder-press-machine-plate-loaded');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }

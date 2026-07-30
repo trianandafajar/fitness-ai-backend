@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class MultiPressConvergingChestPressSeeder extends Seeder
 {
@@ -49,13 +51,28 @@ class MultiPressConvergingChestPressSeeder extends Seeder
             ['name' => 'Multi-Press Floor Press Variation', 'equipment' => 'Multi-Press / Converging Chest Press', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Core', 'Anterior Deltoids', 'Stabilizers'], 'description' => 'Set handles low and press with limited ROM. Triceps and lockout emphasis.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/multi-press-converging-chest-press');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }

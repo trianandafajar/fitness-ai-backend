@@ -136,18 +136,18 @@ class ExerciseDataSeeder extends Seeder
             ChalkSeeder::class,
             FloorMatSeeder::class,
             ChestSupportedRowMachineSeeder::class,
-            TBarRowPlatformSeeder::class,
-            PulloverMachineSeeder::class,
-            MultiPressConvergingChestPressSeeder::class,
-            FlyMachineSeeder::class,
-            PecDeckSeeder::class,
-            ShoulderPressMachinePlateLoadedSeeder::class,
-            LegPressHorizontal45DegreeSeeder::class,
-            VikingPressSeeder::class,
-            StandingLegCurlSeeder::class,
-            SeatedLegCurlSeeder::class,
-            LyingLegCurlSeeder::class,
-            CalfPressSeeder::class,
+            TBarRowPlatformSeeder::class,//
+            PulloverMachineSeeder::class,//
+            MultiPressConvergingChestPressSeeder::class,//
+            FlyMachineSeeder::class,//
+            PecDeckSeeder::class,//
+            ShoulderPressMachinePlateLoadedSeeder::class,//
+            LegPressHorizontal45DegreeSeeder::class, //
+            VikingPressSeeder::class,//
+            StandingLegCurlSeeder::class, //
+            SeatedLegCurlSeeder::class,//
+            LyingLegCurlSeeder::class,//
+            CalfPressSeeder::class,//
             DonkeyCalfRaiseMachineSeeder::class,//
             RotaryCalfMachineSeeder::class,//
             PendulumSissySquatSeeder::class,//
