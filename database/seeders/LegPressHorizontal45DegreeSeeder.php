@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class LegPressHorizontal45DegreeSeeder extends Seeder
 {
@@ -50,13 +52,28 @@ class LegPressHorizontal45DegreeSeeder extends Seeder
             ['name' => 'Leg Press Heel Only Press', 'equipment' => 'Leg Press Horizontal / 45-Degree', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Core', 'Quadriceps', 'Calves', 'Stabilizers'], 'description' => 'Press only with heels (toes off platform). Glute and hamstring emphasis.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/leg-press-horizontal-45-degree');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
