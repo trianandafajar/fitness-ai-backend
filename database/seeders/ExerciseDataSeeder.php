@@ -43,7 +43,7 @@ class ExerciseDataSeeder extends Seeder
             BenchPressInclineSeeder::class,//
             BenchPressDeclineSeeder::class,//
             SmithMachineSeeder::class,//
-            SquatRackSeeder::class,
+            SquatRackSeeder::class,//
             PowerRackSeeder::class,
             MonoliftSeeder::class,
             LegPressMachineSeeder::class,
