@@ -37,9 +37,9 @@ class ExerciseDataSeeder extends Seeder
             AirBikeSeeder::class,//
             SkiErgSeeder::class,//
             VerticalClimberSeeder::class,//
-            JacobLadderSeeder::class,
-            TreadclimberSeeder::class,
-            BenchPressFlatSeeder::class,
+            JacobLadderSeeder::class, //
+            TreadclimberSeeder::class, //
+            BenchPressFlatSeeder::class, //
             BenchPressInclineSeeder::class,
             BenchPressDeclineSeeder::class,
             SmithMachineSeeder::class,
