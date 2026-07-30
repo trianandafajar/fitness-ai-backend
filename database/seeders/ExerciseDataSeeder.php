@@ -49,7 +49,7 @@ class ExerciseDataSeeder extends Seeder
             LegPressMachineSeeder::class,//
             HackSquatMachineSeeder::class,//
             LegExtensionMachineSeeder::class,//
-            LegCurlMachineSeeder::class,
+            LegCurlMachineSeeder::class,//
             CalfRaiseMachineSeeder::class,
             GluteKickbackMachineSeeder::class,
             HipAbductorMachineSeeder::class,
