@@ -137,7 +137,7 @@ class ExerciseDataSeeder extends Seeder
             FloorMatSeeder::class,
             ChestSupportedRowMachineSeeder::class,
             TBarRowPlatformSeeder::class,
-            PulloverMachineSeeder::class,
+            PulloverMachineSeeder::class,//
             MultiPressConvergingChestPressSeeder::class,//
             FlyMachineSeeder::class,//
             PecDeckSeeder::class,//
