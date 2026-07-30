@@ -140,7 +140,7 @@ class ExerciseDataSeeder extends Seeder
             PulloverMachineSeeder::class,
             MultiPressConvergingChestPressSeeder::class,
             FlyMachineSeeder::class,
-            PecDeckSeeder::class,
+            PecDeckSeeder::class,//
             ShoulderPressMachinePlateLoadedSeeder::class,//
             LegPressHorizontal45DegreeSeeder::class, //
             VikingPressSeeder::class,//
