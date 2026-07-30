@@ -18,12 +18,7 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call([
-            ExerciseCategorySeeder::class,
             FoodCategorySeeder::class,
-            TreadmillExerciseSeeder::class,
-            EllipticalTrainerSeeder::class,
-            StationaryBikeSeeder::class,
-            SpinBikeSeeder::class,
             FoodSeeder::class,
         ]);
     }

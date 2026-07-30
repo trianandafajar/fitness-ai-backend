@@ -82,8 +82,13 @@ class AiEnrichmentService
 
         foreach ($parsed as $item) {
             $matched = null;
+            $aiText = strtolower($item['text']);
+            $aiName = trim(explode(' - ', $aiText)[0]);
+            $aiName = preg_replace('/\s*\d.*$/', '', $aiName);
+            $aiName = trim(str_replace('-', ' ', $aiName));
+
             foreach ($exercises as $key => $exercise) {
-                if (str_contains(strtolower($item['text']), $key)) {
+                if (str_contains(str_replace('-', ' ', $key), $aiName)) {
                     $matched = $exercise;
                     break;
                 }
