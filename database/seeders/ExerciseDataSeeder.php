@@ -46,7 +46,7 @@ class ExerciseDataSeeder extends Seeder
             SquatRackSeeder::class,//
             PowerRackSeeder::class,//
             MonoliftSeeder::class,//
-            LegPressMachineSeeder::class,
+            LegPressMachineSeeder::class,//
             HackSquatMachineSeeder::class,
             LegExtensionMachineSeeder::class,
             LegCurlMachineSeeder::class,
