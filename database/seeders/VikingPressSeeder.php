@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class VikingPressSeeder extends Seeder
 {
@@ -47,13 +49,28 @@ class VikingPressSeeder extends Seeder
             ['name' => 'Viking Press Towel Grip Press', 'equipment' => 'Viking Press, Towel', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders', 'Triceps', 'Forearms', 'Grip Muscles', 'Core', 'Traps'], 'description' => 'Wrap towel around handles. Thicker grip press. Increased forearm and grip demand.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/viking-press');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
