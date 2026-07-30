@@ -19,7 +19,10 @@ class FoodCategorySeeder extends Seeder
         ];
 
         foreach ($categories as $cat) {
-            FoodCategory::create($cat);
+            FoodCategory::firstOrCreate(
+                ['slug' => $cat['slug']],
+                ['name' => $cat['name']]
+            );
         }
     }
 }
