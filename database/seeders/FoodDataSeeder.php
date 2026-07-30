@@ -16,8 +16,14 @@ class FoodDataSeeder extends Seeder
 
         $this->call([
             FoodCategorySeeder::class,
-            FoodSeeder::class,
             CarbFoodSeeder::class,
+            DairyFoodSeeder::class,
+            FruitFoodSeeder::class,
+            ProteinFoodSeeder::class,
+            SnackFoodSeeder::class,
+            VegetableFoodSeeder::class,
+            FatSeedFoodSeeder::class,
+            BeverageFoodSeeder::class,
         ]);
     }
 }

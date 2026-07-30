@@ -16,6 +16,8 @@ class FoodCategorySeeder extends Seeder
             ['name' => 'Fruit', 'slug' => 'fruit'],
             ['name' => 'Dairy', 'slug' => 'dairy'],
             ['name' => 'Snack', 'slug' => 'snack'],
+            ['name' => 'Fat', 'slug' => 'fat'],
+            ['name' => 'Beverage', 'slug' => 'beverage'],
         ];
 
         foreach ($categories as $cat) {
