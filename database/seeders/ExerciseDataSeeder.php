@@ -133,7 +133,7 @@ class ExerciseDataSeeder extends Seeder
             WristWrapsSeeder::class,
             KneeSleevesSeeder::class,
             LiftingStrapsSeeder::class,
-            ChalkSeeder::class,
+            ChalkSeeder::class,//
             FloorMatSeeder::class,//
             ChestSupportedRowMachineSeeder::class, //
             TBarRowPlatformSeeder::class,//
