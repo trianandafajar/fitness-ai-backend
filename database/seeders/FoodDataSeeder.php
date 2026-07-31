@@ -13,6 +13,8 @@ class FoodDataSeeder extends Seeder
     public function run(): void
     {
         DB::table('foods')->truncate();
+        Storage::disk('public')->deleteDirectory('foods');
+        Storage::disk('public')->makeDirectory('foods');
 
         $this->call([
             FoodCategorySeeder::class,

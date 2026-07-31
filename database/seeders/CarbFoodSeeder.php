@@ -14,10 +14,7 @@ class CarbFoodSeeder extends Seeder
         $categories = FoodCategory::pluck('id', 'slug');
 
         $sourceDir = public_path('foods/carbofoods');
-        $destDir = 'foods/carbofoods';
-
-        Storage::disk('public')->deleteDirectory($destDir);
-        Storage::disk('public')->makeDirectory($destDir);
+        $destDir = 'foods';
 
         $foods = [
             ['name' => 'Nasi merah (matang)', 'category_slug' => 'carb', 'calories_per_100g' => 123, 'protein_per_100g' => 2.7, 'carbs_per_100g' => 25.6, 'fat_per_100g' => 0.9, 'serving_unit' => '1 mangkuk (150g)', 'image_file' => '1.png'],
@@ -34,9 +31,9 @@ class CarbFoodSeeder extends Seeder
             unset($data['image_file']);
 
             $sourcePath = $sourceDir . '/' . $imageFile;
-            $destPath = $destDir . '/' . $imageFile;
 
             if (file_exists($sourcePath)) {
+                $destPath = $destDir . '/' . uniqid('food_') . '.png';
                 Storage::disk('public')->put($destPath, file_get_contents($sourcePath));
                 $data['image'] = $destPath;
             }
