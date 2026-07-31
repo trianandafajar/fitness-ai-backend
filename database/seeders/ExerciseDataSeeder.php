@@ -130,7 +130,7 @@ class ExerciseDataSeeder extends Seeder
             WeightedVestSeeder::class,
             DipBeltSeeder::class,
             LiftingBeltSeeder::class,
-            WristWrapsSeeder::class,
+            WristWrapsSeeder::class,//
             KneeSleevesSeeder::class,//
             LiftingStrapsSeeder::class,//
             ChalkSeeder::class,//
