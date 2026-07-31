@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class WeightedVestSeeder extends Seeder
 {
@@ -55,13 +57,28 @@ class WeightedVestSeeder extends Seeder
             ['name' => 'Weighted Vest Shadow Boxing', 'equipment' => 'Weighted Vest', 'category_slug' => 'cardio', 'target_muscles' => ['Core', 'Shoulders', 'Lats', 'Hip Rotators', 'Quadriceps'], 'description' => 'Wear weighted vest. Perform shadow boxing. Cardio and endurance with added upper body load.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/weighted-vest');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
