@@ -115,7 +115,7 @@ class RearDeltMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/rear_delt_machine');
+        $sourceDir = public_path('exercises/rear-delt-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
