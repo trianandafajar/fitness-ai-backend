@@ -50,30 +50,30 @@ class ExerciseDataSeeder extends Seeder
             HackSquatMachineSeeder::class,//
             LegExtensionMachineSeeder::class,//
             LegCurlMachineSeeder::class,//
-            CalfRaiseMachineSeeder::class,
-            GluteKickbackMachineSeeder::class,
-            HipAbductorMachineSeeder::class,
-            ChestPressMachineSeeder::class,
-            ShoulderPressMachineSeeder::class,
-            BackExtensionMachineSeeder::class,
-            LateralRaiseMachineSeeder::class,
-            PecDeckMachineSeeder::class,
-            RearDeltMachineSeeder::class,
-            AbdominalCrunchMachineSeeder::class,
-            RotaryTorsoMachineSeeder::class,
-            DipStationSeeder::class,
-            TricepsExtensionMachineSeeder::class,
-            ArmCurlMachineSeeder::class,
-            PreacherCurlBenchSeeder::class,
-            AssistedPullupDipMachineSeeder::class,
-            FunctionalTrainerSeeder::class,
-            CableCrossoverMachineSeeder::class,
-            SeatedRowMachineSeeder::class,
-            LatPulldownMachineSeeder::class,
-            GluteHamDeveloperSeeder::class,
-            NordicHamstringBenchSeeder::class,
-            SissySquatMachineSeeder::class,
-            HipThrustMachineSeeder::class,
+            CalfRaiseMachineSeeder::class,//
+            GluteKickbackMachineSeeder::class,//
+            HipAbductorMachineSeeder::class,//
+            ChestPressMachineSeeder::class,//
+            ShoulderPressMachineSeeder::class,//
+            BackExtensionMachineSeeder::class,//
+            LateralRaiseMachineSeeder::class,//
+            PecDeckMachineSeeder::class,//
+            RearDeltMachineSeeder::class,//
+            AbdominalCrunchMachineSeeder::class,//
+            RotaryTorsoMachineSeeder::class,//
+            DipStationSeeder::class,//
+            TricepsExtensionMachineSeeder::class,//
+            ArmCurlMachineSeeder::class,//
+            PreacherCurlBenchSeeder::class,//
+            AssistedPullupDipMachineSeeder::class,//
+            FunctionalTrainerSeeder::class,//
+            CableCrossoverMachineSeeder::class, //
+            SeatedRowMachineSeeder::class,//
+            LatPulldownMachineSeeder::class,//
+            GluteHamDeveloperSeeder::class,//
+            NordicHamstringBenchSeeder::class,//
+            SissySquatMachineSeeder::class, //
+            HipThrustMachineSeeder::class, //
             PendulumSquatMachineSeeder::class,
             BeltSquatMachineSeeder::class,
             DumbbellSeeder::class,
@@ -128,8 +128,8 @@ class ExerciseDataSeeder extends Seeder
             GripTrainerSeeder::class,
             AnkleWeightsSeeder::class,
             WeightedVestSeeder::class,
-            DipBeltSeeder::class,
-            LiftingBeltSeeder::class,
+            DipBeltSeeder::class,//
+            LiftingBeltSeeder::class,//
             WristWrapsSeeder::class,//
             KneeSleevesSeeder::class,//
             LiftingStrapsSeeder::class,//
