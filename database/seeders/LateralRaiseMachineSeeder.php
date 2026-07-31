@@ -122,7 +122,7 @@ class LateralRaiseMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/lateral_raise_machine');
+        $sourceDir = public_path('exercises/lateral-raise-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
