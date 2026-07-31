@@ -178,7 +178,7 @@ class PecDeckMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/pec_deck_machine');
+        $sourceDir = public_path('exercises/pec-deck-mechine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
