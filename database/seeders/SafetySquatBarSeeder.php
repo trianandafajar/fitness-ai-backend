@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class SafetySquatBarSeeder extends Seeder
 {
@@ -33,13 +35,25 @@ class SafetySquatBarSeeder extends Seeder
             ['name' => 'Safety Bar Bear Squat (Belt Squat Variation)', 'equipment' => 'Safety Squat Bar', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core'], 'description' => 'Hold the safety bar in the crooks of the elbows (Zercher position) or cradled against the chest, then squat down while keeping the torso upright. A front-loaded squat alternative sparing the shoulders.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/safety-squat-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
