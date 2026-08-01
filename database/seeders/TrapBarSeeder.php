@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class TrapBarSeeder extends Seeder
 {
@@ -30,14 +32,24 @@ class TrapBarSeeder extends Seeder
             ['name' => 'Trap Bar Floor Press', 'equipment' => 'Trap Bar', 'category_slug' => 'strength', 'target_muscles' => ['Triceps', 'Pectoralis Major', 'Anterior Deltoids'], 'description' => 'Lie on the floor inside the trap bar, grip the low handles. Press the bar upward until the arms are fully extended. The fixed neutral grip mimics a dumbbell press with built-in safety.'],
         ];
 
-        foreach ($exercises as $data) {
-            Exercise::create([
-                'name' => $data['name'],
-                'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
-                'target_muscles' => $data['target_muscles'],
-                'description' => $data['description'],
-            ]);
+
+        $sourceDir = public_path('exercises/trap-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+            $data['category_id'] = $categoryId;
+
+            Exercise::create($data);
         }
     }
 }
