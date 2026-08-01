@@ -76,7 +76,7 @@ class ExerciseDataSeeder extends Seeder
             HipThrustMachineSeeder::class, //
             PendulumSquatMachineSeeder::class,
             BeltSquatMachineSeeder::class,
-            DumbbellSeeder::class,
+            DumbbellSeeder::class,//
             BarbellSeeder::class,
             EZCurlBarSeeder::class,
             TrapBarSeeder::class,

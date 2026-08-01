@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class DumbbellSeeder extends Seeder
 {
@@ -533,7 +535,18 @@ class DumbbellSeeder extends Seeder
             ],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/dumbbell');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
             $categoryId = $categories[$data['category_slug']] ?? null;
             unset($data['category_slug']);
             $data['category_id'] = $categoryId;
