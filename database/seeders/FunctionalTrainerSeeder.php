@@ -12,7 +12,7 @@ class FunctionalTrainerSeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = ExerciseCategory::pluck('id', 'slug');D
+        $categories = ExerciseCategory::pluck('id', 'slug');
 
         $exercises = [
             [
