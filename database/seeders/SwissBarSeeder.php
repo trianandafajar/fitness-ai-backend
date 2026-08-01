@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class SwissBarSeeder extends Seeder
 {
@@ -40,14 +42,23 @@ class SwissBarSeeder extends Seeder
             ['name' => 'Swiss Bar Good Morning', 'equipment' => 'Swiss Bar', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Glutes', 'Erector Spinae', 'Core'], 'description' => 'Place the bar on the upper back, grip the neutral handles for a more comfortable shoulder position. Hinge forward at the hips, then stand back up.'],
         ];
 
-        foreach ($exercises as $data) {
-            Exercise::create([
-                'name' => $data['name'],
-                'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
-                'target_muscles' => $data['target_muscles'],
-                'description' => $data['description'],
-            ]);
+        $sourceDir = public_path('exercises/swiss-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+            $data['category_id'] = $categoryId;
+
+            Exercise::create($data);
         }
     }
 }
