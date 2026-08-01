@@ -12,7 +12,7 @@ class SlamBallSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Overhead Slam', 'equipment' => 'Slam Ball', 'category_slug' => 'power', 'target_muscles' => ['Latissimus Dorsi', 'Triceps', 'Abdominals', 'Quadriceps', 'Glutes'], 'description' => 'Lift the ball overhead with both hands, rise onto toes, then forcefully slam it to the ground directly in front, squatting slightly to catch or pick up the ball. Repeat explosively.'],
             ['name' => 'Rotational Slam (Side Slam)', 'equipment' => 'Slam Ball', 'category_slug' => 'power', 'target_muscles' => ['Obliques', 'Rectus Abdominis', 'Latissimus Dorsi', 'Glutes', 'Quadriceps'], 'description' => 'Hold the ball at one hip, rotate torso to the opposite side, then explosively twist and slam the ball to the ground next to the opposite foot. Alternate sides.'],
             ['name' => 'Rainbow Slam', 'equipment' => 'Slam Ball', 'category_slug' => 'power', 'target_muscles' => ['Obliques', 'Latissimus Dorsi', 'Shoulders', 'Core'], 'description' => 'Start with ball at one hip, arc it overhead in a rainbow motion and slam it down to the other side. Focuses on rotational power and core control.'],
@@ -66,7 +66,7 @@ class SlamBallSeeder extends Seeder
             ['name' => 'Slam Ball Wall Ball', 'equipment' => 'Slam Ball', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Shoulders', 'Triceps', 'Core'], 'description' => 'Stand facing a wall, squat holding ball at chest, drive up and throw ball to a target, catch in squat position and repeat.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

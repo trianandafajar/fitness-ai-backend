@@ -12,7 +12,7 @@ class YokeSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Yoke Carry (Front Rack)', 'equipment' => 'Yoke', 'category_slug' => 'strength', 'target_muscles' => ['Traps', 'Core', 'Quadriceps', 'Glutes', 'Calves', 'Forearms'], 'description' => 'Load yoke on front shoulders. Walk forward with upright posture. Core and legs stabilize heavy load.'],
             ['name' => 'Yoke Carry (Back Rack)', 'equipment' => 'Yoke', 'category_slug' => 'strength', 'target_muscles' => ['Traps', 'Rhomboids', 'Core', 'Quadriceps', 'Glutes', 'Hamstrings'], 'description' => 'Load yoke behind neck on rear delts/traps. Walk forward. Similar to back squat carry position.'],
             ['name' => 'Yoke Squat', 'equipment' => 'Yoke', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Traps', 'Hamstrings', 'Calves'], 'description' => 'Hold yoke in front rack position. Perform deep squats while holding weight. Combines squat with yoke stability.'],
@@ -47,7 +47,7 @@ class YokeSeeder extends Seeder
             ['name' => 'Yoke Zercher Squat', 'equipment' => 'Yoke', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Biceps', 'Forearms', 'Erector Spinae'], 'description' => 'Hold yoke in Zercher position (elbow crook). Perform squats. Builds core and biceps while squatting.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

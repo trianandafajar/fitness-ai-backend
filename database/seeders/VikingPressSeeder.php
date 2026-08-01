@@ -14,7 +14,7 @@ class VikingPressSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Viking Press Standard Press (Neutral Grip)', 'equipment' => 'Viking Press', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders (All Heads)', 'Upper Chest', 'Triceps', 'Traps', 'Core', 'Forearms'], 'description' => 'Stand in rack, grip handles at shoulder height. Press overhead until arms extended. Lower with control. Strongman overhead press.'],
             ['name' => 'Viking Press Wide Grip', 'equipment' => 'Viking Press', 'category_slug' => 'strength', 'target_muscles' => ['Medial Deltoids', 'Upper Chest', 'Traps', 'Triceps', 'Core', 'Forearms'], 'description' => 'Wide grip on handles. Press overhead. Emphasizes medial delts and upper chest.'],
             ['name' => 'Viking Press Narrow Grip', 'equipment' => 'Viking Press', 'category_slug' => 'strength', 'target_muscles' => ['Anterior Deltoids', 'Triceps', 'Upper Chest', 'Core', 'Traps', 'Forearms'], 'description' => 'Narrow grip on handles. Press overhead. Tricep and anterior delt emphasis.'],
@@ -53,11 +53,11 @@ class VikingPressSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

@@ -12,7 +12,7 @@ class IndianClubSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Indian Club Front Swing (Single Arm)', 'equipment' => 'Indian Club', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Rotator Cuff', 'Forearms', 'Core'], 'description' => 'Hold a club in one hand, swing it forward from the shoulder, letting the club drop behind the shoulder, then reverse the arc. The light weight improves shoulder mobility and coordination.'],
             ['name' => 'Indian Club Outside Swing (Single Arm)', 'equipment' => 'Indian Club', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Rotator Cuff', 'Forearms', 'Obliques'], 'description' => 'Swing the club in a full arc outside the arm, circling behind the shoulder and returning to the front. Enhances external rotation and shoulder range of motion.'],
             ['name' => 'Indian Club Inside Swing (Single Arm)', 'equipment' => 'Indian Club', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Rotator Cuff', 'Forearms', 'Core'], 'description' => 'Swing the club in a circular arc across the front of the body, from the opposite hip to behind the same shoulder. Internal and external rotation in a smooth pattern.'],
@@ -49,7 +49,7 @@ class IndianClubSeeder extends Seeder
             ['name' => 'Indian Club Breath and Flow Sequence', 'equipment' => 'Indian Club', 'category_slug' => 'mobility', 'target_muscles' => ['Full Body', 'Shoulders', 'Core', 'Lungs'], 'description' => 'Combine multiple swing patterns (front, outside, inside) into a flowing sequence coordinated with deep, rhythmic breathing. Promotes relaxation, mobility, and full-body coordination.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

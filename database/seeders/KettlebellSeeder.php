@@ -12,7 +12,7 @@ class KettlebellSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Kettlebell Swing', 'equipment' => 'Kettlebell', 'category_slug' => 'power', 'target_muscles' => ['Glutes', 'Hamstrings', 'Lower Back', 'Core', 'Shoulders'], 'description' => 'Hinge at the hips, swing the kettlebell between your legs, then explosively drive your hips forward to swing it to chest height. Keep your arms straight and core tight.'],
             ['name' => 'Single-Arm Kettlebell Swing', 'equipment' => 'Kettlebell', 'category_slug' => 'power', 'target_muscles' => ['Glutes', 'Hamstrings', 'Core', 'Shoulders', 'Obliques'], 'description' => 'Perform a standard kettlebell swing using one arm. The free arm stays out for balance. Resisting rotation heavily engages the obliques.'],
             ['name' => 'American Kettlebell Swing', 'equipment' => 'Kettlebell', 'category_slug' => 'power', 'target_muscles' => ['Glutes', 'Hamstrings', 'Core', 'Shoulders', 'Upper Back'], 'description' => 'Swing the kettlebell all the way overhead, fully extending the arms. Requires greater hip drive and shoulder mobility than the Russian swing.'],
@@ -57,7 +57,7 @@ class KettlebellSeeder extends Seeder
             ['name' => 'Kettlebell Lunge with Rotation', 'equipment' => 'Kettlebell', 'category_slug' => 'core', 'target_muscles' => ['Quadriceps', 'Glutes', 'Obliques', 'Core'], 'description' => 'Hold a kettlebell at your chest, step into a forward lunge, and rotate your torso toward the leading leg. Return to center and repeat.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

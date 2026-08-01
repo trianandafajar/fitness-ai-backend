@@ -14,7 +14,7 @@ class FunctionalTrainerCableMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Cable Chest Fly (Standing)', 'equipment' => 'Functional Trainer Cable Machine', 'category_slug' => 'strength', 'target_muscles' => ['Chest (Pectoralis Major)', 'Anterior Deltoids', 'Core', 'Serratus Anterior', 'Biceps'], 'description' => 'Stand between pulleys at chest height. Bring handles together in front. Squeeze chest at peak. Constant tension.'],
             ['name' => 'Cable Upper Chest Fly (Low to High)', 'equipment' => 'Functional Trainer Cable Machine', 'category_slug' => 'strength', 'target_muscles' => ['Upper Chest (Clavicular Head)', 'Anterior Deltoids', 'Core', 'Serratus Anterior'], 'description' => 'Set pulleys low. Pull cables upward and inward. Emphasizes upper chest.'],
             ['name' => 'Cable Lower Chest Fly (High to Low)', 'equipment' => 'Functional Trainer Cable Machine', 'category_slug' => 'strength', 'target_muscles' => ['Lower Chest (Sternocostal Head)', 'Triceps', 'Core', 'Anterior Deltoids'], 'description' => 'Set pulleys high. Pull cables downward and inward. Emphasizes lower chest.'],
@@ -59,11 +59,11 @@ class FunctionalTrainerCableMachineSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

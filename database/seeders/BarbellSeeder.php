@@ -12,7 +12,7 @@ class BarbellSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Barbell Back Squat', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Adductors', 'Erector Spinae', 'Core'], 'description' => 'Position the bar across the upper back, squat down until thighs are at least parallel, then drive back up to standing without locking out the knees. The foundational lower-body strength exercise.'],
             ['name' => 'Barbell Front Squat', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Upper Back'], 'description' => 'Rest the barbell across the front deltoids with elbows high, squat down while keeping an upright torso, then stand up. Emphasises the quads and core.'],
             ['name' => 'Barbell Overhead Squat', 'equipment' => 'Barbell', 'category_slug' => 'mobility', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Shoulders', 'Core', 'Upper Back'], 'description' => 'Press the barbell overhead with a wide snatch grip, lock arms, and squat deeply while maintaining a stable overhead position. Demands extreme shoulder mobility and core stability.'],
@@ -25,7 +25,7 @@ class BarbellSeeder extends Seeder
             ['name' => 'Barbell Bulgarian Split Squat', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'Place a bench behind you, rest the rear foot on it with the barbell on your back, squat down until the front thigh is parallel. Excellent unilateral leg builder.'],
             ['name' => 'Barbell Reverse Lunge', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'With the barbell on your back, step backward into a deep lunge, drop the rear knee, then push back to start. Unilateral strength and stability.'],
             ['name' => 'Barbell Walking Lunge', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'With the barbell on your back, perform alternating forward lunges while walking continuously. Challenges balance and endurance.'],
-            ['name' => 'Barbell Conventional Deadlift', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Quadriceps', 'Traps', 'Grip'], 'description' => 'Stand with feet hip-width, grip the barbell just outside the legs, keep the back flat, and pull by extending hips and knees until standing. The king of posterior chain exercises.'],
+            ['name' => 'Barbell Conventional Deadlift', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Quadriceps', 'Traps', 'Grip'], 'description' => 'Stand with feet hip-width, grip the barbell just outside the legs, keep the back flat, and pull by extending hips and knees until standing. The king of posterior chain execises.'],
             ['name' => 'Barbell Sumo Deadlift', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Adductors', 'Quadriceps', 'Erector Spinae', 'Traps'], 'description' => 'Take a wide stance with hands inside the knees, pull the barbell by driving the hips forward. Emphasises the inner thighs and hips.'],
             ['name' => 'Barbell Romanian Deadlift', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae'], 'description' => 'With a slight knee bend, hinge at the hips and lower the barbell along the thighs, feeling a deep hamstring stretch, then return by extending the hips.'],
             ['name' => 'Barbell Stiff-Leg Deadlift', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Glutes', 'Erector Spinae'], 'description' => 'Keep the legs nearly straight, push the hips back to lower the barbell toward the floor, stretching the hamstrings, then return to standing.'],
@@ -93,7 +93,7 @@ class BarbellSeeder extends Seeder
             ['name' => 'Barbell Wide Stance Squat', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Adductors', 'Quadriceps', 'Hamstrings'], 'description' => 'Take a wide stance with toes slightly out. Squat down, pushing knees outward to engage the inner thighs and glutes.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             $categoryId = $categories[$data['category_slug']] ?? null;
             unset($data['category_slug']);
             $data['category_id'] = $categoryId;

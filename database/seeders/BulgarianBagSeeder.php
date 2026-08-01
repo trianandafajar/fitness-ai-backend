@@ -12,7 +12,7 @@ class BulgarianBagSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Bulgarian Bag Spin (Basic)', 'equipment' => 'Bulgarian Bag', 'category_slug' => 'strength', 'target_muscles' => ['Core', 'Shoulders', 'Forearms', 'Traps', 'Lats', 'Obliques', 'Hip Flexors'], 'description' => 'Swing bag around body horizontally. Continuous spin engages core and shoulder stabilizers.'],
             ['name' => 'Bulgarian Bag Reverse Spin', 'equipment' => 'Bulgarian Bag', 'category_slug' => 'strength', 'target_muscles' => ['Core', 'Shoulders', 'Forearms', 'Traps', 'Lats', 'Obliques', 'Hip Flexors'], 'description' => 'Reverse direction spin. Balances rotational development and challenges opposite musculature.'],
             ['name' => 'Bulgarian Bag Around the Body (Figure-8)', 'equipment' => 'Bulgarian Bag', 'category_slug' => 'strength', 'target_muscles' => ['Core', 'Shoulders', 'Forearms', 'Traps', 'Lats', 'Obliques', 'Hip Flexors'], 'description' => 'Circle bag around entire body in figure-8 pattern. Coordination and rotational conditioning.'],
@@ -49,7 +49,7 @@ class BulgarianBagSeeder extends Seeder
             ['name' => 'Bulgarian Bag Stepping Swing', 'equipment' => 'Bulgarian Bag', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Shoulders', 'Forearms', 'Calves', 'Hip Flexors'], 'description' => 'Step forward while swinging bag. Combines walking with rhythmic swinging motion.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

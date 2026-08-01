@@ -12,7 +12,7 @@ class ResistanceBandSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Band Pull-Apart', 'equipment' => 'Resistance Band', 'category_slug' => 'strength', 'target_muscles' => ['Rear Deltoids', 'Rhomboids', 'Middle Traps', 'Rotator Cuff'], 'description' => 'Hold the band with both hands in front of the chest at shoulder height. Keeping the arms straight, pull the band apart by squeezing the shoulder blades until the arms are extended out to the sides.'],
             ['name' => 'Band Overhead Pull-Apart', 'equipment' => 'Resistance Band', 'category_slug' => 'mobility', 'target_muscles' => ['Rear Deltoids', 'Rhomboids', 'Shoulders'], 'description' => 'Hold the band overhead with straight arms. Pull it apart and bring it down behind the head while keeping the arms straight, then return. Improves shoulder mobility and posture.'],
             ['name' => 'Band Face Pull', 'equipment' => 'Resistance Band', 'category_slug' => 'strength', 'target_muscles' => ['Rear Deltoids', 'Rhomboids', 'External Rotators'], 'description' => 'Anchor the band at head height or hold it with both hands. Pull the band toward the face, separating the hands and externally rotating the shoulders. Squeeze the upper back.'],
@@ -69,7 +69,7 @@ class ResistanceBandSeeder extends Seeder
             ['name' => 'Band-Resisted Push-Up (Band on Wrists)', 'equipment' => 'Resistance Band', 'category_slug' => 'strength', 'target_muscles' => ['Pectoralis Major', 'Triceps', 'Anterior Deltoids'], 'description' => 'Loop a band around the back and hold the ends under the palms. Perform push-ups. The band increases resistance at the top.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

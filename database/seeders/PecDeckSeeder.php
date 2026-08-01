@@ -14,7 +14,7 @@ class PecDeckSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Pec Deck Standard Chest Fly', 'equipment' => 'Pec Deck', 'category_slug' => 'strength', 'target_muscles' => ['Chest (Pectoralis Major)', 'Anterior Deltoids', 'Core', 'Serratus Anterior', 'Biceps'], 'description' => 'Sit with back against pad. Forearms on pads. Squeeze arms together in front. Peak chest contraction.'],
             ['name' => 'Pec Deck High Fly (Upper Chest)', 'equipment' => 'Pec Deck', 'category_slug' => 'strength', 'target_muscles' => ['Upper Chest (Clavicular Head)', 'Anterior Deltoids', 'Core', 'Serratus Anterior'], 'description' => 'Adjust seat high. Arms above horizontal. Squeeze together. Emphasizes upper pectoralis.'],
             ['name' => 'Pec Deck Low Fly (Lower Chest)', 'equipment' => 'Pec Deck', 'category_slug' => 'strength', 'target_muscles' => ['Lower Chest (Sternocostal Head)', 'Core', 'Serratus Anterior', 'Anterior Deltoids'], 'description' => 'Adjust seat low. Arms below horizontal. Squeeze together. Emphasizes lower pectoralis.'],
@@ -53,11 +53,11 @@ class PecDeckSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

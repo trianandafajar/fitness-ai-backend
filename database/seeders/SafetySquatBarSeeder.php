@@ -12,7 +12,7 @@ class SafetySquatBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Safety Bar Back Squat', 'equipment' => 'Safety Squat Bar', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Adductors', 'Erector Spinae', 'Core', 'Upper Back'], 'description' => 'Position the bar across the upper back with the yoke resting on the traps. Hold the handles near the chest. Squat down by bending knees and hips, keeping the torso upright. The camber shifts the center of gravity forward, forcing the upper back and core to work harder to prevent leaning.'],
             ['name' => 'Safety Bar Front Squat (Hatfield Squat)', 'equipment' => 'Safety Squat Bar', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Upper Back'], 'description' => 'Rest the bar on the shoulders with a high position. Release one hand from the handle and hold the rack for balance (Hatfield style) or keep both hands on handles. Squat deeply while remaining extremely upright, isolating the quads and core.'],
             ['name' => 'Safety Bar Close-Stance Squat', 'equipment' => 'Safety Squat Bar', 'category_slug' => 'isolation', 'target_muscles' => ['Quadriceps (Vastus Lateralis)', 'Glutes'], 'description' => 'Take a narrow stance with feet close together. The safety bar helps maintain an upright torso while targeting the outer quadriceps.'],
@@ -33,7 +33,7 @@ class SafetySquatBarSeeder extends Seeder
             ['name' => 'Safety Bar Bear Squat (Belt Squat Variation)', 'equipment' => 'Safety Squat Bar', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core'], 'description' => 'Hold the safety bar in the crooks of the elbows (Zercher position) or cradled against the chest, then squat down while keeping the torso upright. A front-loaded squat alternative sparing the shoulders.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

@@ -12,7 +12,7 @@ class FoamRollerSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Foam Roller Upper Back (Thoracic Spine)', 'equipment' => 'Foam Roller', 'category_slug' => 'mobility', 'target_muscles' => ['Thoracic Spine', 'Rhomboids', 'Traps', 'Erector Spinae'], 'description' => 'Lie on roller placed mid-back. Roll from upper to mid-back, pausing on tight spots. Avoid lumbar extension.'],
             ['name' => 'Foam Roller Lower Back (Erector Spinae)', 'equipment' => 'Foam Roller', 'category_slug' => 'mobility', 'target_muscles' => ['Erector Spinae', 'Quadratus Lumborum', 'Lumbar Spine'], 'description' => 'Roll lower back area with gentle pressure. Keep core engaged and avoid excessive arching.'],
             ['name' => 'Foam Roller Glutes', 'equipment' => 'Foam Roller', 'category_slug' => 'mobility', 'target_muscles' => ['Gluteus Maximus', 'Gluteus Medius', 'Piriformis'], 'description' => 'Sit on roller with one ankle crossed over opposite knee. Lean into the glute and roll side to side.'],
@@ -45,7 +45,7 @@ class FoamRollerSeeder extends Seeder
             ['name' => 'Foam Roller Glute Bridge', 'equipment' => 'Foam Roller', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Core', 'Lower Back'], 'description' => 'Lie supine with feet on roller. Bridge hips up, squeezing glutes, then lower. Roller adds instability.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

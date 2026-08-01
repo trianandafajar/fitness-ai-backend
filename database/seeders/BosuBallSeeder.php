@@ -12,7 +12,7 @@ class BosuBallSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Bosu Squat (Dome Up)', 'equipment' => 'Bosu Ball', 'category_slug' => 'stability', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'Stand on the dome with feet shoulder-width. Squat down while maintaining balance on the unstable surface, then return to standing. Engages core and stabilizers.'],
             ['name' => 'Bosu Squat (Platform Up)', 'equipment' => 'Bosu Ball', 'category_slug' => 'stability', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'Stand on the flat platform side with the dome on the floor. Squat while balancing on the even more unstable surface. Advanced balance challenge.'],
             ['name' => 'Bosu Single-Leg Squat', 'equipment' => 'Bosu Ball', 'category_slug' => 'stability', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core', 'Balance'], 'description' => 'Stand on one leg on the dome. Squat down, keeping the knee aligned with the toes, then push back up. Intense unilateral stability and leg strength.'],
@@ -48,7 +48,7 @@ class BosuBallSeeder extends Seeder
             ['name' => 'Bosu Pass Through (Legs)', 'equipment' => 'Bosu Ball', 'category_slug' => 'core', 'target_muscles' => ['Rectus Abdominis', 'Hip Flexors', 'Obliques'], 'description' => 'Lie on the back, hold the Bosu between hands and feet. Pass the Bosu from hands to feet by crunching up, then lower back down. Repeat the pass. Seamless core integration.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

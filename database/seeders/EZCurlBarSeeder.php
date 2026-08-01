@@ -14,7 +14,7 @@ class EZCurlBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Standing EZ Bar Curl', 'equipment' => 'EZ Curl Bar', 'category_slug' => 'isolation', 'target_muscles' => ['Biceps Brachii', 'Brachialis'], 'description' => 'Hold the EZ bar with a shoulder-width underhand grip, curl the bar up by flexing the elbows, squeeze at the top, then lower with control.'],
             ['name' => 'EZ Bar Preacher Curl', 'equipment' => 'EZ Curl Bar', 'category_slug' => 'isolation', 'target_muscles' => ['Biceps Brachii', 'Brachialis'], 'description' => 'Using a preacher bench, curl the EZ bar with the upper arms supported on the pad, focusing on strict form and peak contraction.'],
             ['name' => 'EZ Bar Reverse Curl', 'equipment' => 'EZ Curl Bar', 'category_slug' => 'isolation', 'target_muscles' => ['Brachioradialis', 'Wrist Extensors', 'Biceps'], 'description' => 'Grip the EZ bar with an overhand (pronated) grip, curl upward keeping elbows stationary. Emphasises the forearms and brachioradialis.'],
@@ -47,11 +47,11 @@ class EZCurlBarSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

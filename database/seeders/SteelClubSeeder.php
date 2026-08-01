@@ -12,7 +12,7 @@ class SteelClubSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Steel Club Pendulum Swing (Two-Hand)', 'equipment' => 'Steel Club', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Forearms', 'Core'], 'description' => 'Hold the club with both hands, let it hang behind the head, swing it forward in a pendulum arc, and return. Improves shoulder mobility and grip.'],
             ['name' => 'Steel Club Two-Hand Swing', 'equipment' => 'Steel Club', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Latissimus Dorsi', 'Core', 'Forearms'], 'description' => 'With both hands on the handle, swing the club from behind the head, down past the legs, and back up in a smooth arc. Promotes shoulder health and core control.'],
             ['name' => 'Steel Club One-Hand Outside Swing', 'equipment' => 'Steel Club', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Rotator Cuff', 'Forearms', 'Obliques'], 'description' => 'Hold the club in one hand by the side, swing it behind the shoulder and back in a circular arc. The off-center weight challenges the rotator cuff and grip.'],
@@ -53,7 +53,7 @@ class SteelClubSeeder extends Seeder
             ['name' => 'Steel Club Overhead Carry', 'equipment' => 'Steel Club', 'category_slug' => 'stability', 'target_muscles' => ['Shoulders', 'Triceps', 'Core', 'Traps'], 'description' => 'Press a club overhead with one arm locked, walk for distance. The top-heavy club forces continuous shoulder stabilization.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

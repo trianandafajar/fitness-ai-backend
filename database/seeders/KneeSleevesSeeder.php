@@ -14,7 +14,7 @@ class KneeSleevesSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Knee Sleeves Squat', 'equipment' => 'Knee Sleeves', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core', 'Calves', 'Stabilizers'], 'description' => 'Wear knee sleeves. Perform back squats. Sleeves provide warmth, compression, and joint support.'],
             ['name' => 'Knee Sleeves Front Squat', 'equipment' => 'Knee Sleeves', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Core', 'Glutes', 'Shoulders', 'Traps', 'Hamstrings'], 'description' => 'Wear knee sleeves. Perform front squats. Sleeves support knees in upright torso position.'],
             ['name' => 'Knee Sleeves Overhead Squat', 'equipment' => 'Knee Sleeves', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Shoulders', 'Triceps', 'Stabilizers', 'Calves'], 'description' => 'Wear knee sleeves. Perform overhead squats. Sleeves support knees during deep squat with stability demand.'],
@@ -61,11 +61,11 @@ class KneeSleevesSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

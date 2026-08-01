@@ -14,7 +14,7 @@ class SitUpBenchSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Sit-Up Bench Standard Sit-Up', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Rectus Abdominis', 'Hip Flexors', 'Core', 'Obliques', 'Iliopsoas'], 'description' => 'Anchor feet, lie back. Curl up to sitting. Lower with control. Basic core exercise.'],
             ['name' => 'Sit-Up Bench Decline Sit-Up', 'equipment' => 'Sit-up Bench', 'category_slug' => 'strength', 'target_muscles' => ['Rectus Abdominis (Upper)', 'Hip Flexors', 'Core', 'Obliques', 'Iliopsoas'], 'description' => 'Set bench to decline angle. Sit-ups with gravity resistance. Increased difficulty.'],
             ['name' => 'Sit-Up Bench Weighted Sit-Up', 'equipment' => 'Sit-up Bench, Weight Plate/Dumbbell', 'category_slug' => 'strength', 'target_muscles' => ['Rectus Abdominis', 'Hip Flexors', 'Core', 'Obliques', 'Iliopsoas'], 'description' => 'Hold weight on chest or behind head. Added resistance for core strength.'],
@@ -52,11 +52,11 @@ class SitUpBenchSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

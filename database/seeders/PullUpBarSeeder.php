@@ -12,7 +12,7 @@ class PullUpBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Standard Pull-Up (Overhand Wide Grip)', 'equipment' => 'Pull-up Bar', 'category_slug' => 'strength', 'target_muscles' => ['Latissimus Dorsi', 'Rhomboids', 'Middle Traps', 'Biceps', 'Rear Deltoids', 'Core'], 'description' => 'Grip the bar with an overhand grip wider than shoulder-width. Hang freely, then pull yourself up until the chin clears the bar. Lower with control to a dead hang.'],
             ['name' => 'Chin-Up (Underhand Shoulder-Width Grip)', 'equipment' => 'Pull-up Bar', 'category_slug' => 'strength', 'target_muscles' => ['Latissimus Dorsi', 'Biceps', 'Brachialis', 'Rhomboids', 'Core'], 'description' => 'Grip the bar with an underhand (supinated) grip, hands shoulder-width apart. Pull up until the chin is over the bar. Greater biceps involvement than standard pull-ups.'],
             ['name' => 'Neutral Grip Pull-Up (Parallel Grip)', 'equipment' => 'Pull-up Bar', 'category_slug' => 'strength', 'target_muscles' => ['Latissimus Dorsi', 'Biceps', 'Brachialis', 'Middle Traps', 'Core'], 'description' => 'Use parallel handles if available (palms facing each other). Pull up until chin clears the handles. Easier on the wrists and shifts emphasis to the brachialis.'],
@@ -50,7 +50,7 @@ class PullUpBarSeeder extends Seeder
             ['name' => 'Pull-Up Bar Rollover (Skin the Cat)', 'equipment' => 'Pull-up Bar', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Rotator Cuff', 'Core', 'Grip'], 'description' => 'Hang, tuck the knees up and roll backward over the bar until the body is inverted, then reverse. Improves shoulder mobility and control.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

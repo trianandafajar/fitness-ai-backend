@@ -14,7 +14,7 @@ class ChalkSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Chalk Deadlift', 'equipment' => 'Chalk', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Core', 'Traps', 'Lats', 'Forearms'], 'description' => 'Apply chalk to hands. Perform deadlifts. Chalk increases friction and reduces bar slip.'],
             ['name' => 'Chalk Pull-Up', 'equipment' => 'Chalk', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Biceps', 'Rhomboids', 'Core', 'Forearms', 'Rear Deltoids'], 'description' => 'Apply chalk to hands. Perform pull-ups. Chalk improves grip on smooth bars.'],
             ['name' => 'Chalk Chin-Up', 'equipment' => 'Chalk', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Biceps', 'Core', 'Forearms', 'Rhomboids', 'Brachialis'], 'description' => 'Apply chalk to hands. Perform chin-ups. Chalk secures supinated grip.'],
@@ -61,11 +61,11 @@ class ChalkSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

@@ -12,7 +12,7 @@ class StandingAbductorSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Standing Abductor Standard (Side Leg Raise)', 'equipment' => 'Standing Abductor', 'category_slug' => 'strength', 'target_muscles' => ['Gluteus Medius', 'Gluteus Minimus', 'Tensor Fasciae Latae', 'Core', 'Hip Abductors'], 'description' => 'Stand on machine, pad against outer thigh. Lift leg outward to side. Squeeze glute medius at peak. Lower with control.'],
             ['name' => 'Standing Abductor Single-Leg', 'equipment' => 'Standing Abductor', 'category_slug' => 'strength', 'target_muscles' => ['Gluteus Medius', 'Gluteus Minimus', 'TFL', 'Core', 'Hip Abductors', 'Stabilizers'], 'description' => 'Work one leg at a time. Unilateral hip abductor development and corrects imbalances.'],
             ['name' => 'Standing Abductor Isometric Hold (Peak Contraction)', 'equipment' => 'Standing Abductor', 'category_slug' => 'core', 'target_muscles' => ['Gluteus Medius', 'Gluteus Minimus', 'TFL', 'Core', 'Hip Abductors'], 'description' => 'Lift leg to side and hold at peak. Static glute medius contraction.'],
@@ -45,7 +45,7 @@ class StandingAbductorSeeder extends Seeder
             ['name' => 'Standing Abductor Isometric Hold at Peak (Bodyweight)', 'equipment' => 'Standing Abductor', 'category_slug' => 'core', 'target_muscles' => ['Gluteus Medius', 'Gluteus Minimus', 'TFL', 'Core', 'Hip Abductors'], 'description' => 'Bodyweight only. Hold peak position for time. Endurance.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

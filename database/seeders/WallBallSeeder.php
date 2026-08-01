@@ -12,7 +12,7 @@ class WallBallSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Wall Ball Shot (Standard)', 'equipment' => 'Wall Ball', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Shoulders', 'Triceps', 'Core'], 'description' => 'Squat holding the ball under chin, drive up explosively and throw the ball to a 9-10 ft target on the wall, catch it in the squat position, and repeat fluidly.'],
             ['name' => 'Wall Ball Shot (Lower Target)', 'equipment' => 'Wall Ball', 'category_slug' => 'endurance', 'target_muscles' => ['Quadriceps', 'Glutes', 'Shoulders', 'Core'], 'description' => 'Same as standard but throw to a lower target (e.g., 8 ft). Allows faster reps with reduced shoulder demand, emphasizing leg drive and cardio endurance.'],
             ['name' => 'Wall Ball Shot (Higher Target)', 'equipment' => 'Wall Ball', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Shoulders', 'Triceps', 'Core'], 'description' => 'Throw to a higher target (10-12 ft). Requires more explosive hip extension and shoulder power, increasing overall intensity.'],
@@ -66,7 +66,7 @@ class WallBallSeeder extends Seeder
             ['name' => 'Wall Ball Wall Sit with Chest Pass', 'equipment' => 'Wall Ball', 'category_slug' => 'endurance', 'target_muscles' => ['Quadriceps', 'Glutes', 'Pectorals', 'Triceps'], 'description' => 'Hold a wall sit against a wall, perform chest passes against the opposite wall or to a partner, maintaining the squat position.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

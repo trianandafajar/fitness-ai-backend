@@ -12,7 +12,7 @@ class ParallettesSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Parallette Push-Up', 'equipment' => 'Parallettes', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Core'], 'description' => 'Push-up on parallettes with full range of motion. Lower chest below hand level for deeper stretch.'],
             ['name' => 'Parallette L-Sit', 'equipment' => 'Parallettes', 'category_slug' => 'core', 'target_muscles' => ['Core (Rectus Abdominis', 'Hip Flexors)', 'Triceps', 'Shoulders'], 'description' => 'Support hold with legs extended straight out in L-position. Depress shoulders and engage core.'],
             ['name' => 'Parallette V-Sit', 'equipment' => 'Parallettes', 'category_slug' => 'core', 'target_muscles' => ['Core (Entire)', 'Hip Flexors', 'Triceps', 'Shoulders', 'Hamstrings'], 'description' => 'Lift legs and torso into a V-shape (45-60°). Requires extreme core and hamstring flexibility.'],
@@ -45,7 +45,7 @@ class ParallettesSeeder extends Seeder
             ['name' => 'Parallette Hip Lift (Glute Bridge)', 'equipment' => 'Parallettes', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Core', 'Lower Back'], 'description' => 'Lie with upper back on parallettes, feet on floor. Lift hips to full extension, squeeze glutes, lower.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

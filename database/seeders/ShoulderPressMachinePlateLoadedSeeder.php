@@ -14,7 +14,7 @@ class ShoulderPressMachinePlateLoadedSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Shoulder Press Machine Standard Press', 'equipment' => 'Shoulder Press Machine Plate-Loaded', 'category_slug' => 'strength', 'target_muscles' => ['Deltoids (All Heads)', 'Triceps', 'Upper Chest', 'Traps', 'Core', 'Forearms'], 'description' => 'Sit with back against pad. Grip handles at shoulder height. Press overhead until arms extended. Lower with control.'],
             ['name' => 'Shoulder Press Machine Neutral Grip', 'equipment' => 'Shoulder Press Machine Plate-Loaded', 'category_slug' => 'strength', 'target_muscles' => ['Deltoids', 'Triceps', 'Upper Chest', 'Traps', 'Core', 'Biceps'], 'description' => 'Palms facing each other. Press overhead. Joint-friendly shoulder press.'],
             ['name' => 'Shoulder Press Machine Pronated Grip (Overhand)', 'equipment' => 'Shoulder Press Machine Plate-Loaded', 'category_slug' => 'strength', 'target_muscles' => ['Anterior Deltoids', 'Medial Deltoids', 'Triceps', 'Traps', 'Upper Chest', 'Core'], 'description' => 'Palms facing forward. Press overhead. Standard shoulder press grip.'],
@@ -55,11 +55,11 @@ class ShoulderPressMachinePlateLoadedSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

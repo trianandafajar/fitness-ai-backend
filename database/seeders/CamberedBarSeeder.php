@@ -12,7 +12,7 @@ class CamberedBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Cambered Bar Back Squat', 'equipment' => 'Cambered Bar', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Adductors', 'Erector Spinae', 'Core', 'Upper Back'], 'description' => 'Place the cambered bar on the upper back; the curved design sits comfortably on the shoulders. Squat to parallel or below, allowing the weight to hang lower and challenge stability. The camber shifts the center of gravity, increasing core and upper back demand while reducing shoulder strain.'],
             ['name' => 'Cambered Bar Front Squat', 'equipment' => 'Cambered Bar', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Upper Back'], 'description' => 'Rest the cambered bar across the front deltoids, gripping the handles or bar. The bend allows a more upright torso and can be easier on the wrists than a straight bar. Squat down, keeping elbows high.'],
             ['name' => 'Cambered Bar Box Squat', 'equipment' => 'Cambered Bar', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Adductors', 'Erector Spinae', 'Core'], 'description' => 'Place a box behind you, squat back until sitting briefly, then explode up. The cambered bar\'s lower center of mass increases posterior chain activation and forces greater core bracing during the ascent.'],
@@ -33,7 +33,7 @@ class CamberedBarSeeder extends Seeder
             ['name' => 'Cambered Bar Bent-Over Row', 'equipment' => 'Cambered Bar', 'category_slug' => 'strength', 'target_muscles' => ['Latissimus Dorsi', 'Rhomboids', 'Traps', 'Biceps', 'Erector Spinae'], 'description' => 'Hinge forward, hold the cambered bar with a neutral or pronated grip, row it to the lower abdomen. The bend provides a deeper stretch at the bottom.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

@@ -12,7 +12,7 @@ class GymnasticRingsSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Ring Dip', 'equipment' => 'Gymnastic Rings', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Core'], 'description' => 'Lower body until shoulders are below rings, then press up. Rings must be turned out at the top for stability.'],
             ['name' => 'Ring Turned-Out Dip (RTO Dip)', 'equipment' => 'Gymnastic Rings', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Biceps', 'Core', 'Shoulder Stabilizers'], 'description' => 'Perform a dip but turn rings outward (palms forward) at the top. Increases shoulder and bicep engagement.'],
             ['name' => 'Ring Push-Up', 'equipment' => 'Gymnastic Rings', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Core', 'Stabilizers'], 'description' => 'Plank position with rings under chest. Lower chest between rings, push up, turn rings out at the top.'],
@@ -45,7 +45,7 @@ class GymnasticRingsSeeder extends Seeder
             ['name' => 'Ring Archer Row', 'equipment' => 'Gymnastic Rings', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Biceps', 'Core'], 'description' => 'Inverted row position. Pull with one arm while extending the other. Shifts load to one side for unilateral back work.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

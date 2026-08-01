@@ -14,7 +14,7 @@ class LiftingStrapsSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Lifting Straps Deadlift', 'equipment' => 'Lifting Straps', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Core', 'Traps', 'Lats'], 'description' => 'Use lifting straps. Perform deadlifts. Straps secure grip, allowing focus on posterior chain without grip failure.'],
             ['name' => 'Lifting Straps Romanian Deadlift', 'equipment' => 'Lifting Straps', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Glutes', 'Erector Spinae', 'Core', 'Traps'], 'description' => 'Use lifting straps. Perform RDLs. Straps maintain grip during heavy hinge movement.'],
             ['name' => 'Lifting Straps Sumo Deadlift', 'equipment' => 'Lifting Straps', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Adductors', 'Quadriceps', 'Hamstrings', 'Core', 'Traps'], 'description' => 'Use lifting straps. Perform sumo deadlifts. Straps secure wide-grip pull.'],
@@ -62,11 +62,11 @@ class LiftingStrapsSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

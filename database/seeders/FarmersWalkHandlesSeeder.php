@@ -12,7 +12,7 @@ class FarmersWalkHandlesSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Farmer\'s Walk (Standard)', 'equipment' => 'Farmer\'s Walk Handles', 'category_slug' => 'strength', 'target_muscles' => ['Forearms', 'Traps', 'Core', 'Quadriceps', 'Glutes', 'Calves', 'Lats'], 'description' => 'Pick up handles with straight arms. Walk forward with upright posture. Grip and core heavily taxed.'],
             ['name' => 'Farmer\'s Walk (Heavy Load)', 'equipment' => 'Farmer\'s Walk Handles', 'category_slug' => 'strength', 'target_muscles' => ['Forearms', 'Traps', 'Core', 'Quadriceps', 'Glutes', 'Calves', 'Erector Spinae'], 'description' => 'Load handles to near-maximum. Walk short distance with controlled pace. Maximal grip and full-body tension.'],
             ['name' => 'Farmer\'s Walk (Long Distance)', 'equipment' => 'Farmer\'s Walk Handles', 'category_slug' => 'strength', 'target_muscles' => ['Forearms', 'Traps', 'Core', 'Quadriceps', 'Glutes', 'Calves', 'Stabilizers'], 'description' => 'Use moderate weight. Walk long distance (50-100m). Builds muscular endurance and grip stamina.'],
@@ -47,7 +47,7 @@ class FarmersWalkHandlesSeeder extends Seeder
             ['name' => 'Farmer\'s Walk (Overload Dropset)', 'equipment' => 'Farmer\'s Walk Handles', 'category_slug' => 'strength', 'target_muscles' => ['Forearms', 'Traps', 'Core', 'Quadriceps', 'Glutes', 'Calves', 'Lats'], 'description' => 'Start heavy, walk 10m, drop to medium weight, walk 10m, drop to light. Progressive overload dropset.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

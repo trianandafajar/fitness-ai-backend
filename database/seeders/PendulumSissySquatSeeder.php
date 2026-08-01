@@ -14,7 +14,7 @@ class PendulumSissySquatSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Pendulum Sissy Squat Standard', 'equipment' => 'Pendulum Sissy Squat', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps (Rectus Femoris, Vastus Medialis)', 'Core', 'Glutes', 'Hip Flexors', 'Calves'], 'description' => 'Set footplate, lean back against pad. Squat down by leaning backward, keeping body straight. Press up through quads.'],
             ['name' => 'Pendulum Sissy Squat Full Range of Motion', 'equipment' => 'Pendulum Sissy Squat', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps (Full)', 'Glutes', 'Core', 'Hip Flexors', 'Calves', 'Stabilizers'], 'description' => 'Lower as deep as possible until thighs past parallel. Maximal quad stretch and contraction.'],
             ['name' => 'Pendulum Sissy Squat Partial ROM (Top Half)', 'equipment' => 'Pendulum Sissy Squat', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps (Rectus Femoris)', 'Core', 'Calves', 'Hip Flexors'], 'description' => 'Partial squat in top half. Emphasizes quad peak contraction and knee extension.'],
@@ -51,11 +51,11 @@ class PendulumSissySquatSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

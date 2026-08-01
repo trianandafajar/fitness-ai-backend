@@ -14,7 +14,7 @@ class TrapBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Trap Bar Deadlift (Low Handle)', 'equipment' => 'Trap Bar', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Quadriceps', 'Erector Spinae', 'Traps', 'Grip'], 'description' => 'Stand inside the trap bar, grab the low handles with a neutral grip. Keep your back flat and chest up. Drive through the legs by extending the hips and knees until standing tall. The lower handle increases the range of motion, building full-body strength.'],
             ['name' => 'Trap Bar Deadlift (High Handle)', 'equipment' => 'Trap Bar', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Quadriceps', 'Erector Spinae', 'Traps', 'Grip'], 'description' => 'Use the raised handles on the trap bar. This shortens the range of motion, reducing the demand on the lower back while still overloading the hips and legs. Ideal for heavier loading or for those with limited mobility.'],
             ['name' => 'Trap Bar Romanian Deadlift', 'equipment' => 'Trap Bar', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Glutes', 'Erector Spinae'], 'description' => 'Stand holding the trap bar at hip level with a slight knee bend. Hinge at the hips to push them back, keeping the back straight. Lower the bar until a deep stretch is felt in the hamstrings, then drive the hips forward to return.'],
@@ -37,11 +37,11 @@ class TrapBarSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

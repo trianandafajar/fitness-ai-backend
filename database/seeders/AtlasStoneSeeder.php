@@ -12,7 +12,7 @@ class AtlasStoneSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Atlas Stone Lift (Standard)', 'equipment' => 'Atlas Stone', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Core', 'Traps', 'Biceps', 'Forearms'], 'description' => 'Squat down, hug stone, extend hips and knees to lift stone to lap. Full-body posterior chain movement.'],
             ['name' => 'Atlas Stone Load (To Platform)', 'equipment' => 'Atlas Stone', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Core', 'Shoulders', 'Traps', 'Biceps', 'Forearms', 'Quadriceps'], 'description' => 'Lift stone to lap then press/roll to shoulder height to load onto raised platform. Explosive hip and shoulder drive.'],
             ['name' => 'Atlas Stone Shoulder (Over Shoulder)', 'equipment' => 'Atlas Stone', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Core', 'Shoulders', 'Traps', 'Triceps', 'Forearms', 'Erector Spinae'], 'description' => 'Lift stone to chest, then press/pop it over one shoulder. Extreme full-body power and stability.'],
@@ -47,7 +47,7 @@ class AtlasStoneSeeder extends Seeder
             ['name' => 'Atlas Stone Vertical Carry (Loading Pin)', 'equipment' => 'Atlas Stone', 'category_slug' => 'strength', 'target_muscles' => ['Core', 'Biceps', 'Forearms', 'Traps', 'Quadriceps', 'Glutes', 'Calves'], 'description' => 'Carry stone vertically using stone handles or straps. Walks forward. Unique grip and core challenge.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

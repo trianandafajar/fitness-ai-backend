@@ -14,7 +14,7 @@ class DonkeyCalfRaiseMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Donkey Calf Raise Standard', 'equipment' => 'Donkey Calf Raise Machine', 'category_slug' => 'strength', 'target_muscles' => ['Gastrocnemius', 'Soleus', 'Calves', 'Core', 'Hip Extensors', 'Stabilizers'], 'description' => 'Position hips under pad, toes on platform, heels hanging. Lower heels, press up on toes. Full calf extension.'],
             ['name' => 'Donkey Calf Raise Single-Leg', 'equipment' => 'Donkey Calf Raise Machine', 'category_slug' => 'strength', 'target_muscles' => ['Gastrocnemius', 'Soleus', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Perform calf raise with one leg only. Unilateral calf development and corrects imbalances.'],
             ['name' => 'Donkey Calf Raise Isometric Hold (Top)', 'equipment' => 'Donkey Calf Raise Machine', 'category_slug' => 'core', 'target_muscles' => ['Gastrocnemius', 'Soleus', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Press to full extension and hold. Static calf contraction.'],
@@ -51,11 +51,11 @@ class DonkeyCalfRaiseMachineSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

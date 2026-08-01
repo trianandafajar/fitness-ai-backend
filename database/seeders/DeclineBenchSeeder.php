@@ -14,7 +14,7 @@ class DeclineBenchSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Decline Bench Barbell Bench Press', 'equipment' => 'Decline Bench', 'category_slug' => 'strength', 'target_muscles' => ['Lower Chest (Sternocostal Head)', 'Triceps', 'Anterior Deltoids', 'Core', 'Serratus Anterior'], 'description' => 'Lie on decline bench. Lower barbell to lower chest, press up. Emphasizes lower chest.'],
             ['name' => 'Decline Bench Dumbbell Bench Press', 'equipment' => 'Decline Bench', 'category_slug' => 'strength', 'target_muscles' => ['Lower Chest', 'Triceps', 'Anterior Deltoids', 'Core', 'Stabilizers'], 'description' => 'Lie on decline. Press dumbbells from chest. Lower chest and stabilizer engagement.'],
             ['name' => 'Decline Bench Dumbbell Fly', 'equipment' => 'Decline Bench', 'category_slug' => 'strength', 'target_muscles' => ['Lower Chest', 'Triceps', 'Core', 'Anterior Deltoids', 'Serratus Anterior'], 'description' => 'Lie on decline. Fly dumbbells with slight elbow bend. Lower chest isolation.'],
@@ -54,11 +54,11 @@ class DeclineBenchSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

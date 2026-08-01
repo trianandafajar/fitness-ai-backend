@@ -14,7 +14,7 @@ class LateralRaiseMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Seated Lateral Raise (Machine)',
                 'equipment' => 'Lateral Raise Machine',
@@ -122,15 +122,15 @@ class LateralRaiseMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/lateral-raise-machine');
+        $sourceDir = public_path('execises/lateral-raise-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

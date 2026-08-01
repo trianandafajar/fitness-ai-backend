@@ -14,7 +14,7 @@ class LatPulldownMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Wide Grip Front Lat Pulldown',
                 'equipment' => 'Lat Pulldown Machine',
@@ -143,15 +143,15 @@ class LatPulldownMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/lat-pulldown-machine');
+        $sourceDir = public_path('execises/lat-pulldown-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

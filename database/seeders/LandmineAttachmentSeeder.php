@@ -14,7 +14,7 @@ class LandmineAttachmentSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Landmine Single-Arm Row', 'equipment' => 'Landmine Attachment', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Biceps', 'Rear Deltoids', 'Core', 'Forearms', 'Traps'], 'description' => 'Staggered stance. Pull barbell end toward hip/chest. Squeeze back at peak.'],
             ['name' => 'Landmine Single-Arm Press', 'equipment' => 'Landmine Attachment', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders', 'Triceps', 'Upper Chest', 'Core', 'Obliques', 'Stabilizers'], 'description' => 'Staggered stance. Press barbell end overhead from shoulder height. Anti-rotation core challenge.'],
             ['name' => 'Landmine Two-Arm Row', 'equipment' => 'Landmine Attachment', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Biceps', 'Rear Deltoids', 'Core', 'Forearms', 'Traps'], 'description' => 'Straddle bar. Pull both arms toward chest. Emphasizes mid-back and biceps.'],
@@ -59,11 +59,11 @@ class LandmineAttachmentSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

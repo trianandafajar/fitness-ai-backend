@@ -14,7 +14,7 @@ class WristWrapsSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Wrist Wraps Bench Press', 'equipment' => 'Wrist Wraps', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Wrist Stabilizers', 'Forearms'], 'description' => 'Wear wrist wraps tightly. Perform bench press. Wraps support wrists during heavy pressing.'],
             ['name' => 'Wrist Wraps Overhead Press', 'equipment' => 'Wrist Wraps', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders', 'Triceps', 'Core', 'Upper Chest', 'Traps', 'Wrist Stabilizers'], 'description' => 'Wear wrist wraps. Perform overhead press. Wraps provide wrist stability during heavy pressing.'],
             ['name' => 'Wrist Wraps Push Press', 'equipment' => 'Wrist Wraps', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders', 'Triceps', 'Core', 'Quadriceps', 'Glutes', 'Forearms', 'Wrist Stabilizers'], 'description' => 'Wear wrist wraps. Perform push press. Wraps support wrists during explosive pressing.'],
@@ -62,11 +62,11 @@ class WristWrapsSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

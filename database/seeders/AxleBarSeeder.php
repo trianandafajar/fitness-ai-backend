@@ -12,7 +12,7 @@ class AxleBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Axle Bar Deadlift (Standard)', 'equipment' => 'Axle Bar', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Quadriceps', 'Traps', 'Forearms', 'Grip'], 'description' => 'Stand with feet hip-width, grip the bar with a double overhand or mixed grip. Due to the 2-inch thickness and lack of knurling, this heavily taxes the grip. Pull by extending hips and knees until standing tall.'],
             ['name' => 'Axle Bar Deficit Deadlift', 'equipment' => 'Axle Bar', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Quadriceps', 'Traps', 'Forearms', 'Grip'], 'description' => 'Stand on a plate or platform to increase the range of motion. The thick bar challenges grip endurance and reinforces full-body power from a deeper start.'],
             ['name' => 'Axle Bar Rack Pull', 'equipment' => 'Axle Bar', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Traps', 'Grip'], 'description' => 'Set pins just below the knees. Pull the bar from this elevated position. Overloads lockout and grip without the full range of motion.'],
@@ -40,7 +40,7 @@ class AxleBarSeeder extends Seeder
             ['name' => 'Axle Bar Overhead Carry (Lockout Walk)', 'equipment' => 'Axle Bar', 'category_slug' => 'stability', 'target_muscles' => ['Shoulders', 'Triceps', 'Core', 'Traps', 'Forearms'], 'description' => 'Press the axle bar overhead with locked arms and walk. The thick bar demands constant grip tension and shoulder stabilization during movement.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

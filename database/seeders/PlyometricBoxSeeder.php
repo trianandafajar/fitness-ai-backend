@@ -12,7 +12,7 @@ class PlyometricBoxSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Box Jump (Standard)', 'equipment' => 'Plyometric Box', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Calves', 'Core'], 'description' => 'Stand facing the box, squat slightly, then explosively jump up and land softly on top with both feet. Step down and repeat.'],
             ['name' => 'Box Jump (Seated Start)', 'equipment' => 'Plyometric Box', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Calves', 'Core'], 'description' => 'Sit on a lower box or bench, then explode upward onto the taller box without a countermovement. Eliminates the stretch reflex, building pure concentric power.'],
             ['name' => 'Depth Jump (Shock Jump)', 'equipment' => 'Plyometric Box', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Calves', 'Core'], 'description' => 'Stand on top of the box, step off (don\'t jump), land on the ground, and immediately explode vertically or onto another box. Develops reactive strength and amortization phase speed.'],
@@ -49,7 +49,7 @@ class PlyometricBoxSeeder extends Seeder
             ['name' => 'Box Hamstring Walkout (Glute-Ham Negative)', 'equipment' => 'Plyometric Box', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Glutes', 'Core'], 'description' => 'Kneel on the box with feet secured, lower the torso forward slowly using the hamstrings to resist gravity, then catch yourself with hands and push back up.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

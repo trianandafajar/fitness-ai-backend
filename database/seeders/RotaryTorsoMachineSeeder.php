@@ -14,7 +14,7 @@ class RotaryTorsoMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Standard Seated Rotary Torso',
                 'equipment' => 'Rotary Torso Machine',
@@ -94,15 +94,15 @@ class RotaryTorsoMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/rotary-torso-machine');
+        $sourceDir = public_path('execises/rotary-torso-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

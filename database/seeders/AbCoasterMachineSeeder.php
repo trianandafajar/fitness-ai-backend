@@ -14,7 +14,7 @@ class AbCoasterMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Standard Ab Coaster (Straight Crunch)',
                 'equipment' => 'Ab Coaster Machine',
@@ -122,15 +122,15 @@ class AbCoasterMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/ab-coaster-machine');
+        $sourceDir = public_path('execises/ab-coaster-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

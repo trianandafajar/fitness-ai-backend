@@ -14,7 +14,7 @@ class LegPressHorizontal45DegreeSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Leg Press Standard Feet Placement (Shoulder Width)', 'equipment' => 'Leg Press Horizontal / 45-Degree', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Place feet shoulder-width on platform. Lower until knees near chest. Press through entire foot. Overall leg development.'],
             ['name' => 'Leg Press High Feet Placement', 'equipment' => 'Leg Press Horizontal / 45-Degree', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Adductors', 'Core', 'Quadriceps', 'Calves'], 'description' => 'Place feet high on platform. Emphasizes glutes and hamstrings. Reduces knee travel.'],
             ['name' => 'Leg Press Low Feet Placement', 'equipment' => 'Leg Press Horizontal / 45-Degree', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Calves', 'Core', 'Glutes', 'Hamstrings', 'Stabilizers'], 'description' => 'Place feet low on platform. Emphasizes quadriceps. Increases knee travel.'],
@@ -56,11 +56,11 @@ class LegPressHorizontal45DegreeSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

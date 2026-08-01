@@ -14,7 +14,7 @@ class WeightedVestSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Weighted Vest Push-Up', 'equipment' => 'Weighted Vest', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Core', 'Stabilizers'], 'description' => 'Wear weighted vest. Perform standard push-ups. Added load increases chest and triceps demand.'],
             ['name' => 'Weighted Vest Pull-Up', 'equipment' => 'Weighted Vest', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Biceps', 'Rhomboids', 'Rear Deltoids', 'Core', 'Forearms'], 'description' => 'Wear weighted vest. Perform pull-ups. Increased resistance for back and biceps development.'],
             ['name' => 'Weighted Vest Chin-Up', 'equipment' => 'Weighted Vest', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Biceps', 'Rhomboids', 'Core', 'Forearms', 'Brachialis'], 'description' => 'Wear weighted vest. Perform chin-ups (supinated grip). Bicep-dominant pull-up variation with added load.'],
@@ -61,11 +61,11 @@ class WeightedVestSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

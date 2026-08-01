@@ -14,7 +14,7 @@ class FloorMatSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Floor Mat Push-Up', 'equipment' => 'Floor Mat', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Core', 'Stabilizers'], 'description' => 'Perform push-ups on mat. Provides cushioning and prevents slipping on smooth floors.'],
             ['name' => 'Floor Mat Plank', 'equipment' => 'Floor Mat', 'category_slug' => 'core', 'target_muscles' => ['Core', 'Shoulders', 'Chest', 'Triceps', 'Glutes', 'Stabilizers'], 'description' => 'Hold plank position on mat. Mat provides comfort and traction for elbows and hands.'],
             ['name' => 'Floor Mat Side Plank', 'equipment' => 'Floor Mat', 'category_slug' => 'core', 'target_muscles' => ['Obliques', 'Core', 'Shoulders', 'Glutes', 'Hip Abductors', 'Stabilizers'], 'description' => 'Hold side plank on mat. Mat cushions forearm and prevents sliding.'],
@@ -61,11 +61,11 @@ class FloorMatSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

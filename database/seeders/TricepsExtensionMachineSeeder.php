@@ -14,7 +14,7 @@ class TricepsExtensionMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Standard Triceps Extension (Neutral Grip)',
                 'equipment' => 'Triceps Extension Machine',
@@ -129,15 +129,15 @@ class TricepsExtensionMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/triceps-extension-machine');
+        $sourceDir = public_path('execises/triceps-extension-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

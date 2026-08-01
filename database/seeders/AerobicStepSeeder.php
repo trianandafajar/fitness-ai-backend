@@ -12,7 +12,7 @@ class AerobicStepSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Basic Step-Up', 'equipment' => 'Aerobic Step', 'category_slug' => 'cardio', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Calves', 'Core'], 'description' => 'Step up onto the platform with one foot, then the other, and step back down in the same sequence. Maintain an upright posture and a steady rhythm.'],
             ['name' => 'Alternating Step-Up', 'equipment' => 'Aerobic Step', 'category_slug' => 'cardio', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'Step up with one foot, bring the opposite knee up toward the chest, then step down and alternate legs. Adds a dynamic hip flexor and balance component.'],
             ['name' => 'Lateral Step-Up', 'equipment' => 'Aerobic Step', 'category_slug' => 'cardio', 'target_muscles' => ['Gluteus Medius', 'Adductors', 'Quadriceps', 'Glutes', 'Core'], 'description' => 'Stand sideways to the step. Step onto it with the near leg, bring the other foot up, then step down on the opposite side. Focuses on lateral hip stability.'],
@@ -48,7 +48,7 @@ class AerobicStepSeeder extends Seeder
             ['name' => 'Overhead Squat (Standing on Step)', 'equipment' => 'Aerobic Step', 'category_slug' => 'mobility', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Shoulders', 'Core'], 'description' => 'Stand on the step, hold a light bar or band overhead, and squat down while maintaining an upright torso and stable overhead position.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

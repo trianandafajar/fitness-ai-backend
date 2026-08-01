@@ -14,7 +14,7 @@ class ChainsSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Chains Bench Press',
                 'equipment' => 'Chains',
@@ -188,7 +188,7 @@ class ChainsSeeder extends Seeder
                 'equipment' => 'Chains, Cable Machine',
                 'category_slug' => 'strength',
                 'target_muscles' => ['Varies with exercise', 'Core', 'Stabilizers'],
-                'description' => 'Attach chains to cable for accommodating resistance on cable exercises.',
+                'description' => 'Attach chains to cable for accommodating resistance on cable execises.',
             ],
             [
                 'name' => 'Chains Dips (Weighted with Chains)',
@@ -252,11 +252,11 @@ class ChainsSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

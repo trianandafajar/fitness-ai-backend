@@ -12,7 +12,7 @@ class HypericeSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Hyperice Upper Back (Thoracic)', 'equipment' => 'Hyperice', 'category_slug' => 'mobility', 'target_muscles' => ['Erector Spinae', 'Rhomboids', 'Trapezius', 'Thoracic Spine'], 'description' => 'Apply Hyperice to upper back. Glide over knots with vibration. Use medium pressure for myofascial release.'],
             ['name' => 'Hyperice Lower Back (Lumbar)', 'equipment' => 'Hyperice', 'category_slug' => 'mobility', 'target_muscles' => ['Erector Spinae', 'Quadratus Lumborum', 'Lumbar Multifidus'], 'description' => 'Place Hyperice on lower back. Move slowly over tight spots. Use gentle pressure on lumbar region.'],
             ['name' => 'Hyperice Glutes', 'equipment' => 'Hyperice', 'category_slug' => 'mobility', 'target_muscles' => ['Gluteus Maximus', 'Gluteus Medius', 'Gluteus Minimus', 'Piriformis'], 'description' => 'Sit on Hyperice. Glide over gluteal muscles. Cross ankle over knee for deeper piriformis access.'],
@@ -46,7 +46,7 @@ class HypericeSeeder extends Seeder
             ['name' => 'Hyperice Posterior Shoulder (Rotator Cuff)', 'equipment' => 'Hyperice', 'category_slug' => 'mobility', 'target_muscles' => ['Infraspinatus', 'Teres Minor', 'Subscapularis', 'Supraspinatus', 'Posterior Deltoid'], 'description' => 'Reach arm across chest. Apply Hyperice to rear deltoid and rotator cuff area. Vibration aids shoulder recovery.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

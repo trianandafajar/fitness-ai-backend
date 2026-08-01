@@ -12,7 +12,7 @@ class WeightPlatesSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Plate Goblet Squat', 'equipment' => 'Weight Plates', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'Hold a single plate vertically against your chest with both hands, elbows tucked. Squat down until thighs are parallel, keeping torso upright, then drive back up.'],
             ['name' => 'Plate Front Squat (Bear Hug)', 'equipment' => 'Weight Plates', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core', 'Biceps'], 'description' => 'Hug a large plate horizontally against your chest with arms wrapped around it. Perform a squat while maintaining a tight bear hug, emphasizing core stability.'],
             ['name' => 'Plate Overhead Squat', 'equipment' => 'Weight Plates', 'category_slug' => 'mobility', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Shoulders', 'Core'], 'description' => 'Press a single plate overhead with arms locked. Squat down while keeping the plate directly above the head, demanding shoulder mobility and core stability.'],
@@ -66,7 +66,7 @@ class WeightPlatesSeeder extends Seeder
             ['name' => 'Plate Swings', 'equipment' => 'Weight Plates', 'category_slug' => 'power', 'target_muscles' => ['Glutes', 'Hamstrings', 'Quadriceps', 'Core', 'Shoulders'], 'description' => 'Hold a plate by the hole with both hands, hinge at the hips, and swing it from between the legs up to chest height explosively, mimicking a kettlebell swing.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

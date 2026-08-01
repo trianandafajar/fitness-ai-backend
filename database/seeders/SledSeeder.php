@@ -12,7 +12,7 @@ class SledSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Sled Forward Push (High Handle)', 'equipment' => 'Sled', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Calves', 'Core', 'Shoulders'], 'description' => 'Push sled forward using high handles with body at 45° angle. Drive through legs and maintain core tightness.'],
             ['name' => 'Sled Forward Push (Low Handle)', 'equipment' => 'Sled', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Calves', 'Core', 'Chest'], 'description' => 'Push sled forward using low handles with body almost horizontal. Engages chest and shoulders more intensely.'],
             ['name' => 'Sled Backward Pull (Walking)', 'equipment' => 'Sled', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Calves', 'Core'], 'description' => 'Face sled and walk backward while pulling ropes or handles. Great for knee health and quad development.'],
@@ -46,7 +46,7 @@ class SledSeeder extends Seeder
             ['name' => 'Sled Plate Push (Weighted)', 'equipment' => 'Sled, Weight Plates', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Calves', 'Shoulders', 'Triceps'], 'description' => 'Load sled with weight plates. Push for prescribed distance. Progressive overload for strength gains.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

@@ -14,7 +14,7 @@ class SwissBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Swiss Bar Flat Bench Press (Neutral Grip)', 'equipment' => 'Swiss Bar', 'category_slug' => 'strength', 'target_muscles' => ['Pectoralis Major', 'Anterior Deltoids', 'Triceps'], 'description' => 'Lie on a flat bench, grip the neutral handles slightly wider than shoulder-width. Press the bar from mid-chest to full lockout. The neutral grip reduces shoulder strain and emphasizes triceps alongside the chest.'],
             ['name' => 'Swiss Bar Incline Bench Press (Neutral Grip)', 'equipment' => 'Swiss Bar', 'category_slug' => 'strength', 'target_muscles' => ['Upper Pectoralis', 'Anterior Deltoids', 'Triceps'], 'description' => 'Set bench to 30-45°. Press from the upper chest with a neutral grip. Targets the clavicular head while maintaining a joint-friendly wrist and shoulder position.'],
             ['name' => 'Swiss Bar Decline Bench Press (Neutral Grip)', 'equipment' => 'Swiss Bar', 'category_slug' => 'strength', 'target_muscles' => ['Lower Pectoralis', 'Anterior Deltoids', 'Triceps'], 'description' => 'On a decline bench, use a neutral grip to press from the lower sternum. Emphasizes the lower chest with less shoulder impingement risk.'],
@@ -46,11 +46,11 @@ class SwissBarSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

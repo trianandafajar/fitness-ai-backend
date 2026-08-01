@@ -14,7 +14,7 @@ class ReverseHyperextensionMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Reverse Hyperextension Standard', 'equipment' => 'Reverse Hyperextension Machine', 'category_slug' => 'strength', 'target_muscles' => ['Erector Spinae', 'Glutes', 'Hamstrings', 'Core', 'Hip Extensors', 'Lats'], 'description' => 'Lie face down on machine, hips on pad, legs hanging. Raise legs behind until parallel. Lower with control. Posterior chain.'],
             ['name' => 'Reverse Hyperextension Single-Leg', 'equipment' => 'Reverse Hyperextension Machine', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Core', 'Hip Extensors', 'Stabilizers'], 'description' => 'Raise one leg at a time. Unilateral posterior chain development and corrects imbalances.'],
             ['name' => 'Reverse Hyperextension Isometric Hold (Top)', 'equipment' => 'Reverse Hyperextension Machine', 'category_slug' => 'core', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Core', 'Hip Extensors'], 'description' => 'Raise legs to parallel and hold. Static posterior chain contraction.'],
@@ -52,11 +52,11 @@ class ReverseHyperextensionMachineSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

@@ -14,7 +14,7 @@ class MultiPressConvergingChestPressSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Multi-Press Standard Grip Chest Press', 'equipment' => 'Multi-Press / Converging Chest Press', 'category_slug' => 'strength', 'target_muscles' => ['Chest (Pectoralis Major)', 'Triceps', 'Anterior Deltoids', 'Core', 'Stabilizers'], 'description' => 'Sit with back against pad. Press handles forward and inward. Converging path mimics dumbbell press.'],
             ['name' => 'Multi-Press Wide Grip Chest Press', 'equipment' => 'Multi-Press / Converging Chest Press', 'category_slug' => 'strength', 'target_muscles' => ['Chest (Outer Pectoralis)', 'Triceps', 'Anterior Deltoids', 'Core', 'Serratus Anterior'], 'description' => 'Wide grip on handles. Press forward and inward. Emphasizes outer chest and stretch.'],
             ['name' => 'Multi-Press Narrow Grip Chest Press', 'equipment' => 'Multi-Press / Converging Chest Press', 'category_slug' => 'strength', 'target_muscles' => ['Chest (Inner)', 'Triceps', 'Anterior Deltoids', 'Core', 'Forearms'], 'description' => 'Narrow grip on handles. Press forward. Emphasizes triceps and inner chest.'],
@@ -55,11 +55,11 @@ class MultiPressConvergingChestPressSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

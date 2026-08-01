@@ -14,7 +14,7 @@ class InnerOuterThighComboSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Inner Thigh Adduction Standard', 'equipment' => 'Inner/Outer Thigh Combo', 'category_slug' => 'strength', 'target_muscles' => ['Adductors (Adductor Longus, Adductor Magnus, Gracilis, Pectineus)', 'Core', 'Hip Flexors'], 'description' => 'Sit on machine, pads on inner thighs. Squeeze legs together. Hold peak contraction. Lower with control.'],
             ['name' => 'Outer Thigh Abduction Standard', 'equipment' => 'Inner/Outer Thigh Combo', 'category_slug' => 'strength', 'target_muscles' => ['Gluteus Medius', 'Gluteus Minimus', 'Tensor Fasciae Latae', 'Core', 'Hip Abductors'], 'description' => 'Sit on machine, pads on outer thighs. Push legs apart. Squeeze glute medius at peak. Lower with control.'],
             ['name' => 'Inner Thigh Isometric Hold (Peak Contraction)', 'equipment' => 'Inner/Outer Thigh Combo', 'category_slug' => 'core', 'target_muscles' => ['Adductors', 'Core', 'Hip Flexors', 'Pelvic Floor'], 'description' => 'Squeeze legs together and hold at peak. Static adductor contraction.'],
@@ -59,11 +59,11 @@ class InnerOuterThighComboSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

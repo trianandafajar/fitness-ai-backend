@@ -14,7 +14,7 @@ class FlyMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Fly Machine Standard Chest Fly', 'equipment' => 'Fly Machine', 'category_slug' => 'strength', 'target_muscles' => ['Chest (Pectoralis Major)', 'Anterior Deltoids', 'Core', 'Serratus Anterior', 'Biceps'], 'description' => 'Sit with back against pad. Grasp handles at arm\'s length. Bring handles together in front of chest. Squeeze pecs at peak.'],
             ['name' => 'Fly Machine High Fly (Upper Chest)', 'equipment' => 'Fly Machine', 'category_slug' => 'strength', 'target_muscles' => ['Upper Chest (Clavicular Head)', 'Anterior Deltoids', 'Core', 'Serratus Anterior'], 'description' => 'Set handles at high position. Bring together at upper chest height. Emphasizes upper pectoralis.'],
             ['name' => 'Fly Machine Low Fly (Lower Chest)', 'equipment' => 'Fly Machine', 'category_slug' => 'strength', 'target_muscles' => ['Lower Chest (Sternocostal Head)', 'Triceps (Long Head)', 'Core', 'Anterior Deltoids'], 'description' => 'Set handles at low position. Bring together at lower chest/belly height. Emphasizes lower pectoralis.'],
@@ -54,11 +54,11 @@ class FlyMachineSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

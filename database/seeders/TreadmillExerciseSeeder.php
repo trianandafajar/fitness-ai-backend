@@ -8,13 +8,13 @@ use Illuminate\Database\Seeder;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
-class TreadmillExerciseSeeder extends Seeder
+class Treadmillexeciseseeder extends Seeder
 {
     public function run(): void
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Walking',
                 'equipment' => 'Treadmill',
@@ -133,11 +133,11 @@ class TreadmillExerciseSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

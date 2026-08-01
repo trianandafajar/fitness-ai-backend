@@ -12,7 +12,7 @@ class SandbagSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Bear Hug Squat', 'equipment' => 'Sandbag', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core', 'Biceps'], 'description' => 'Hug the sandbag tightly against your chest with both arms. Squat down until thighs are at least parallel, keeping the chest up, then drive back to standing. The shifting weight challenges core stability.'],
             ['name' => 'Zercher Squat', 'equipment' => 'Sandbag', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core', 'Biceps'], 'description' => 'Cradle the sandbag in the crooks of your elbows, hold it high against your chest. Squat while maintaining an upright torso. The forward load heavily engages the upper back and core.'],
             ['name' => 'Overhead Squat', 'equipment' => 'Sandbag', 'category_slug' => 'mobility', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Shoulders', 'Core'], 'description' => 'Press the sandbag overhead with arms locked, hands grasping the bag. Squat as deep as possible while keeping the bag stable overhead. Demands extreme shoulder mobility and core control.'],
@@ -75,7 +75,7 @@ class SandbagSeeder extends Seeder
             ['name' => 'Lateral Bound (Skater Jump)', 'equipment' => 'Sandbag', 'category_slug' => 'power', 'target_muscles' => ['Glutes', 'Quadriceps', 'Adductors', 'Calves', 'Core'], 'description' => 'Hold the sandbag at the chest. Jump laterally from one foot to the other, landing softly. The bag\'s momentum challenges lateral stability.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

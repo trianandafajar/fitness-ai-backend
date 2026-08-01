@@ -12,7 +12,7 @@ class StabilityBallSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Stability Ball Squat (Wall Squat)', 'equipment' => 'Stability Ball', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'Place the ball between your lower back and a wall. Stand with feet shoulder-width apart, squat down rolling the ball with your back, then return to standing. Supports the spine while guiding proper squat form.'],
             ['name' => 'Stability Ball Overhead Squat', 'equipment' => 'Stability Ball', 'category_slug' => 'mobility', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Shoulders', 'Core'], 'description' => 'Hold the ball overhead with both hands, arms straight. Squat down keeping the ball stable above. Tests shoulder mobility and core control.'],
             ['name' => 'Stability Ball Goblet Squat', 'equipment' => 'Stability Ball', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'], 'description' => 'Hold the ball against your chest with both hands, elbows tucked. Squat down keeping an upright torso, then stand. The ball adds resistance while challenging grip and core.'],
@@ -52,7 +52,7 @@ class StabilityBallSeeder extends Seeder
             ['name' => 'Stability Ball Lat Stretch', 'equipment' => 'Stability Ball', 'category_slug' => 'mobility', 'target_muscles' => ['Latissimus Dorsi', 'Teres Major', 'Core'], 'description' => 'Kneel facing the ball, place both hands on it, and roll the ball forward, lowering the chest toward the floor, feeling a stretch in the lats and shoulders.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

@@ -14,7 +14,7 @@ class RotaryCalfMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Rotary Calf Machine Standard (Seated)', 'equipment' => 'Rotary Calf Machine', 'category_slug' => 'strength', 'target_muscles' => ['Soleus', 'Gastrocnemius', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Sit on machine, knees bent 90°, toes on platform, heels hanging. Press with toes, raise heels. Lower with control.'],
             ['name' => 'Rotary Calf Machine Single-Leg', 'equipment' => 'Rotary Calf Machine', 'category_slug' => 'strength', 'target_muscles' => ['Soleus', 'Gastrocnemius', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Press with one leg only. Unilateral calf development and corrects imbalances.'],
             ['name' => 'Rotary Calf Machine Isometric Hold (Top)', 'equipment' => 'Rotary Calf Machine', 'category_slug' => 'core', 'target_muscles' => ['Soleus', 'Gastrocnemius', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Press to full extension and hold. Static calf contraction.'],
@@ -51,11 +51,11 @@ class RotaryCalfMachineSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

@@ -14,7 +14,7 @@ class FunctionalTrainerSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Functional Trainer Chest Press (Neutral Grip)',
                 'equipment' => 'Functional Trainer',
@@ -291,15 +291,15 @@ class FunctionalTrainerSeeder extends Seeder
         ];
 
 
-        $sourceDir = public_path('exercises/functional-trainer');
+        $sourceDir = public_path('execises/functional-trainer');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

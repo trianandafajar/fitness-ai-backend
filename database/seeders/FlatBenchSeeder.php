@@ -14,7 +14,7 @@ class FlatBenchSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Flat Bench Barbell Bench Press', 'equipment' => 'Flat Bench', 'category_slug' => 'strength', 'target_muscles' => ['Chest (Pectoralis Major)', 'Triceps', 'Anterior Deltoids', 'Core', 'Serratus Anterior'], 'description' => 'Lie flat on bench. Lower barbell to chest, press up. Compound chest press.'],
             ['name' => 'Flat Bench Dumbbell Bench Press', 'equipment' => 'Flat Bench', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Core', 'Stabilizers'], 'description' => 'Lie flat. Press dumbbells from chest to full extension. Greater ROM and stabilizer engagement.'],
             ['name' => 'Flat Bench Dumbbell Fly', 'equipment' => 'Flat Bench', 'category_slug' => 'strength', 'target_muscles' => ['Chest (Pectoralis Major)', 'Anterior Deltoids', 'Core', 'Serratus Anterior', 'Biceps'], 'description' => 'Lie flat. Fly dumbbells with slight elbow bend. Squeeze chest at peak.'],
@@ -60,11 +60,11 @@ class FlatBenchSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

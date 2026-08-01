@@ -12,7 +12,7 @@ class BattleRopeSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Alternating Waves (Bilateral)', 'equipment' => 'Battle Rope', 'category_slug' => 'cardio', 'target_muscles' => ['Shoulders', 'Forearms', 'Core', 'Quadriceps'], 'description' => 'Stand with feet shoulder-width, knees slightly bent, hold one rope end in each hand. Alternately whip the ropes up and down as fast as possible, creating continuous waves.'],
             ['name' => 'Double Waves (Simultaneous)', 'equipment' => 'Battle Rope', 'category_slug' => 'cardio', 'target_muscles' => ['Shoulders', 'Forearms', 'Core', 'Glutes', 'Quadriceps'], 'description' => 'Whip both ropes up and down together in unison, creating a single large wave. Engages the anterior deltoids and core more heavily than alternating waves.'],
             ['name' => 'Battle Rope Slams (Power Slams)', 'equipment' => 'Battle Rope', 'category_slug' => 'power', 'target_muscles' => ['Latissimus Dorsi', 'Triceps', 'Abdominals', 'Quadriceps', 'Glutes', 'Shoulders'], 'description' => 'Raise both ropes overhead by extending the hips and rising onto the toes, then forcefully slam them down to the ground, squatting slightly. Full-body explosive movement.'],
@@ -40,7 +40,7 @@ class BattleRopeSeeder extends Seeder
             ['name' => 'Isometric Hold with Waves (Wall Sit)', 'equipment' => 'Battle Rope', 'category_slug' => 'endurance', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Shoulders', 'Forearms'], 'description' => 'Assume a wall sit position against a wall and perform continuous rope waves. Severely burns the quads while challenging shoulder endurance.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

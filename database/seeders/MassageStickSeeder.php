@@ -12,7 +12,7 @@ class MassageStickSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Massage Stick Upper Back', 'equipment' => 'Massage Stick', 'category_slug' => 'mobility', 'target_muscles' => ['Erector Spinae', 'Rhomboids', 'Trapezius', 'Thoracic Spine'], 'description' => 'Stand or sit. Roll massage stick across upper back using both hands. Apply pressure to tight knots and trigger points.'],
             ['name' => 'Massage Stick Lower Back', 'equipment' => 'Massage Stick', 'category_slug' => 'mobility', 'target_muscles' => ['Erector Spinae', 'Quadratus Lumborum', 'Lumbar Spine'], 'description' => 'Roll stick vertically or horizontally along lower back. Control pressure to avoid spinal bone contact.'],
             ['name' => 'Massage Stick Glutes', 'equipment' => 'Massage Stick', 'category_slug' => 'mobility', 'target_muscles' => ['Gluteus Maximus', 'Gluteus Medius', 'Gluteus Minimus', 'Piriformis'], 'description' => 'Sit on chair and roll stick over gluteal muscles. Cross ankle over knee for deeper glute access.'],
@@ -46,7 +46,7 @@ class MassageStickSeeder extends Seeder
             ['name' => 'Massage Stick Posterior Shoulder (Rotator Cuff)', 'equipment' => 'Massage Stick', 'category_slug' => 'mobility', 'target_muscles' => ['Infraspinatus', 'Teres Minor', 'Subscapularis', 'Supraspinatus', 'Deltoid'], 'description' => 'Reach arm across chest. Roll stick across rear deltoid and rotator cuff area. Great for shoulder health.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

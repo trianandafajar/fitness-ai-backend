@@ -14,7 +14,7 @@ class GripTrainerSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Grip Trainer Standard Squeeze', 'equipment' => 'Grip Trainer', 'category_slug' => 'strength', 'target_muscles' => ['Forearm Flexors', 'Finger Flexors', 'Grip Muscles', 'Thenar Muscles', 'Lumbricals'], 'description' => 'Hold grip trainer in palm. Squeeze fully, hold peak, release with control. Builds crushing grip strength.'],
             ['name' => 'Grip Trainer Finger Squeeze (Individual)', 'equipment' => 'Grip Trainer', 'category_slug' => 'strength', 'target_muscles' => ['Finger Flexors', 'Forearm Flexors', 'Lumbricals', 'Interossei', 'Grip Muscles'], 'description' => 'Squeeze using individual fingers one at a time. Corrects grip imbalances and finger independence.'],
             ['name' => 'Grip Trainer Thumb Squeeze', 'equipment' => 'Grip Trainer', 'category_slug' => 'strength', 'target_muscles' => ['Thumb Muscles', 'Thenar Eminence', 'Forearm Flexors', 'Grip Muscles', 'Opponens Pollicis'], 'description' => 'Squeeze using thumb only. Emphasizes thumb and thenar muscle development.'],
@@ -59,11 +59,11 @@ class GripTrainerSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

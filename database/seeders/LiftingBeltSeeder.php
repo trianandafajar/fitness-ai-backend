@@ -14,7 +14,7 @@ class LiftingBeltSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Lifting Belt Squat', 'equipment' => 'Lifting Belt', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Hamstrings', 'Erector Spinae', 'Calves'], 'description' => 'Wear lifting belt snugly. Perform back squats. Belt increases intra-abdominal pressure and core stability.'],
             ['name' => 'Lifting Belt Front Squat', 'equipment' => 'Lifting Belt', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Core', 'Glutes', 'Shoulders', 'Traps', 'Hamstrings'], 'description' => 'Wear lifting belt. Perform front squats. Belt supports upright torso and core bracing.'],
             ['name' => 'Lifting Belt Deadlift', 'equipment' => 'Lifting Belt', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Erector Spinae', 'Core', 'Traps', 'Forearms', 'Lats'], 'description' => 'Wear lifting belt. Perform deadlifts. Belt protects lower back and enhances bracing.'],
@@ -61,11 +61,11 @@ class LiftingBeltSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

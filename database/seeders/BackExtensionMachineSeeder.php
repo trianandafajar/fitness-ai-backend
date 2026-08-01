@@ -14,7 +14,7 @@ class BackExtensionMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => '45-Degree Back Extension (Bodyweight)',
                 'equipment' => 'Back Extension Machine',
@@ -122,15 +122,15 @@ class BackExtensionMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/back-extension-machine');
+        $sourceDir = public_path('execises/back-extension-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

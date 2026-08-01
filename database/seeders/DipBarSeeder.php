@@ -12,7 +12,7 @@ class DipBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Parallel Bar Dip', 'equipment' => 'Dip Bar', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids'], 'description' => 'Lower body by bending elbows until shoulders are below elbows, then push up to lockout. Core stays engaged.'],
             ['name' => 'Weighted Parallel Bar Dip', 'equipment' => 'Dip Bar, Weight Belt', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids'], 'description' => 'Same as parallel dip but with added weight via a belt or dumbbell between legs to increase intensity.'],
             ['name' => 'Triceps Dip', 'equipment' => 'Dip Bar', 'category_slug' => 'strength', 'target_muscles' => ['Triceps', 'Anterior Deltoids'], 'description' => 'Keep torso upright and elbows tucked close to body. Lower until forearms are parallel, then press up.'],
@@ -35,7 +35,7 @@ class DipBarSeeder extends Seeder
             ['name' => 'Archer Dip (One-Arm Dominant)', 'equipment' => 'Dip Bar', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Core', 'Stabilizers'], 'description' => 'Dip while extending one arm straight and leaning onto the other arm. Emphasizes one side at a time. Advanced.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

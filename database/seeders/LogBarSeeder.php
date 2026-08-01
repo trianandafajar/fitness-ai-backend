@@ -12,7 +12,7 @@ class LogBarSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Log Clean (From Floor)', 'equipment' => 'Log Bar', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Erector Spinae', 'Traps', 'Biceps', 'Forearms', 'Core'], 'description' => 'Grip the log by its internal handles in a squat stance. Pull the log from the floor explosively, extending hips and knees, and catch it high on the chest in the front rack position with the elbows high. The log rests on the shoulders, not the hands.'],
             ['name' => 'Log Clean (From Lap)', 'equipment' => 'Log Bar', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Erector Spinae', 'Traps', 'Core'], 'description' => 'Start with the log resting on the lap, arms bent. Explosively extend the hips and knees, pulling the log upward and catching it on the chest. Reduces the pull from the floor and emphasizes hip drive.'],
             ['name' => 'Log Hang Clean', 'equipment' => 'Log Bar', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Hamstrings', 'Erector Spinae', 'Traps', 'Core'], 'description' => 'Begin with the log at hip level, dip slightly, then forcefully extend the hips, knees, and ankles, pulling the log onto the chest in one motion. Emphasizes the second pull.'],
@@ -32,7 +32,7 @@ class LogBarSeeder extends Seeder
             ['name' => 'Log Overhead Carry', 'equipment' => 'Log Bar', 'category_slug' => 'stability', 'target_muscles' => ['Shoulders', 'Triceps', 'Core', 'Traps', 'Glutes'], 'description' => 'Press the log overhead and lock out the arms, then walk. Demands extreme shoulder stability, core strength, and balance under a moving load.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

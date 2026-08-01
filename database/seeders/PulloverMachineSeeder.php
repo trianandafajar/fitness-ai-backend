@@ -14,7 +14,7 @@ class PulloverMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Pullover Machine Standard Pullover', 'equipment' => 'Pullover Machine', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Chest (Pectoralis Major)', 'Triceps (Long Head)', 'Core', 'Rhomboids', 'Serratus Anterior'], 'description' => 'Sit or lie on machine. Grip handles overhead. Pull down in arc toward hips. Squeeze lats at bottom.'],
             ['name' => 'Pullover Machine Wide Grip', 'equipment' => 'Pullover Machine', 'category_slug' => 'strength', 'target_muscles' => ['Lats (Stretch)', 'Rhomboids', 'Teres Major', 'Core', 'Serratus Anterior', 'Chest'], 'description' => 'Wide grip on handles. Pull down toward hips. Emphasizes lat stretch and back width.'],
             ['name' => 'Pullover Machine Narrow Grip', 'equipment' => 'Pullover Machine', 'category_slug' => 'strength', 'target_muscles' => ['Triceps (Long Head)', 'Chest (Lower)', 'Lats', 'Core', 'Biceps', 'Forearms'], 'description' => 'Narrow grip on handles. Pull down toward hips. More triceps and chest involvement.'],
@@ -55,11 +55,11 @@ class PulloverMachineSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

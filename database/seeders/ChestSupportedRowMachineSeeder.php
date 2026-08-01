@@ -14,7 +14,7 @@ class ChestSupportedRowMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Chest Supported Row Standard Grip', 'equipment' => 'Chest Supported Row Machine', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Biceps', 'Rear Deltoids', 'Core', 'Traps', 'Forearms'], 'description' => 'Chest against pad, neutral grip. Pull handles to chest. Squeeze shoulder blades. Emphasizes mid-back.'],
             ['name' => 'Chest Supported Row Wide Grip', 'equipment' => 'Chest Supported Row Machine', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Rear Deltoids', 'Teres Major', 'Core', 'Traps', 'Biceps'], 'description' => 'Wide grip on handles. Pull to chest. Emphasizes upper back width and rear delts.'],
             ['name' => 'Chest Supported Row Narrow Grip', 'equipment' => 'Chest Supported Row Machine', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Biceps', 'Core', 'Rhomboids', 'Forearms', 'Brachialis', 'Traps'], 'description' => 'Narrow grip on handles. Pull to lower chest. Emphasizes lats and biceps.'],
@@ -59,11 +59,11 @@ class ChestSupportedRowMachineSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

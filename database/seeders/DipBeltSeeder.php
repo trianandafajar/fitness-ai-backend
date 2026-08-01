@@ -14,7 +14,7 @@ class DipBeltSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Weighted Dip Belt Dip', 'equipment' => 'Dip Belt', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Core', 'Stabilizers'], 'description' => 'Attach weight to dip belt. Perform parallel bar dips. Added load increases upper body pressing intensity.'],
             ['name' => 'Weighted Dip Belt Pull-Up', 'equipment' => 'Dip Belt', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Biceps', 'Rhomboids', 'Rear Deltoids', 'Core', 'Forearms'], 'description' => 'Attach weight to dip belt. Perform pull-ups. Increased resistance for back and biceps.'],
             ['name' => 'Weighted Dip Belt Chin-Up', 'equipment' => 'Dip Belt', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Biceps', 'Rhomboids', 'Core', 'Forearms', 'Brachialis'], 'description' => 'Attach weight to dip belt. Perform chin-ups (supinated grip). Bicep-dominant pull with added load.'],
@@ -60,11 +60,11 @@ class DipBeltSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

@@ -14,7 +14,7 @@ class WristRollerSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Wrist Roller (Standard Roll Up)', 'equipment' => 'Wrist Roller', 'category_slug' => 'strength', 'target_muscles' => ['Forearm Flexors', 'Forearm Extensors', 'Grip Muscles', 'Brachioradialis', 'Biceps'], 'description' => 'Hold roller with arms extended. Roll weight up by alternating wrist flexion/extension. Lower with control.'],
             ['name' => 'Wrist Roller (Reverse Roll Up)', 'equipment' => 'Wrist Roller', 'category_slug' => 'strength', 'target_muscles' => ['Forearm Extensors', 'Brachioradialis', 'Grip Muscles', 'Forearm Flexors', 'Biceps'], 'description' => 'Roll weight up in opposite direction. Emphasizes extensors more than standard roll.'],
             ['name' => 'Wrist Roller (Pronated Grip)', 'equipment' => 'Wrist Roller', 'category_slug' => 'strength', 'target_muscles' => ['Forearm Flexors', 'Pronator Teres', 'Grip Muscles', 'Brachioradialis', 'Biceps'], 'description' => 'Palms facing down (pronated). Roll up and down. Focuses on wrist flexors and pronators.'],
@@ -58,11 +58,11 @@ class WristRollerSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

@@ -14,7 +14,7 @@ class SeatedRowMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Close Grip V-Bar Seated Row',
                 'equipment' => 'Seated Row Machine',
@@ -129,15 +129,15 @@ class SeatedRowMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/seated-row-machine');
+        $sourceDir = public_path('execises/seated-row-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

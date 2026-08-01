@@ -14,7 +14,7 @@ class AnkleWeightsSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Ankle Weight Leg Raise (Supine)', 'equipment' => 'Ankle Weights', 'category_slug' => 'strength', 'target_muscles' => ['Hip Flexors', 'Rectus Abdominis', 'Quadriceps', 'Core', 'Iliopsoas'], 'description' => 'Lie supine with weights on ankles. Raise straight legs to 90°, lower with control. Hip flexor and lower ab strength.'],
             ['name' => 'Ankle Weight Side-Lying Leg Raise', 'equipment' => 'Ankle Weights', 'category_slug' => 'strength', 'target_muscles' => ['Gluteus Medius', 'Gluteus Minimus', 'Tensor Fasciae Latae', 'Core', 'Hip Abductors'], 'description' => 'Lie on side with weight on top ankle. Raise top leg upward. Squeeze glute medius at peak.'],
             ['name' => 'Ankle Weight Glute Kickback (Quadruped)', 'equipment' => 'Ankle Weights', 'category_slug' => 'strength', 'target_muscles' => ['Gluteus Maximus', 'Hamstrings', 'Core', 'Erector Spinae', 'Hip Extensors'], 'description' => 'All fours position. Kick weighted leg straight back. Squeeze glutes at top. Posterior chain emphasis.'],
@@ -61,11 +61,11 @@ class AnkleWeightsSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

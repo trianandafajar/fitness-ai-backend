@@ -14,7 +14,7 @@ class SeatedLegCurlSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Seated Leg Curl Standard', 'equipment' => 'Seated Leg Curl', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings (Biceps Femoris, Semitendinosus, Semimembranosus)', 'Calves', 'Core', 'Glutes'], 'description' => 'Sit on machine, pad on lower calves. Curl pad toward glutes. Squeeze hamstring at peak. Lower with control.'],
             ['name' => 'Seated Leg Curl Single-Leg', 'equipment' => 'Seated Leg Curl', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Core', 'Calves', 'Glutes', 'Hip Extensors', 'Stabilizers'], 'description' => 'Curl with one leg only. Unilateral hamstring development and corrects imbalances.'],
             ['name' => 'Seated Leg Curl Isometric Hold (Peak Contraction)', 'equipment' => 'Seated Leg Curl', 'category_slug' => 'core', 'target_muscles' => ['Hamstrings', 'Core', 'Calves', 'Glutes', 'Hip Extensors'], 'description' => 'Curl pad to glutes and hold. Static hamstring contraction and endurance.'],
@@ -53,11 +53,11 @@ class SeatedLegCurlSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

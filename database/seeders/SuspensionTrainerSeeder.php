@@ -12,7 +12,7 @@ class SuspensionTrainerSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Suspension Trainer Push-Up', 'equipment' => 'Suspension Trainer', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Anterior Deltoids', 'Core', 'Stabilizers'], 'description' => 'Hands in straps, plank position. Lower chest toward hands, push up. Unstable straps increase core and stabilizer demand.'],
             ['name' => 'Suspension Trainer Inverted Row', 'equipment' => 'Suspension Trainer', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Biceps', 'Rear Deltoids', 'Core', 'Forearms'], 'description' => 'Lie under straps, pull chest to hands. Bodyweight row with suspension instability.'],
             ['name' => 'Suspension Trainer Atomic Push-Up', 'equipment' => 'Suspension Trainer', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Core (Lower Abs)', 'Shoulders', 'Hip Flexors'], 'description' => 'Push-up with feet in straps. At top, tuck knees to chest. Combines push-up with core crunch.'],
@@ -54,7 +54,7 @@ class SuspensionTrainerSeeder extends Seeder
             ['name' => 'Suspension Trainer Superman Row', 'equipment' => 'Suspension Trainer', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Erector Spinae', 'Core', 'Biceps', 'Rear Deltoids'], 'description' => 'Hang face down with legs extended. Row body to hands. Full posterior chain engagement.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

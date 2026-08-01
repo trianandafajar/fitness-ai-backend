@@ -14,7 +14,7 @@ class DipStationSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Triceps Dip (Upright)',
                 'equipment' => 'Dip Station',
@@ -164,15 +164,15 @@ class DipStationSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/dip-station');
+        $sourceDir = public_path('execises/dip-station');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

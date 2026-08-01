@@ -14,7 +14,7 @@ class SissySquatMachineSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Standard Sissy Squat',
                 'equipment' => 'Sissy Squat Machine',
@@ -122,15 +122,15 @@ class SissySquatMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/sissy-squat-machine');
+        $sourceDir = public_path('execises/sissy-squat-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

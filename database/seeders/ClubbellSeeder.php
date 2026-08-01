@@ -12,7 +12,7 @@ class ClubbellSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Clubbell One-Arm Swipe', 'equipment' => 'Clubbell', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders', 'Core', 'Forearms', 'Traps', 'Lats', 'Obliques'], 'description' => 'Swing club in arc from behind shoulder to front. Rotational shoulder and core engagement.'],
             ['name' => 'Clubbell Two-Arm Swipe', 'equipment' => 'Clubbell', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders', 'Core', 'Forearms', 'Traps', 'Chest', 'Lats'], 'description' => 'Swing both clubs simultaneously from behind shoulders to front. Synchronized shoulder and core work.'],
             ['name' => 'Clubbell Mill (Helicopter)', 'equipment' => 'Clubbell', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders', 'Core', 'Traps', 'Forearms', 'Lats', 'Rhomboids', 'Obliques'], 'description' => 'Circle club continuously around head in windmill pattern. Full shoulder mobility and core stability.'],
@@ -51,7 +51,7 @@ class ClubbellSeeder extends Seeder
             ['name' => 'Clubbell Wrist Rotation', 'equipment' => 'Clubbell', 'category_slug' => 'strength', 'target_muscles' => ['Forearms (Flexors/Extensors)', 'Biceps', 'Brachioradialis', 'Grip Muscles'], 'description' => 'Rotate wrist while holding club. Forearm and grip strength development.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

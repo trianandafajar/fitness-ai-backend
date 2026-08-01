@@ -14,7 +14,7 @@ class PreacherCurlBenchSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Barbell Preacher Curl (EZ-Bar)',
                 'equipment' => 'Preacher Curl Bench',
@@ -164,15 +164,15 @@ class PreacherCurlBenchSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/preacher-curl-bench');
+        $sourceDir = public_path('execises/preacher-curl-bench');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

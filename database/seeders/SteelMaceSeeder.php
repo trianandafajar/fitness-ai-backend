@@ -12,7 +12,7 @@ class SteelMaceSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Steel Mace 360 Swing', 'equipment' => 'Steel Mace', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Latissimus Dorsi', 'Core', 'Obliques', 'Grip'], 'description' => 'Hold the mace in both hands at the end of the handle. Swing the ball from one side of the head, behind the back, and to the other side in a full circular arc. Engages the entire shoulder girdle with rotational core strength.'],
             ['name' => 'Steel Mace 10-to-2 Swing', 'equipment' => 'Steel Mace', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Latissimus Dorsi', 'Core', 'Obliques', 'Grip'], 'description' => 'Swing the mace in a pendulum motion from one shoulder down and across the back to the other shoulder, mimicking the hands of a clock moving between 10 and 2. Improves shoulder mobility and control.'],
             ['name' => 'Steel Mace Single-Arm 360', 'equipment' => 'Steel Mace', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders (unilateral)', 'Rotator Cuff', 'Core', 'Forearms'], 'description' => 'Perform the 360 swing using only one hand. Greatly increases the stabilisation demands on the rotator cuff and grip. Switch hands each set.'],
@@ -55,7 +55,7 @@ class SteelMaceSeeder extends Seeder
             ['name' => 'Steel Mace Hip Thrust', 'equipment' => 'Steel Mace', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Core'], 'description' => 'Sit on the floor, upper back against a bench, mace across the hips. Drive the heels down to extend the hips upward, squeezing the glutes at the top. The padded shaft can be more comfortable on the hips.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

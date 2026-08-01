@@ -12,7 +12,7 @@ class AbMatSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Ab Mat Crunch', 'equipment' => 'Ab Mat', 'category_slug' => 'strength', 'target_muscles' => ['Rectus Abdominis (Upper and Lower)', 'Obliques'], 'description' => 'Lie back on Ab Mat with knees bent. Curl torso up by contracting abs, hold peak, then lower with control.'],
             ['name' => 'Weighted Ab Mat Crunch', 'equipment' => 'Ab Mat, Weight Plate/Dumbbell', 'category_slug' => 'strength', 'target_muscles' => ['Rectus Abdominis', 'Obliques', 'Hip Flexors'], 'description' => 'Perform ab mat crunch while holding a weight plate on chest or behind head. Increases resistance and intensity.'],
             ['name' => 'Ab Mat Sit-Up', 'equipment' => 'Ab Mat', 'category_slug' => 'strength', 'target_muscles' => ['Rectus Abdominis', 'Hip Flexors', 'Obliques', 'Core'], 'description' => 'Full sit-up from supine to seated position using the Ab Mat for lumbar support and deeper spinal flexion.'],
@@ -45,7 +45,7 @@ class AbMatSeeder extends Seeder
             ['name' => 'Ab Mat Oblique Crunch', 'equipment' => 'Ab Mat', 'category_slug' => 'strength', 'target_muscles' => ['Obliques', 'Rectus Abdominis', 'Core'], 'description' => 'Lie sideways on Ab Mat with knees bent. Crunch up by bringing ribcage toward hips. Targets obliques specifically.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

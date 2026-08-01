@@ -14,7 +14,7 @@ class CalfPressSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Calf Press Standard (Seated)', 'equipment' => 'Calf Press', 'category_slug' => 'strength', 'target_muscles' => ['Soleus', 'Gastrocnemius', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Sit on machine with knees bent 90°. Place toes on platform, heels hanging. Press with toes, raise heels. Lower with control.'],
             ['name' => 'Calf Press Single-Leg (Seated)', 'equipment' => 'Calf Press', 'category_slug' => 'strength', 'target_muscles' => ['Soleus', 'Gastrocnemius', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Press with one leg only. Unilateral calf development and corrects imbalances.'],
             ['name' => 'Calf Press Standard (Standing)', 'equipment' => 'Calf Press', 'category_slug' => 'strength', 'target_muscles' => ['Gastrocnemius', 'Soleus', 'Calves', 'Core', 'Stabilizers'], 'description' => 'Stand on machine with shoulders under pads. Press with toes, raise heels. Emphasizes gastrocnemius more than seated.'],
@@ -53,11 +53,11 @@ class CalfPressSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

@@ -14,7 +14,7 @@ class TBarRowPlatformSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'T-Bar Row Platform Standard Grip', 'equipment' => 'T-Bar Row Platform', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Biceps', 'Rear Deltoids', 'Core', 'Traps', 'Forearms'], 'description' => 'Straddle platform, chest on pad, neutral grip. Row bar to chest. Classic T-bar row.'],
             ['name' => 'T-Bar Row Platform Wide Grip', 'equipment' => 'T-Bar Row Platform', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Rear Deltoids', 'Teres Major', 'Core', 'Traps', 'Biceps'], 'description' => 'Wide grip on bar. Row to chest. Emphasizes back width and upper lats.'],
             ['name' => 'T-Bar Row Platform Narrow Grip', 'equipment' => 'T-Bar Row Platform', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Biceps', 'Rhomboids', 'Core', 'Forearms', 'Brachialis', 'Traps'], 'description' => 'Narrow grip on bar. Row to lower chest. Emphasizes lats and biceps.'],
@@ -55,11 +55,11 @@ class TBarRowPlatformSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

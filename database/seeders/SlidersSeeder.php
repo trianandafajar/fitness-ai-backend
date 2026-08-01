@@ -12,7 +12,7 @@ class SlidersSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Slider Plank', 'equipment' => 'Sliders', 'category_slug' => 'strength', 'target_muscles' => ['Core', 'Shoulders', 'Chest', 'Triceps', 'Glutes'], 'description' => 'Hands or feet on sliders in plank position. Hold isometric while engaging entire core and stabilizers.'],
             ['name' => 'Slider Mountain Climber', 'equipment' => 'Sliders', 'category_slug' => 'strength', 'target_muscles' => ['Core (Lower Abs)', 'Hip Flexors', 'Shoulders', 'Quadriceps'], 'description' => 'Plank with feet on sliders. Alternate driving knees to chest rapidly. Dynamic cardio and core movement.'],
             ['name' => 'Slider Pike', 'equipment' => 'Sliders', 'category_slug' => 'strength', 'target_muscles' => ['Shoulders', 'Core', 'Triceps', 'Upper Chest', 'Hip Flexors'], 'description' => 'Plank with feet on sliders. Pike hips up by sliding feet toward hands until body forms an inverted V.'],
@@ -45,7 +45,7 @@ class SlidersSeeder extends Seeder
             ['name' => 'Slider Oblique Crunch (Kneeling)', 'equipment' => 'Sliders', 'category_slug' => 'strength', 'target_muscles' => ['Obliques', 'Rectus Abdominis', 'Core'], 'description' => 'Kneel with hands on sliders. Slide one hand forward and away while twisting torso. Dynamic oblique and shoulder work.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

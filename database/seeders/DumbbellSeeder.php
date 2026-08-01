@@ -12,7 +12,7 @@ class DumbbellSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             [
                 'name' => 'Dumbbell Bench Press (Flat)',
                 'equipment' => 'Dumbbell',
@@ -533,7 +533,7 @@ class DumbbellSeeder extends Seeder
             ],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             $categoryId = $categories[$data['category_slug']] ?? null;
             unset($data['category_slug']);
             $data['category_id'] = $categoryId;

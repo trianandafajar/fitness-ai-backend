@@ -12,7 +12,7 @@ class TireSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Tire Flip', 'equipment' => 'Tire', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Quadriceps', 'Core', 'Chest', 'Shoulders', 'Triceps', 'Traps'], 'description' => 'Squat low, grip tire tread, drive through legs, and flip tire over. Full-body explosive power movement.'],
             ['name' => 'Tire Flip (Consecutive)', 'equipment' => 'Tire', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Quadriceps', 'Core', 'Chest', 'Shoulders', 'Triceps'], 'description' => 'Flip tire repeatedly for distance or time. Cardio and muscular endurance combined with explosive power.'],
             ['name' => 'Tire Sledgehammer Strike', 'equipment' => 'Tire, Sledgehammer', 'category_slug' => 'strength', 'target_muscles' => ['Core', 'Shoulders', 'Lats', 'Triceps', 'Forearms', 'Obliques', 'Glutes'], 'description' => 'Swing sledgehammer down onto tire. Rotational core power and upper body striking strength.'],
@@ -50,7 +50,7 @@ class TireSeeder extends Seeder
             ['name' => 'Tire Depth Jump (Off Tire)', 'equipment' => 'Tire', 'category_slug' => 'power', 'target_muscles' => ['Quadriceps', 'Glutes', 'Calves', 'Core', 'Stabilizers', 'Hip Flexors'], 'description' => 'Step off tire and immediately jump up upon landing. Reactive strength and plyometric power.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],

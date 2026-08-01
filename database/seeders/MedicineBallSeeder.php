@@ -12,7 +12,7 @@ class MedicineBallSeeder extends Seeder
     {
         $categories = ExerciseCategory::pluck('id', 'slug');
 
-        $exercises = [
+        $execises = [
             ['name' => 'Medicine Ball Chest Pass (Standing)', 'equipment' => 'Medicine Ball', 'category_slug' => 'power', 'target_muscles' => ['Pectoralis Major', 'Anterior Deltoids', 'Triceps', 'Core'], 'description' => 'Stand facing a wall or partner, hold the ball at chest level, and explosively push it forward with both hands, extending arms fully. Catch and repeat.'],
             ['name' => 'Medicine Ball Overhead Throw', 'equipment' => 'Medicine Ball', 'category_slug' => 'power', 'target_muscles' => ['Anterior Deltoids', 'Triceps', 'Latissimus Dorsi', 'Core', 'Quadriceps'], 'description' => 'Stand holding the ball overhead, step forward and throw it forcefully against the ground or to a partner, engaging the lats and core to generate power.'],
             ['name' => 'Medicine Ball Scoop Toss', 'equipment' => 'Medicine Ball', 'category_slug' => 'power', 'target_muscles' => ['Glutes', 'Hamstrings', 'Quadriceps', 'Shoulders', 'Core'], 'description' => 'Squat holding the ball between legs, then explosively extend hips and knees to throw the ball upward and backward over the head, as if tossing behind you.'],
@@ -61,7 +61,7 @@ class MedicineBallSeeder extends Seeder
             ['name' => 'Medicine Ball Superman Hold (Back Extension)', 'equipment' => 'Medicine Ball', 'category_slug' => 'strength', 'target_muscles' => ['Erector Spinae', 'Glutes', 'Rhomboids'], 'description' => 'Lie face down, hold the ball overhead with straight arms, raise the chest and arms off the floor, squeezing the back muscles, hold for time.'],
         ];
 
-        foreach ($exercises as $data) {
+        foreach ($execises as $data) {
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
