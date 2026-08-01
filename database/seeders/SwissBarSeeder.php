@@ -42,7 +42,7 @@ class SwissBarSeeder extends Seeder
             ['name' => 'Swiss Bar Good Morning', 'equipment' => 'Swiss Bar', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Glutes', 'Erector Spinae', 'Core'], 'description' => 'Place the bar on the upper back, grip the neutral handles for a more comfortable shoulder position. Hinge forward at the hips, then stand back up.'],
         ];
 
-        $sourceDir = public_path('exercises/swiss-bar');
+        $sourceDir = public_path('execises/swiss-bar');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 

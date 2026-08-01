@@ -129,7 +129,7 @@ class HipThrustMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/hip-thrust-machine');
+        $sourceDir = public_path('execises/hip-thrust-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 

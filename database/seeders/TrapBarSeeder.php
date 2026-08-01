@@ -33,7 +33,7 @@ class TrapBarSeeder extends Seeder
         ];
 
 
-        $sourceDir = public_path('exercises/trap-bar');
+        $sourceDir = public_path('execises/trap-bar');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 

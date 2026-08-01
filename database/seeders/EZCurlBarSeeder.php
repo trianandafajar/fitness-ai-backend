@@ -43,7 +43,7 @@ class EZCurlBarSeeder extends Seeder
         ];
 
 
-        $sourceDir = public_path('exercises/ez-curl-bar');
+        $sourceDir = public_path('execises/ez-curl-bar');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 

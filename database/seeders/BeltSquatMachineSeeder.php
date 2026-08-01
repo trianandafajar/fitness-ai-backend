@@ -143,7 +143,7 @@ class BeltSquatMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/belt-squat-machine');
+        $sourceDir = public_path('execises/belt-squat-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
