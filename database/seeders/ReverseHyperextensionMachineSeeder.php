@@ -56,7 +56,7 @@ class ReverseHyperextensionMachineSeeder extends Seeder
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

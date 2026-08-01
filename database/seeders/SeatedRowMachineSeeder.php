@@ -6,7 +6,7 @@ use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\File\File;
+use Illuminate\Http\File;
 
 class SeatedRowMachineSeeder extends Seeder
 {
@@ -137,7 +137,7 @@ class SeatedRowMachineSeeder extends Seeder
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

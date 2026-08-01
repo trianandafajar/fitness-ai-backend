@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
-class Treadmillexeciseseeder extends Seeder
+class TreadmillExerciseSeeder extends Seeder
 {
     public function run(): void
     {
@@ -137,7 +137,7 @@ class Treadmillexeciseseeder extends Seeder
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
-                $imagePath = Storage::disk('public')->putFile('execises', new File($sourceFile));
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
                 $data['image'] = $imagePath;
             }
 

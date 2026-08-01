@@ -14,9 +14,9 @@ class ExerciseDataSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('execises')->truncate();
-        Storage::disk('public')->deleteDirectory('execises');
-        Storage::disk('public')->makeDirectory('execises');
+        DB::table('exercises')->truncate();
+        Storage::disk('public')->deleteDirectory('exercises');
+        Storage::disk('public')->makeDirectory('exercises');
 
         $this->call([
             ExerciseCategorySeeder::class,
@@ -26,7 +26,7 @@ class ExerciseDataSeeder extends Seeder
             SpeedLadderSeeder::class, //
             SpinBikeSeeder::class,//
             StationaryBikeSeeder::class,//
-            Treadmillexeciseseeder::class,//
+            TreadmillExerciseSeeder::class,
             MiniBandSeeder::class,//
             ResistanceBandTubeSeeder::class,//
             ChainsSeeder::class,//

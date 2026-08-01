@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class FarmersWalkHandlesSeeder extends Seeder
 {
@@ -47,13 +49,28 @@ class FarmersWalkHandlesSeeder extends Seeder
             ['name' => 'Farmer\'s Walk (Overload Dropset)', 'equipment' => 'Farmer\'s Walk Handles', 'category_slug' => 'strength', 'target_muscles' => ['Forearms', 'Traps', 'Core', 'Quadriceps', 'Glutes', 'Calves', 'Lats'], 'description' => 'Start heavy, walk 10m, drop to medium weight, walk 10m, drop to light. Progressive overload dropset.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/farmers-walk-handles');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
