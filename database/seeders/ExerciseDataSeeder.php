@@ -118,7 +118,7 @@ class ExerciseDataSeeder extends Seeder
             RomanChairSeeder::class,
             YokeSeeder::class,
             FarmersWalkHandlesSeeder::class,
-            AtlasStoneSeeder::class,
+            AtlasStoneSeeder::class,//
             TireSeeder::class,//
             ClubbellSeeder::class,//
             BulgarianBagSeeder::class, //

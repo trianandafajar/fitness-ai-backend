@@ -56,7 +56,7 @@ class TireSeeder extends Seeder
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
-        foreach ($exercises as $i => $data) {
+        foreach ($execises as $i => $data) {
             $sourceFile = $files[$i] ?? null;
 
             if ($sourceFile) {
