@@ -122,7 +122,7 @@ class AbdominalCrunchMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/abdominal_crunch_machine');
+        $sourceDir = public_path('exercises/abdominal-crunch-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
