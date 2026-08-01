@@ -123,7 +123,7 @@ class ExerciseDataSeeder extends Seeder
             ClubbellSeeder::class,
             BulgarianBagSeeder::class,
             SuspensionTrainerSeeder::class,
-            LandmineAttachmentSeeder::class,
+            LandmineAttachmentSeeder::class,//
             WristRollerSeeder::class,//
             GripTrainerSeeder::class,//
             AnkleWeightsSeeder::class,//

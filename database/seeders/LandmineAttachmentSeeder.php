@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class LandmineAttachmentSeeder extends Seeder
 {
@@ -53,13 +55,28 @@ class LandmineAttachmentSeeder extends Seeder
             ['name' => 'Landmine Plate Loaded Thruster', 'equipment' => 'Landmine Attachment', 'category_slug' => 'strength', 'target_muscles' => ['Quadriceps', 'Glutes', 'Shoulders', 'Triceps', 'Core', 'Traps', 'Hamstrings'], 'description' => 'Front squat to overhead press in one fluid motion. Full-body explosive movement.'],
         ];
 
-        foreach ($exercises as $data) {
+        $sourceDir = public_path('execises/landmine-attachment');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
