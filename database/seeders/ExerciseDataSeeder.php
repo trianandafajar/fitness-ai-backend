@@ -119,10 +119,10 @@ class ExerciseDataSeeder extends Seeder
             YokeSeeder::class,
             FarmersWalkHandlesSeeder::class,
             AtlasStoneSeeder::class,
-            TireSeeder::class,
-            ClubbellSeeder::class,
-            BulgarianBagSeeder::class,
-            SuspensionTrainerSeeder::class,
+            TireSeeder::class,//
+            ClubbellSeeder::class,//
+            BulgarianBagSeeder::class, //
+            SuspensionTrainerSeeder::class,//
             LandmineAttachmentSeeder::class,//
             WristRollerSeeder::class,//
             GripTrainerSeeder::class,//

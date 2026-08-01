@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class SuspensionTrainerSeeder extends Seeder
 {
@@ -54,13 +56,28 @@ class SuspensionTrainerSeeder extends Seeder
             ['name' => 'Suspension Trainer Superman Row', 'equipment' => 'Suspension Trainer', 'category_slug' => 'strength', 'target_muscles' => ['Lats', 'Rhomboids', 'Erector Spinae', 'Core', 'Biceps', 'Rear Deltoids'], 'description' => 'Hang face down with legs extended. Row body to hands. Full posterior chain engagement.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/suspension-trainer');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
