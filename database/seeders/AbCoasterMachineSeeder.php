@@ -122,7 +122,7 @@ class AbCoasterMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/ab_coaster_machine');
+        $sourceDir = public_path('exercises/ab-coaster-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
