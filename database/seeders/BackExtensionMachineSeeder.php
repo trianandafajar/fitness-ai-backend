@@ -122,7 +122,7 @@ class BackExtensionMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/back_extension_machine');
+        $sourceDir = public_path('exercises/back-extension-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
