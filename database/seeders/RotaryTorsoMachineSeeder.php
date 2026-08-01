@@ -94,7 +94,7 @@ class RotaryTorsoMachineSeeder extends Seeder
             ],
         ];
 
-        $sourceDir = public_path('exercises/rotary_torso_machine');
+        $sourceDir = public_path('exercises/rotary-torso-machine');
         $files = glob($sourceDir . '/*.png');
         sort($files);
 
