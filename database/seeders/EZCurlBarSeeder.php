@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class EZCurlBarSeeder extends Seeder
 {
@@ -40,14 +42,24 @@ class EZCurlBarSeeder extends Seeder
             ['name' => 'EZ Bar Good Morning', 'equipment' => 'EZ Curl Bar', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Glutes', 'Erector Spinae', 'Core'], 'description' => 'Place the EZ bar across the upper back, hinge forward at the hips with a flat back, then return to standing. The curved bar can be more comfortable on the neck.'],
         ];
 
-        foreach ($exercises as $data) {
-            Exercise::create([
-                'name' => $data['name'],
-                'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
-                'target_muscles' => $data['target_muscles'],
-                'description' => $data['description'],
-            ]);
+
+        $sourceDir = public_path('exercises/ez-curl-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($exercises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+            $data['category_id'] = $categoryId;
+
+            Exercise::create($data);
         }
     }
 }
