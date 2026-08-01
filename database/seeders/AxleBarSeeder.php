@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class AxleBarSeeder extends Seeder
 {
@@ -40,13 +42,24 @@ class AxleBarSeeder extends Seeder
             ['name' => 'Axle Bar Overhead Carry (Lockout Walk)', 'equipment' => 'Axle Bar', 'category_slug' => 'stability', 'target_muscles' => ['Shoulders', 'Triceps', 'Core', 'Traps', 'Forearms'], 'description' => 'Press the axle bar overhead with locked arms and walk. The thick bar demands constant grip tension and shoulder stabilization during movement.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/axle-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }

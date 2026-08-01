@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class LogBarSeeder extends Seeder
 {
@@ -32,13 +34,24 @@ class LogBarSeeder extends Seeder
             ['name' => 'Log Overhead Carry', 'equipment' => 'Log Bar', 'category_slug' => 'stability', 'target_muscles' => ['Shoulders', 'Triceps', 'Core', 'Traps', 'Glutes'], 'description' => 'Press the log overhead and lock out the arms, then walk. Demands extreme shoulder stability, core strength, and balance under a moving load.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/log-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
