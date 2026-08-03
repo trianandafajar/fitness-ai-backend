@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class ResistanceBandSeeder extends Seeder
 {
@@ -69,13 +71,24 @@ class ResistanceBandSeeder extends Seeder
             ['name' => 'Band-Resisted Push-Up (Band on Wrists)', 'equipment' => 'Resistance Band', 'category_slug' => 'strength', 'target_muscles' => ['Pectoralis Major', 'Triceps', 'Anterior Deltoids'], 'description' => 'Loop a band around the back and hold the ends under the palms. Perform push-ups. The band increases resistance at the top.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/resistance-band');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
