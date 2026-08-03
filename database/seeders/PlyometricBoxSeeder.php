@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class PlyometricBoxSeeder extends Seeder
 {
@@ -49,13 +51,24 @@ class PlyometricBoxSeeder extends Seeder
             ['name' => 'Box Hamstring Walkout (Glute-Ham Negative)', 'equipment' => 'Plyometric Box', 'category_slug' => 'strength', 'target_muscles' => ['Hamstrings', 'Glutes', 'Core'], 'description' => 'Kneel on the box with feet secured, lower the torso forward slowly using the hamstrings to resist gravity, then catch yourself with hands and push back up.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/plyometric-box');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
