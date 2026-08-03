@@ -101,7 +101,7 @@ class ExerciseDataSeeder extends Seeder
             StabilityBallSeeder::class,
             ResistanceBandSeeder::class,
             PullUpBarSeeder::class,
-            DipBarSeeder::class,
+            DipBarSeeder::class,//
             GymnasticRingsSeeder::class,//
             ParallettesSeeder::class,//
             AbMatSeeder::class,//

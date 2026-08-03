@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class DipBarSeeder extends Seeder
 {
@@ -35,13 +37,28 @@ class DipBarSeeder extends Seeder
             ['name' => 'Archer Dip (One-Arm Dominant)', 'equipment' => 'Dip Bar', 'category_slug' => 'strength', 'target_muscles' => ['Chest', 'Triceps', 'Core', 'Stabilizers'], 'description' => 'Dip while extending one arm straight and leaning onto the other arm. Emphasizes one side at a time. Advanced.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/dip-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
