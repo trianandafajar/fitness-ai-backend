@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class SteelMaceSeeder extends Seeder
 {
@@ -55,13 +57,24 @@ class SteelMaceSeeder extends Seeder
             ['name' => 'Steel Mace Hip Thrust', 'equipment' => 'Steel Mace', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Hamstrings', 'Core'], 'description' => 'Sit on the floor, upper back against a bench, mace across the hips. Drive the heels down to extend the hips upward, squeezing the glutes at the top. The padded shaft can be more comfortable on the hips.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/stell-mace');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
