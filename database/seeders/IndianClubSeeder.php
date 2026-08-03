@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class IndianClubSeeder extends Seeder
 {
@@ -49,13 +51,24 @@ class IndianClubSeeder extends Seeder
             ['name' => 'Indian Club Breath and Flow Sequence', 'equipment' => 'Indian Club', 'category_slug' => 'mobility', 'target_muscles' => ['Full Body', 'Shoulders', 'Core', 'Lungs'], 'description' => 'Combine multiple swing patterns (front, outside, inside) into a flowing sequence coordinated with deep, rhythmic breathing. Promotes relaxation, mobility, and full-body coordination.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/indian-club');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }

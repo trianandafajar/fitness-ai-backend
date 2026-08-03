@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class BattleRopeSeeder extends Seeder
 {
@@ -40,13 +42,24 @@ class BattleRopeSeeder extends Seeder
             ['name' => 'Isometric Hold with Waves (Wall Sit)', 'equipment' => 'Battle Rope', 'category_slug' => 'endurance', 'target_muscles' => ['Quadriceps', 'Glutes', 'Core', 'Shoulders', 'Forearms'], 'description' => 'Assume a wall sit position against a wall and perform continuous rope waves. Severely burns the quads while challenging shoulder endurance.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/battle-rope');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
