@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class BarbellSeeder extends Seeder
 {
@@ -93,7 +95,17 @@ class BarbellSeeder extends Seeder
             ['name' => 'Barbell Wide Stance Squat', 'equipment' => 'Barbell', 'category_slug' => 'strength', 'target_muscles' => ['Glutes', 'Adductors', 'Quadriceps', 'Hamstrings'], 'description' => 'Take a wide stance with toes slightly out. Squat down, pushing knees outward to engage the inner thighs and glutes.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/barbel');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             $categoryId = $categories[$data['category_slug']] ?? null;
             unset($data['category_slug']);
             $data['category_id'] = $categoryId;
