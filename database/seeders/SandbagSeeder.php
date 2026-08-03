@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class SandbagSeeder extends Seeder
 {
@@ -75,13 +77,24 @@ class SandbagSeeder extends Seeder
             ['name' => 'Lateral Bound (Skater Jump)', 'equipment' => 'Sandbag', 'category_slug' => 'power', 'target_muscles' => ['Glutes', 'Quadriceps', 'Adductors', 'Calves', 'Core'], 'description' => 'Hold the sandbag at the chest. Jump laterally from one foot to the other, landing softly. The bag\'s momentum challenges lateral stability.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/sandbag');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
