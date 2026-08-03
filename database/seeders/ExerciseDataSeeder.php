@@ -106,7 +106,7 @@ class ExerciseDataSeeder extends Seeder
             ParallettesSeeder::class,
             AbMatSeeder::class,
             SlidersSeeder::class,
-            FoamRollerSeeder::class,
+            FoamRollerSeeder::class,//
             MassageStickSeeder::class,//
             HypericeSeeder::class,//
             SledSeeder::class,//
