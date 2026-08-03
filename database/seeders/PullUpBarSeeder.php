@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class PullUpBarSeeder extends Seeder
 {
@@ -50,13 +52,24 @@ class PullUpBarSeeder extends Seeder
             ['name' => 'Pull-Up Bar Rollover (Skin the Cat)', 'equipment' => 'Pull-up Bar', 'category_slug' => 'mobility', 'target_muscles' => ['Shoulders', 'Rotator Cuff', 'Core', 'Grip'], 'description' => 'Hang, tuck the knees up and roll backward over the bar until the body is inverted, then reverse. Improves shoulder mobility and control.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/pull-up-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
