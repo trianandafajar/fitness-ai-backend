@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class WallBallSeeder extends Seeder
 {
@@ -66,13 +68,24 @@ class WallBallSeeder extends Seeder
             ['name' => 'Wall Ball Wall Sit with Chest Pass', 'equipment' => 'Wall Ball', 'category_slug' => 'endurance', 'target_muscles' => ['Quadriceps', 'Glutes', 'Pectorals', 'Triceps'], 'description' => 'Hold a wall sit against a wall, perform chest passes against the opposite wall or to a partner, maintaining the squat position.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/wall-ball');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
