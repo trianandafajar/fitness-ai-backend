@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class WeightPlatesSeeder extends Seeder
 {
@@ -66,13 +68,24 @@ class WeightPlatesSeeder extends Seeder
             ['name' => 'Plate Swings', 'equipment' => 'Weight Plates', 'category_slug' => 'power', 'target_muscles' => ['Glutes', 'Hamstrings', 'Quadriceps', 'Core', 'Shoulders'], 'description' => 'Hold a plate by the hole with both hands, hinge at the hips, and swing it from between the legs up to chest height explosively, mimicking a kettlebell swing.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/weight-plates');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
