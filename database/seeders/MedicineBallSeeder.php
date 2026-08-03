@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class MedicineBallSeeder extends Seeder
 {
@@ -61,13 +63,24 @@ class MedicineBallSeeder extends Seeder
             ['name' => 'Medicine Ball Superman Hold (Back Extension)', 'equipment' => 'Medicine Ball', 'category_slug' => 'strength', 'target_muscles' => ['Erector Spinae', 'Glutes', 'Rhomboids'], 'description' => 'Lie face down, hold the ball overhead with straight arms, raise the chest and arms off the floor, squeezing the back muscles, hold for time.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/medicine-ball');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
