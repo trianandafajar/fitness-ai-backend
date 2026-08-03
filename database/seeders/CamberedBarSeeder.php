@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class CamberedBarSeeder extends Seeder
 {
@@ -33,13 +35,24 @@ class CamberedBarSeeder extends Seeder
             ['name' => 'Cambered Bar Bent-Over Row', 'equipment' => 'Cambered Bar', 'category_slug' => 'strength', 'target_muscles' => ['Latissimus Dorsi', 'Rhomboids', 'Traps', 'Biceps', 'Erector Spinae'], 'description' => 'Hinge forward, hold the cambered bar with a neutral or pronated grip, row it to the lower abdomen. The bend provides a deeper stretch at the bottom.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/cambered-bar');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
