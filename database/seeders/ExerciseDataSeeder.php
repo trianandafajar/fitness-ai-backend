@@ -109,13 +109,13 @@ class ExerciseDataSeeder extends Seeder
             FoamRollerSeeder::class,
             MassageStickSeeder::class,
             HypericeSeeder::class,
-            SledSeeder::class,
-            MiniTrampolineSeeder::class,
-            SkippingRopeSeeder::class,
-            CoreTrainerSeeder::class,
-            PullUpTowerSeeder::class,
-            ParallelBarsSeeder::class,
-            RomanChairSeeder::class,
+            SledSeeder::class,//
+            MiniTrampolineSeeder::class,//
+            SkippingRopeSeeder::class,//
+            CoreTrainerSeeder::class,//
+            PullUpTowerSeeder::class,//
+            ParallelBarsSeeder::class,//
+            RomanChairSeeder::class,//
             YokeSeeder::class, //
             FarmersWalkHandlesSeeder::class,//
             AtlasStoneSeeder::class,//
