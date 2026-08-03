@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class StabilityBallSeeder extends Seeder
 {
@@ -52,13 +54,24 @@ class StabilityBallSeeder extends Seeder
             ['name' => 'Stability Ball Lat Stretch', 'equipment' => 'Stability Ball', 'category_slug' => 'mobility', 'target_muscles' => ['Latissimus Dorsi', 'Teres Major', 'Core'], 'description' => 'Kneel facing the ball, place both hands on it, and roll the ball forward, lowering the chest toward the floor, feeling a stretch in the lats and shoulders.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/stability-ball');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
