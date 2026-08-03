@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class BosuBallSeeder extends Seeder
 {
@@ -48,13 +50,24 @@ class BosuBallSeeder extends Seeder
             ['name' => 'Bosu Pass Through (Legs)', 'equipment' => 'Bosu Ball', 'category_slug' => 'core', 'target_muscles' => ['Rectus Abdominis', 'Hip Flexors', 'Obliques'], 'description' => 'Lie on the back, hold the Bosu between hands and feet. Pass the Bosu from hands to feet by crunching up, then lower back down. Repeat the pass. Seamless core integration.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/bosu-ball');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
