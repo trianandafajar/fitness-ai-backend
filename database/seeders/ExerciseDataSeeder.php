@@ -108,7 +108,7 @@ class ExerciseDataSeeder extends Seeder
             SlidersSeeder::class,
             FoamRollerSeeder::class,
             MassageStickSeeder::class,
-            HypericeSeeder::class,
+            HypericeSeeder::class,//
             SledSeeder::class,//
             MiniTrampolineSeeder::class,//
             SkippingRopeSeeder::class,//
