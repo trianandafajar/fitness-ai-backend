@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class MassageStickSeeder extends Seeder
 {
@@ -46,13 +48,28 @@ class MassageStickSeeder extends Seeder
             ['name' => 'Massage Stick Posterior Shoulder (Rotator Cuff)', 'equipment' => 'Massage Stick', 'category_slug' => 'mobility', 'target_muscles' => ['Infraspinatus', 'Teres Minor', 'Subscapularis', 'Supraspinatus', 'Deltoid'], 'description' => 'Reach arm across chest. Roll stick across rear deltoid and rotator cuff area. Great for shoulder health.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/massage-stick');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $imagePath = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+                $data['image'] = $imagePath;
+            }
+
+            $categoryId = $categories[$data['category_slug']] ?? null;
+            unset($data['category_slug']);
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
-                'category_id' => $categories[$data['category_slug']],
+                'category_id' => $categoryId,
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
