@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class KettlebellSeeder extends Seeder
 {
@@ -57,13 +59,24 @@ class KettlebellSeeder extends Seeder
             ['name' => 'Kettlebell Lunge with Rotation', 'equipment' => 'Kettlebell', 'category_slug' => 'core', 'target_muscles' => ['Quadriceps', 'Glutes', 'Obliques', 'Core'], 'description' => 'Hold a kettlebell at your chest, step into a forward lunge, and rotate your torso toward the leading leg. Return to center and repeat.'],
         ];
 
-        foreach ($execises as $data) {
+        $sourceDir = public_path('execises/kettlebell');
+        $files = glob($sourceDir . '/*.png');
+        sort($files);
+
+        foreach ($execises as $i => $data) {
+            $sourceFile = $files[$i] ?? null;
+
+            if ($sourceFile) {
+                $data['image'] = Storage::disk('public')->putFile('exercises', new File($sourceFile));
+            }
+
             Exercise::create([
                 'name' => $data['name'],
                 'equipment' => $data['equipment'],
                 'category_id' => $categories[$data['category_slug']],
                 'target_muscles' => $data['target_muscles'],
                 'description' => $data['description'],
+                'image' => $data['image'] ?? null,
             ]);
         }
     }
