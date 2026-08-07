@@ -161,13 +161,17 @@ class OnboardingController extends Controller
     "Exercise name - sets x reps | day_of_week | time"
   ],
   "meal_suggestions": [
-    "Food name | meal_time | time"
+    "Oatmeal with Banana | breakfast | 07:30",
+    "Scrambled Eggs with Toast | breakfast | 07:30",
+    "Grilled Chicken Rice | lunch | 12:30",
+    "Almond | snack | 15:30",
+    "Greek Yogurt | snack | 15:30"
   ]
 }
 
 ### RULES
 - exercise_suggestions: Each item format is "Exercise name - sets x reps | day_of_week | time". Example: "Bench Press - 4x12 | monday,thursday | 07:00".
-- meal_suggestions: Each item format is "Food name | meal_time | time". Example: "Oatmeal with Banana | breakfast | 07:30". Give 2-3 different food options per meal_time so meals vary across days.
+- meal_suggestions: Each item format is "Food name | meal_time | time". Example: "Oatmeal with Banana | breakfast | 07:30". Provide 2-3 DIFFERENT food options for EACH meal_time (breakfast, lunch, dinner, snack) — never list only one option for a meal_time. Do not repeat the same food for the same meal_time across days; rotate options so the weekly plan varies.
 - day_of_week must be one or comma-separated from: monday,tuesday,wednesday,thursday,friday,saturday,sunday.
 - meal_time must be one of: breakfast, lunch, dinner, snack.
 - Use specific exercise and food names (real, well-known exercises and foods).

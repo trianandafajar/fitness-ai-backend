@@ -6,6 +6,7 @@ use App\Models\Exercise;
 use App\Models\Food;
 use App\Models\MealSchedule;
 use App\Models\WorkoutSchedule;
+use Illuminate\Support\Facades\DB;
 
 class AiEnrichmentService
 {
@@ -221,12 +222,12 @@ class AiEnrichmentService
 
         foreach ($grouped as $mealTime => $items) {
             $time = $items[0]['time'] ?? $defaultTimes[$mealTime];
-            $foodCount = count($items);
+            $foodNames = $this->distinctMealFoods($items);
+            $foodCount = count($foodNames);
 
             foreach ($weekdays as $index => $day) {
                 // Rotate food options across days
-                $item = $items[$index % $foodCount];
-                $foodName = $item['food']['name'] ?? '';
+                $foodName = $foodNames[$index % $foodCount];
 
                 $schedule = MealSchedule::firstOrCreate(
                     [
@@ -253,5 +254,45 @@ class AiEnrichmentService
                 }
             }
         }
+    }
+
+    private function distinctMealFoods(array $items): array
+    {
+        $foodNames = [];
+
+        foreach ($items as $item) {
+            $name = $item['food']['name'] ?? null;
+            if (!$name) continue;
+
+            if (in_array(strtolower($name), array_map('strtolower', $foodNames), true)) continue;
+
+            $foodNames[] = $name;
+        }
+
+        if (count($foodNames) >= 3) {
+            return $foodNames;
+        }
+
+        $category = null;
+        foreach ($items as $item) {
+            if (!empty($item['food']['category'])) {
+                $category = $item['food']['category'];
+                break;
+            }
+        }
+
+        $query = Food::query()
+            ->whereNotIn(DB::raw('LOWER(name)'), array_map('strtolower', $foodNames))
+            ->orderBy('id');
+
+        if ($category) {
+            $query->whereHas('categoryModel', fn($q) => $q->where('slug', $category));
+        }
+
+        foreach ($query->limit(3 - count($foodNames))->pluck('name') as $name) {
+            $foodNames[] = $name;
+        }
+
+        return $foodNames;
     }
 }
