@@ -20,6 +20,15 @@ class GenerateWeeklyKpiReportJob implements ShouldQueue
 
         User::chunk(100, function ($users) use ($kpi, $ai, $weekStart, $weekEnd) {
             foreach ($users as $user) {
+                $hasAnyData = $user->workoutSchedules()->exists()
+                    || $user->weightLogs()->exists()
+                    || $user->attendances()->exists()
+                    || $user->mealLogs()->exists();
+
+                if (!$hasAnyData) {
+                    continue;
+                }
+
                 $record = $kpi->calculateWeekly($user, $weekStart);
 
                 try {
