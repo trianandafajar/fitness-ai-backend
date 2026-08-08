@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             FoodDataSeeder::class,
             ExerciseDataSeeder::class,
+            AdminUserSeeder::class,
         ]);
     }
 }
