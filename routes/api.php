@@ -17,11 +17,15 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\StreakController;
 use App\Http\Controllers\Api\WeightLogController;
 use App\Http\Controllers\Api\WorkoutScheduleController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 // Auth
 Route::post('/auth/register', [AuthController::class, 'register']);
+Route::get('/auth/verify-email/status', [AuthController::class, 'verificationStatus']);
+Route::post('/auth/verify-email', [AuthController::class, 'verifyEmail']);
+Route::post('/auth/verify-email/resend', [AuthController::class, 'resendVerification'])->middleware('throttle:3,1');
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']);
@@ -84,8 +88,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/foods', [FoodController::class, 'index']);
     Route::get('/exercise-categories', [ExerciseCategoryController::class, 'index']);
     Route::get('/food-categories', [FoodCategoryController::class, 'index']);
-    Route::get('/ai-analysis', function (\Illuminate\Http\Request $r) {
+    Route::get('/ai-analysis', function (Request $r) {
         $profile = $r->user()->profile;
+
         return response()->json(['data' => $profile?->ai_analysis]);
     });
 
