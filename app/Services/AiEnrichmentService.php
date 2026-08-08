@@ -51,6 +51,18 @@ class AiEnrichmentService
     {
         $enriched = $this->buildEnriched($aiResult);
 
+        $this->createSchedules($userId, $enriched);
+
+        return $enriched;
+    }
+
+    public function enrich(array $aiResult): array
+    {
+        return $this->buildEnriched($aiResult);
+    }
+
+    public function createSchedules(int $userId, array $enriched): void
+    {
         // Create schedules from DB-matched suggestions only
         if (! empty($enriched['exercise_suggestions'])) {
             $this->createWorkoutSchedules($userId, $enriched['exercise_suggestions']);
@@ -59,8 +71,6 @@ class AiEnrichmentService
         if (! empty($enriched['meal_suggestions'])) {
             $this->createMealSchedules($userId, $enriched['meal_suggestions']);
         }
-
-        return $enriched;
     }
 
     /**
@@ -181,11 +191,18 @@ class AiEnrichmentService
             $matched = null;
             $aiText = strtolower($item['text']);
             $aiName = trim(explode(' - ', $aiText)[0]);
-            $aiName = preg_replace('/\s*\d.*$/', '', $aiName);
-            $aiName = $this->normalizeName($aiName);
+            $cleanName = $this->normalizeName($aiName);
 
-            if ($aiName !== '') {
-                $matched = $this->matchExerciseName($aiName, $normalized);
+            if ($cleanName !== '') {
+                $matched = $this->matchExerciseName($cleanName, $normalized);
+            }
+
+            // Fallback: strip trailing numbers if the AI appended sets/reps to the name
+            if ($matched === null) {
+                $strippedName = $this->normalizeName(preg_replace('/\s*\d.*$/', '', $aiName));
+                if ($strippedName !== '') {
+                    $matched = $this->matchExerciseName($strippedName, $normalized);
+                }
             }
 
             $result[] = [
@@ -253,7 +270,7 @@ class AiEnrichmentService
     private function normalizedFoods()
     {
         return Food::all()->mapWithKeys(
-            fn ($f) => [$this->normalizeFoodName($f->name) => $f]
+            fn ($f) => [$this->normalizeName($f->name) => $f]
         );
     }
 
@@ -285,11 +302,18 @@ class AiEnrichmentService
 
     private function matchFoodName(string $aiText, $normalized): ?Food
     {
+        // Exact match on the full name first (parenthetical qualifiers included)
+        if (isset($normalized[$aiText])) {
+            return $normalized[$aiText];
+        }
+
         $best = null;
         $bestLength = -1;
         $aiText = $this->stripParenthetical($aiText);
 
         foreach ($normalized as $dbName => $food) {
+            $dbName = $this->stripParenthetical($dbName);
+
             if ($dbName === '') {
                 continue;
             }
@@ -378,11 +402,6 @@ class AiEnrichmentService
         $name = preg_replace('/\s+/', ' ', $name);
 
         return trim($name);
-    }
-
-    private function normalizeFoodName(string $name): string
-    {
-        return $this->normalizeName($this->stripParenthetical($name));
     }
 
     private function stripParenthetical(string $name): string
