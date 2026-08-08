@@ -57,7 +57,9 @@ class AuthController extends Controller
             ]);
         }
 
-        if (! $user->email_verified_at) {
+        if (! $user->is_admin && ! $user->email_verified_at) {
+            $this->sendVerificationCode($user);
+
             return response()->json([
                 'message' => 'Please verify your email address first.',
                 'verified' => false,
