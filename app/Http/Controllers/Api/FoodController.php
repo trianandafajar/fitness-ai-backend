@@ -12,20 +12,24 @@ class FoodController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $query = Food::query();
+        $query = Food::query()->with('categoryModel');
 
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
 
         if ($request->filled('category')) {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('slug', $request->category);
-            });
+            $query->whereHas('categoryModel', fn ($q) => $q->where('slug', $request->category));
         }
 
+        $query->orderBy('name');
+
+        $data = $request->has('page')
+            ? $query->paginate($request->integer('per_page', 15))
+            : $query->get();
+
         return response()->json([
-            'data' => $query->orderBy('name')->get(),
+            'data' => $data,
         ]);
     }
 
@@ -84,7 +88,7 @@ class FoodController extends Controller
 
     public function destroy(Food $food): JsonResponse
     {
-        if ($food->image && !str_starts_with($food->image, 'http')) {
+        if ($food->image && ! str_starts_with($food->image, 'http')) {
             Storage::disk('public')->delete($food->image);
         }
 

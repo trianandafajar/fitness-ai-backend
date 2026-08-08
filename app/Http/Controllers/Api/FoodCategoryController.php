@@ -9,10 +9,16 @@ use Illuminate\Http\Request;
 
 class FoodCategoryController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        $query = FoodCategory::orderBy('name');
+
+        $data = $request->has('page')
+            ? $query->paginate($request->integer('per_page', 15))
+            : $query->get();
+
         return response()->json([
-            'data' => FoodCategory::orderBy('name')->get(),
+            'data' => $data,
         ]);
     }
 
@@ -35,7 +41,7 @@ class FoodCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:food_categories,slug,' . $foodCategory->id,
+            'slug' => 'required|string|max:255|unique:food_categories,slug,'.$foodCategory->id,
         ]);
 
         $foodCategory->update($validated);

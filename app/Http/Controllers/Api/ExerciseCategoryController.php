@@ -9,10 +9,16 @@ use Illuminate\Http\Request;
 
 class ExerciseCategoryController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        $query = ExerciseCategory::orderBy('name');
+
+        $data = $request->has('page')
+            ? $query->paginate($request->integer('per_page', 15))
+            : $query->get();
+
         return response()->json([
-            'data' => ExerciseCategory::orderBy('name')->get(),
+            'data' => $data,
         ]);
     }
 
@@ -35,7 +41,7 @@ class ExerciseCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:exercise_categories,slug,' . $exerciseCategory->id,
+            'slug' => 'required|string|max:255|unique:exercise_categories,slug,'.$exerciseCategory->id,
         ]);
 
         $exerciseCategory->update($validated);
