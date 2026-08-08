@@ -22,6 +22,10 @@ class ExerciseController extends Controller
             $query->whereHas('categoryModel', fn ($q) => $q->where('slug', $request->category));
         }
 
+        if ($request->filled('search')) {
+            $query->where('name', 'ilike', '%'.$request->search.'%');
+        }
+
         $query->orderBy('name');
 
         $data = $request->has('page')

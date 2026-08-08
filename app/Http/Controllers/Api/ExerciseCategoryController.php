@@ -13,6 +13,13 @@ class ExerciseCategoryController extends Controller
     {
         $query = ExerciseCategory::orderBy('name');
 
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'ilike', '%'.$request->search.'%')
+                    ->orWhere('slug', 'ilike', '%'.$request->search.'%');
+            });
+        }
+
         $data = $request->has('page')
             ? $query->paginate($request->integer('per_page', 15))
             : $query->get();
