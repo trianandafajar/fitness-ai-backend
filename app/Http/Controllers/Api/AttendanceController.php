@@ -37,9 +37,9 @@ class AttendanceController extends Controller
             ->first();
 
         return response()->json([
-            'has_schedule' => !is_null($schedule),
+            'has_schedule' => ! is_null($schedule),
             'schedule' => $schedule,
-            'has_attended' => !is_null($attendance),
+            'has_attended' => ! is_null($attendance),
             'attendance' => $attendance,
         ]);
     }
@@ -53,7 +53,7 @@ class AttendanceController extends Controller
             ->where('day_of_week', $dayOfWeek)
             ->first();
 
-        if (!$schedule) {
+        if (! $schedule) {
             return response()->json([
                 'message' => 'No workout scheduled for today',
             ], 409);
@@ -70,13 +70,15 @@ class AttendanceController extends Controller
         }
 
         $validated = $request->validate([
-            'photo' => 'required|image|max:5120',
+            'photo' => 'nullable|image|max:5120',
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
             'address' => 'nullable|string|max:255',
         ]);
 
-        $photoPath = $request->file('photo')->store('attendances', 'public');
+        $photoPath = $request->hasFile('photo')
+            ? $request->file('photo')->store('attendances', 'public')
+            : null;
 
         $attendance = $request->user()->attendances()->create([
             'workout_schedule_id' => $schedule->id,
