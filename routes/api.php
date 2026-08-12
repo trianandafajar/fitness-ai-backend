@@ -96,6 +96,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::put('/profile', [ProfileController::class, 'update']);
 
+    // Email change with verification
+    Route::get('/profile/email/status', [ProfileController::class, 'emailChangeStatus']);
+    Route::post('/profile/email/initiate', [ProfileController::class, 'initiateEmailChange']);
+    Route::post('/profile/email/verify', [ProfileController::class, 'verifyEmailChange']);
+    Route::post('/profile/email/cancel', [ProfileController::class, 'cancelEmailChange']);
+
     // Admin routes
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard']);
