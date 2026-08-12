@@ -47,6 +47,7 @@ class AuthController extends Controller
         $validated = $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
+            'remember' => 'sometimes|boolean',
         ]);
 
         $user = User::query()->where('email', $validated['email'])->first();
@@ -67,7 +68,9 @@ class AuthController extends Controller
             ], 403);
         }
 
-        $token = $user->createToken('auth-token')->plainTextToken;
+        $remember = (bool) $request->boolean('remember');
+        $expiresAt = $remember ? now()->addDays(30) : now()->addDay();
+        $token = $user->createToken('auth-token', ['*'], $expiresAt)->plainTextToken;
 
         return response()->json([
             'user' => $user,
