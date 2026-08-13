@@ -17,6 +17,10 @@ class ProfileController extends Controller
 
     private const EMAIL_CHANGE_COOLDOWN_SECONDS = 60;
 
+    private const MAX_ATTEMPTS = 3;
+
+    private const ATTEMPT_DELAY_SECONDS = 60;
+
     public function update(Request $request): JsonResponse
     {
         $user = $request->user();
@@ -102,6 +106,8 @@ class ProfileController extends Controller
             'pending_email_code' => Hash::make($code),
             'pending_email_expires_at' => now()->addMinutes(self::EMAIL_CHANGE_TTL_MINUTES),
             'pending_email_sent_at' => now(),
+            'pending_email_attempts' => 0,
+            'pending_email_next_attempt_at' => null,
         ])->save();
 
         Notification::route('mail', $newEmail)
@@ -133,7 +139,30 @@ class ProfileController extends Controller
             ]);
         }
 
+        if ($user->pending_email_attempts >= self::MAX_ATTEMPTS) {
+            return response()->json([
+                'message' => 'Too many failed attempts. Please request a new code.',
+                'retry_after' => null,
+            ], 429);
+        }
+
+        if ($user->pending_email_next_attempt_at && $user->pending_email_next_attempt_at->isFuture()) {
+            $retryAfter = max(0, (int) ceil(
+                $user->pending_email_next_attempt_at->timestamp - now()->timestamp
+            ));
+
+            return response()->json([
+                'message' => 'Too many attempts. Please wait before trying again.',
+                'retry_after' => $retryAfter,
+            ], 429);
+        }
+
         if (!Hash::check($validated['code'], $user->pending_email_code)) {
+            $user->forceFill([
+                'pending_email_attempts' => $user->pending_email_attempts + 1,
+                'pending_email_next_attempt_at' => now()->addSeconds(self::ATTEMPT_DELAY_SECONDS),
+            ])->save();
+
             throw ValidationException::withMessages([
                 'code' => ['The verification code is invalid.'],
             ]);
@@ -146,6 +175,8 @@ class ProfileController extends Controller
             'pending_email_code' => null,
             'pending_email_expires_at' => null,
             'pending_email_sent_at' => null,
+            'pending_email_attempts' => 0,
+            'pending_email_next_attempt_at' => null,
         ])->save();
 
         return response()->json([
@@ -163,6 +194,8 @@ class ProfileController extends Controller
             'pending_email_code' => null,
             'pending_email_expires_at' => null,
             'pending_email_sent_at' => null,
+            'pending_email_attempts' => 0,
+            'pending_email_next_attempt_at' => null,
         ])->save();
 
         return response()->json(['message' => 'Email change was cancelled.']);
