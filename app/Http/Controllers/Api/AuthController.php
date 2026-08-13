@@ -24,6 +24,8 @@ class AuthController extends Controller
 
     private const ATTEMPT_DELAY_SECONDS = 60;
 
+    private const MAX_RESENDS = 3;
+
     public function register(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -63,7 +65,15 @@ class AuthController extends Controller
         }
 
         if (! $user->is_admin && ! $user->email_verified_at) {
-            $this->sendVerificationCode($user);
+            $active = EmailVerificationCode::query()
+                ->where('user_id', $user->id)
+                ->where('expires_at', '>', now())
+                ->latest()
+                ->first();
+
+            if (! $active) {
+                $this->sendVerificationCode($user);
+            }
 
             return response()->json([
                 'message' => 'Please verify your email address first.',
@@ -156,10 +166,19 @@ class AuthController extends Controller
 
         $existing = EmailVerificationCode::query()->where('user_id', $user->id)->latest()->first();
 
+        $active = $existing && $existing->expires_at->isFuture();
+
+        if ($active && $existing->resends >= self::MAX_RESENDS) {
+            return response()->json([
+                'message' => 'Too many resend attempts. Please wait for the code to expire before requesting a new one.',
+                'retry_after' => null,
+            ], 429);
+        }
+
         if ($existing && $existing->created_at->gt(now()->subSeconds(self::RESEND_COOLDOWN_SECONDS))) {
-            $retryAfter = $existing->created_at
-                ->addSeconds(self::RESEND_COOLDOWN_SECONDS)
-                ->diffInSeconds(now());
+            $retryAfter = max(0, (int) floor(
+                $existing->created_at->copy()->addSeconds(self::RESEND_COOLDOWN_SECONDS)->timestamp - now()->timestamp
+            ));
 
             return response()->json([
                 'message' => 'Please wait before resending the verification code.',
@@ -167,7 +186,26 @@ class AuthController extends Controller
             ], 429);
         }
 
-        $this->sendVerificationCode($user);
+        $code = (string) random_int(100000, 999999);
+
+        if ($existing) {
+            $existing->forceFill([
+                'code' => Hash::make($code),
+                'expires_at' => now()->addMinutes(self::VERIFICATION_CODE_TTL_MINUTES),
+                'attempts' => 0,
+                'next_attempt_at' => null,
+                'resends' => $active ? $existing->resends + 1 : 0,
+                'created_at' => now(),
+            ])->save();
+        } else {
+            EmailVerificationCode::query()->create([
+                'user_id' => $user->id,
+                'code' => Hash::make($code),
+                'expires_at' => now()->addMinutes(self::VERIFICATION_CODE_TTL_MINUTES),
+            ]);
+        }
+
+        $user->notify(new VerifyEmailNotification($code, $user->email));
 
         return response()->json([
             'message' => 'Verification code sent to your email.',

@@ -21,6 +21,8 @@ class ProfileController extends Controller
 
     private const ATTEMPT_DELAY_SECONDS = 60;
 
+    private const MAX_RESENDS = 3;
+
     public function update(Request $request): JsonResponse
     {
         $user = $request->user();
@@ -87,6 +89,15 @@ class ProfileController extends Controller
             ]);
         }
 
+        $active = $user->pending_email_expires_at && $user->pending_email_expires_at->isFuture();
+
+        if ($active && $user->pending_email_resends >= self::MAX_RESENDS) {
+            return response()->json([
+                'message' => 'Too many resend attempts. Please wait for the code to expire before requesting a new one.',
+                'retry_after' => null,
+            ], 429);
+        }
+
         $lastSent = $user->pending_email_sent_at;
         if ($lastSent && $lastSent->gt(now()->subSeconds(self::EMAIL_CHANGE_COOLDOWN_SECONDS))) {
             $retryAfter = max(0, (int) floor(
@@ -101,6 +112,8 @@ class ProfileController extends Controller
 
         $code = (string) random_int(100000, 999999);
 
+        $isResend = $user->pending_email !== null;
+
         $user->forceFill([
             'pending_email' => $newEmail,
             'pending_email_code' => Hash::make($code),
@@ -108,6 +121,7 @@ class ProfileController extends Controller
             'pending_email_sent_at' => now(),
             'pending_email_attempts' => 0,
             'pending_email_next_attempt_at' => null,
+            'pending_email_resends' => $isResend ? ($active ? $user->pending_email_resends + 1 : 0) : 0,
         ])->save();
 
         Notification::route('mail', $newEmail)
@@ -177,6 +191,7 @@ class ProfileController extends Controller
             'pending_email_sent_at' => null,
             'pending_email_attempts' => 0,
             'pending_email_next_attempt_at' => null,
+            'pending_email_resends' => 0,
         ])->save();
 
         return response()->json([
@@ -196,6 +211,7 @@ class ProfileController extends Controller
             'pending_email_sent_at' => null,
             'pending_email_attempts' => 0,
             'pending_email_next_attempt_at' => null,
+            'pending_email_resends' => 0,
         ])->save();
 
         return response()->json(['message' => 'Email change was cancelled.']);

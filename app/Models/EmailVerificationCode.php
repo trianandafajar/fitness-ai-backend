@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EmailVerificationCode extends Model
 {
-    protected $fillable = ['user_id', 'code', 'expires_at', 'attempts', 'next_attempt_at'];
+    protected $fillable = ['user_id', 'code', 'expires_at', 'attempts', 'next_attempt_at', 'resends'];
 
     protected function casts(): array
     {
@@ -15,6 +15,7 @@ class EmailVerificationCode extends Model
             'expires_at' => 'datetime',
             'attempts' => 'integer',
             'next_attempt_at' => 'datetime',
+            'resends' => 'integer',
         ];
     }
 

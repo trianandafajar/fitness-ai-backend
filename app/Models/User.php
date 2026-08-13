@@ -29,6 +29,7 @@ class User extends Authenticatable
             'pending_email_sent_at' => 'datetime',
             'pending_email_attempts' => 'integer',
             'pending_email_next_attempt_at' => 'datetime',
+            'pending_email_resends' => 'integer',
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
