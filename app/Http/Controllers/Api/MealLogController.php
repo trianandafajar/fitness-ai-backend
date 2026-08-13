@@ -72,12 +72,16 @@ class MealLogController extends Controller
 
         $log->update($validated);
 
+        event(new MealLogged($log));
+
         return response()->json($log);
     }
 
     public function destroy(Request $request, $id): JsonResponse
     {
         $log = $request->user()->mealLogs()->findOrFail($id);
+
+        event(new MealLogged($log));
 
         $log->delete();
 

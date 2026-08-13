@@ -15,6 +15,7 @@ class RecalculateDailyKpiJob implements ShouldQueue
     public function __construct(
         public int $userId,
         public string $date,
+        public string $period = 'daily',
     ) {}
 
     public function handle(KpiCalculator $kpi): void
@@ -26,6 +27,12 @@ class RecalculateDailyKpiJob implements ShouldQueue
         }
 
         $date = Carbon::parse($this->date);
+
+        if ($this->period === 'weekly') {
+            $kpi->calculateWeekly($user, $date);
+
+            return;
+        }
 
         $kpi->calculateDaily($user, $date);
     }

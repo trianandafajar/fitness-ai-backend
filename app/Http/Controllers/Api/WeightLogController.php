@@ -64,6 +64,8 @@ class WeightLogController extends Controller
 
         $weightLog->update($validated);
 
+        event(new WeightLogged($weightLog));
+
         return response()->json($weightLog);
     }
 
@@ -72,6 +74,8 @@ class WeightLogController extends Controller
         if ($weightLog->user_id !== $request->user()->id) {
             abort(403);
         }
+
+        event(new WeightLogged($weightLog));
 
         $weightLog->delete();
 

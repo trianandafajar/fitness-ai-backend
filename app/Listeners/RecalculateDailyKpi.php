@@ -6,6 +6,7 @@ use App\Events\AttendanceLogged;
 use App\Events\MealLogged;
 use App\Events\WeightLogged;
 use App\Jobs\RecalculateDailyKpiJob;
+use Carbon\Carbon;
 use Illuminate\Events\Dispatcher;
 
 class RecalculateDailyKpi
@@ -20,9 +21,19 @@ class RecalculateDailyKpi
 
     public function handleWeightLogged(WeightLogged $event): void
     {
+        $weekStart = Carbon::parse($event->weightLog->week_start)->startOfWeek(Carbon::MONDAY);
+
+        for ($i = 0; $i < 7; $i++) {
+            RecalculateDailyKpiJob::dispatch(
+                $event->weightLog->user_id,
+                $weekStart->copy()->addDays($i)->format('Y-m-d'),
+            );
+        }
+
         RecalculateDailyKpiJob::dispatch(
             $event->weightLog->user_id,
-            $event->weightLog->created_at,
+            $weekStart->format('Y-m-d'),
+            'weekly',
         );
     }
 
