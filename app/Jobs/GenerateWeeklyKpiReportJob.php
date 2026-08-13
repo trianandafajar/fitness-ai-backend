@@ -15,8 +15,8 @@ class GenerateWeeklyKpiReportJob implements ShouldQueue
 
     public function handle(KpiCalculator $kpi, AiProviderService $ai): void
     {
-        $weekStart = Carbon::now()->startOfWeek(Carbon::MONDAY);
-        $weekEnd = Carbon::now()->endOfWeek(Carbon::SUNDAY);
+        $weekStart = Carbon::now()->startOfWeek(Carbon::MONDAY)->subWeek();
+        $weekEnd = $weekStart->copy()->endOfWeek(Carbon::SUNDAY);
 
         User::chunk(100, function ($users) use ($kpi, $ai, $weekStart, $weekEnd) {
             foreach ($users as $user) {
