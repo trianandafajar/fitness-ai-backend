@@ -65,16 +65,6 @@ class AuthController extends Controller
         }
 
         if (! $user->is_admin && ! $user->email_verified_at) {
-            $active = EmailVerificationCode::query()
-                ->where('user_id', $user->id)
-                ->where('expires_at', '>', now())
-                ->latest()
-                ->first();
-
-            if (! $active) {
-                $this->sendVerificationCode($user);
-            }
-
             return response()->json([
                 'message' => 'Please verify your email address first.',
                 'verified' => false,
