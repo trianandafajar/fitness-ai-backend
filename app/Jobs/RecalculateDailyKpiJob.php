@@ -12,6 +12,10 @@ class RecalculateDailyKpiJob implements ShouldQueue
 {
     use Queueable;
 
+    public int $tries = 3;
+
+    public array $backoff = [10, 30, 120];
+
     public function __construct(
         public int $userId,
         public string $date,
