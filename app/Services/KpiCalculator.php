@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\AiRecommendation;
 use App\Models\Attendance;
 use App\Models\KpiTracking;
 use App\Models\MealLog;
@@ -281,20 +280,37 @@ class KpiCalculator
 
     protected function calculateEngagementScore(User $user, Carbon $start, Carbon $end): int
     {
-        $total = AiRecommendation::where('user_id', $user->id)
-            ->whereBetween('created_at', [$start, $end])
-            ->count();
+        $totalDays = $start->copy()->startOfDay()->diffInDays($end->copy()->startOfDay()) + 1;
+        $score = 0;
 
-        if ($total === 0) {
-            return 50;
+        for ($i = 0; $i < $totalDays; $i++) {
+            $day = $start->copy()->startOfDay()->addDays($i);
+
+            if (Attendance::where('user_id', $user->id)
+                ->whereDate('checked_in_at', $day)
+                ->where('status', 'verified')
+                ->exists()) {
+                $score += 40;
+            }
+
+            if (MealLog::where('user_id', $user->id)
+                ->whereDate('logged_at', $day)
+                ->exists()) {
+                $score += 35;
+            }
         }
 
-        $applied = AiRecommendation::where('user_id', $user->id)
-            ->whereBetween('created_at', [$start, $end])
-            ->where('is_applied', true)
-            ->count();
+        if ($totalDays > 1) {
+            $score = round($score / $totalDays);
+        }
 
-        return (int) round(($applied / $total) * 100);
+        if (WeightLog::where('user_id', $user->id)
+            ->where('week_start', $start->copy()->startOfWeek(Carbon::MONDAY)->format('Y-m-d'))
+            ->exists()) {
+            $score += 25;
+        }
+
+        return min((int) $score, 100);
     }
 
     protected function getWeightChange(User $user, Carbon $date): ?float
