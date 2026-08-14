@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             FoodDataSeeder::class,
             ExerciseDataSeeder::class,
             AdminUserSeeder::class,
+            DemoUserSeeder::class,
         ]);
     }
 }
