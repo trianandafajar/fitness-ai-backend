@@ -143,9 +143,11 @@ class WorkoutScheduleController extends Controller
             }
         });
 
-        $schedules = collect($validated['schedules'])->map(function ($item) use ($userId) {
+        $skipEnrichment = ! empty($validated['skip_enrichment']);
+
+        $schedules = collect($validated['schedules'])->map(function ($item) use ($userId, $skipEnrichment) {
             $exercises = $item['exercises'];
-            if (empty($item['skip_enrichment'])) {
+            if (! $skipEnrichment) {
                 $exercises = $this->enrichment->enrich($exercises);
             }
 
