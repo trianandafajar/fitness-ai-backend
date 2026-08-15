@@ -37,19 +37,23 @@ class KpiTrackingController extends Controller
     {
         $user = $request->user();
         $today = Carbon::today();
+        $kpi = app(KpiCalculator::class);
 
         $daily = KpiTracking::where('user_id', $user->id)
             ->where('period_type', 'daily')
             ->where('period_start', $today->format('Y-m-d'))
             ->first();
 
-        $weekStart = Carbon::now()->startOfWeek(Carbon::MONDAY);
-        $weekEnd = Carbon::now()->endOfWeek(Carbon::SUNDAY);
+        $hasAnyData = $user->workoutSchedules()->exists()
+            || $user->attendances()->exists()
+            || $user->mealLogs()->exists()
+            || $user->weightLogs()->exists();
 
-        $weekly = KpiTracking::where('user_id', $user->id)
-            ->where('period_type', 'weekly')
-            ->where('period_start', $weekStart->format('Y-m-d'))
-            ->first();
+        $weekly = null;
+        if ($hasAnyData) {
+            $weekStart = Carbon::now()->startOfWeek(Carbon::MONDAY);
+            $weekly = new KpiTracking($kpi->calculateWeeklyData($user, $weekStart));
+        }
 
         return response()->json([
             'today' => $daily ? [

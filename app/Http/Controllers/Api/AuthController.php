@@ -101,28 +101,26 @@ class AuthController extends Controller
             ->latest()
             ->first();
 
-        if ($record) {
-            if ($record->attempts >= self::MAX_ATTEMPTS) {
-                return response()->json([
-                    'message' => 'Too many failed attempts. Please request a new code.',
-                    'retry_after' => null,
-                ], 429);
-            }
-
-            if ($record->next_attempt_at && $record->next_attempt_at->isFuture()) {
-                $retryAfter = max(0, (int) ceil(
-                    $record->next_attempt_at->timestamp - now()->timestamp
-                ));
-
-                return response()->json([
-                    'message' => 'Too many attempts. Please wait before trying again.',
-                    'retry_after' => $retryAfter,
-                ], 429);
-            }
-        }
-
         if (! $record || ! Hash::check($validated['code'], $record->code)) {
             if ($record) {
+                if ($record->attempts >= self::MAX_ATTEMPTS) {
+                    return response()->json([
+                        'message' => 'Too many failed attempts. Please request a new code.',
+                        'retry_after' => null,
+                    ], 429);
+                }
+
+                if ($record->next_attempt_at && $record->next_attempt_at->isFuture()) {
+                    $retryAfter = max(0, (int) ceil(
+                        $record->next_attempt_at->timestamp - now()->timestamp
+                    ));
+
+                    return response()->json([
+                        'message' => 'Too many attempts. Please wait before trying again.',
+                        'retry_after' => $retryAfter,
+                    ], 429);
+                }
+
                 $record->forceFill([
                     'attempts' => $record->attempts + 1,
                     'next_attempt_at' => now()->addSeconds(self::ATTEMPT_DELAY_SECONDS),

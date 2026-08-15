@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AiRecommendation;
 use App\Models\Exercise;
 use App\Models\ExerciseCategory;
 use App\Models\Food;
@@ -224,6 +225,7 @@ class OnboardingController extends Controller
             }
 
             $enrichment->createSchedules($request->user()->id, $enriched);
+            $this->persistRecommendations($request->user()->id, $enriched);
 
             $profile->update([
                 'onboarding_step' => 5,
@@ -275,6 +277,55 @@ class OnboardingController extends Controller
             'message' => 'Onboarding completed successfully',
             'profile_completed' => true,
         ]);
+    }
+
+    private function persistRecommendations(int $userId, array $enriched): void
+    {
+        AiRecommendation::where('user_id', $userId)->delete();
+
+        $items = [];
+
+        foreach ((array) ($enriched['recommendations'] ?? []) as $tip) {
+            if (trim((string) $tip) === '') {
+                continue;
+            }
+
+            $items[] = [
+                'category' => 'general',
+                'action_type' => 'tip',
+                'content' => trim((string) $tip),
+            ];
+        }
+
+        foreach ((array) ($enriched['exercise_suggestions'] ?? []) as $suggestion) {
+            $items[] = [
+                'category' => 'workout',
+                'action_type' => 'exercise',
+                'content' => trim((string) ($suggestion['text'] ?? '')),
+            ];
+        }
+
+        foreach ((array) ($enriched['meal_suggestions'] ?? []) as $suggestion) {
+            $items[] = [
+                'category' => 'nutrition',
+                'action_type' => 'meal',
+                'content' => trim((string) ($suggestion['text'] ?? '')),
+            ];
+        }
+
+        foreach ($items as $item) {
+            if ($item['content'] === '') {
+                continue;
+            }
+
+            AiRecommendation::create([
+                'user_id' => $userId,
+                'category' => $item['category'],
+                'action_type' => $item['action_type'],
+                'content' => $item['content'],
+                'expires_at' => now()->addDays(7),
+            ]);
+        }
     }
 
     private function getOrCreateProfile(int $userId, int $expectedStep): UserProfile

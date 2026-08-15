@@ -29,12 +29,6 @@ class RecalculateDailyKpi
                 $weekStart->copy()->addDays($i)->format('Y-m-d'),
             );
         }
-
-        RecalculateDailyKpiJob::dispatch(
-            $event->weightLog->user_id,
-            $weekStart->format('Y-m-d'),
-            'weekly',
-        );
     }
 
     public function handleMealLogged(MealLogged $event): void

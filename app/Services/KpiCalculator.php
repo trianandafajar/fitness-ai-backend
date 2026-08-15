@@ -85,6 +85,20 @@ class KpiCalculator
 
     public function calculateWeekly(User $user, Carbon $weekStart): KpiTracking
     {
+        $data = $this->calculateWeeklyData($user, $weekStart);
+
+        return KpiTracking::updateOrCreate(
+            [
+                'user_id' => $user->id,
+                'period_type' => 'weekly',
+                'period_start' => $data['period_start'],
+            ],
+            $data,
+        );
+    }
+
+    public function calculateWeeklyData(User $user, Carbon $weekStart): array
+    {
         $periodStart = $weekStart->copy()->startOfWeek(Carbon::MONDAY);
         $periodEnd = $weekStart->copy()->endOfWeek(Carbon::SUNDAY);
 
@@ -146,14 +160,7 @@ class KpiCalculator
             'overall_score' => $overall,
         ];
 
-        return KpiTracking::updateOrCreate(
-            [
-                'user_id' => $user->id,
-                'period_type' => 'weekly',
-                'period_start' => $periodStart->format('Y-m-d'),
-            ],
-            $data,
-        );
+        return $data;
     }
 
     public function calculateOverallScore(array $scores): int

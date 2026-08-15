@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AiRecommendation;
 use App\Models\EmailVerificationCode;
 use App\Models\KpiTracking;
 use App\Models\MealLog;
@@ -105,7 +106,48 @@ class DemoUserSeeder extends Seeder
             'ai_analysis' => $enriched,
         ]);
 
+        $this->seedRecommendations($user->id, $enriched);
+
         $this->command?->info('Demo user created: '.self::DEMO_EMAIL.' / '.self::DEMO_PASSWORD);
+    }
+
+    private function seedRecommendations(int $userId, array $enriched): void
+    {
+        $expiresAt = now()->addDays(7);
+
+        foreach ((array) ($enriched['recommendations'] ?? []) as $tip) {
+            if (trim((string) $tip) === '') {
+                continue;
+            }
+
+            AiRecommendation::create([
+                'user_id' => $userId,
+                'category' => 'general',
+                'action_type' => 'tip',
+                'content' => trim((string) $tip),
+                'expires_at' => $expiresAt,
+            ]);
+        }
+
+        foreach ((array) ($enriched['exercise_suggestions'] ?? []) as $suggestion) {
+            AiRecommendation::create([
+                'user_id' => $userId,
+                'category' => 'workout',
+                'action_type' => 'exercise',
+                'content' => trim((string) ($suggestion['text'] ?? '')),
+                'expires_at' => $expiresAt,
+            ]);
+        }
+
+        foreach ((array) ($enriched['meal_suggestions'] ?? []) as $suggestion) {
+            AiRecommendation::create([
+                'user_id' => $userId,
+                'category' => 'nutrition',
+                'action_type' => 'meal',
+                'content' => trim((string) ($suggestion['text'] ?? '')),
+                'expires_at' => $expiresAt,
+            ]);
+        }
     }
 
     /**
@@ -136,6 +178,7 @@ class DemoUserSeeder extends Seeder
         UserGoal::where('user_id', $userId)->delete();
         UserProfile::where('user_id', $userId)->delete();
         KpiTracking::where('user_id', $userId)->delete();
+        AiRecommendation::where('user_id', $userId)->delete();
         EmailVerificationCode::where('user_id', $userId)->delete();
 
         DB::table('attendances')->where('user_id', $userId)->delete();
