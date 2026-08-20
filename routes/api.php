@@ -27,7 +27,7 @@ Route::post('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/verify-email/status', [AuthController::class, 'verificationStatus']);
 Route::post('/auth/verify-email', [AuthController::class, 'verifyEmail']);
 Route::post('/auth/verify-email/resend', [AuthController::class, 'resendVerification'])->middleware('throttle:3,1');
-Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'login'])->middleware('throttle:login');
 Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']);
 
