@@ -34,6 +34,7 @@ Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::delete('/auth/account', [AuthController::class, 'destroy']);
 
     Route::post('/onboarding/step1', [OnboardingController::class, 'step1']);
     Route::post('/onboarding/step2', [OnboardingController::class, 'step2']);
