@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\RecommendationController;
 use App\Http\Controllers\Api\StreakController;
 use App\Http\Controllers\Api\WeightLogController;
 use App\Http\Controllers\Api\WorkoutScheduleController;
+use App\Http\Controllers\Api\UserManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -127,6 +128,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/food-categories', [FoodCategoryController::class, 'store']);
         Route::put('/food-categories/{foodCategory}', [FoodCategoryController::class, 'update']);
         Route::delete('/food-categories/{foodCategory}', [FoodCategoryController::class, 'destroy']);
+
+        // User Management
+        Route::get('/users', [UserManagementController::class, 'index']);
+        Route::get('/users/{user}', [UserManagementController::class, 'show']);
+        Route::post('/users', [UserManagementController::class, 'store']);
+        Route::put('/users/{user}', [UserManagementController::class, 'update']);
+        Route::delete('/users/{user}', [UserManagementController::class, 'destroy']);
     });
 });
 
