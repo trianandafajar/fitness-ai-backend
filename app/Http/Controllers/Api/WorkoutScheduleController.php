@@ -40,7 +40,7 @@ class WorkoutScheduleController extends Controller
         $validated = $request->validate([
             'day_of_week' => ['required', Rule::in(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])],
             'scheduled_time' => 'nullable|date_format:H:i',
-            'exercises' => 'required|array|min:1',
+            'exercises' => 'required|array|min:0',
             'exercises.*.name' => 'required|string|max:255',
             'exercises.*.sets' => 'nullable|integer|min:1',
             'exercises.*.reps' => 'nullable|integer|min:1',
@@ -51,6 +51,20 @@ class WorkoutScheduleController extends Controller
             'exercises.*.estimated_calories' => 'nullable|integer|min:0',
             'skip_enrichment' => 'nullable|boolean',
         ]);
+
+        if (empty($validated['exercises'])) {
+            $existing = WorkoutSchedule::where('user_id', $request->user()->id)
+                ->where('day_of_week', $validated['day_of_week'])
+                ->where('scheduled_time', $validated['scheduled_time'] ?? null)
+                ->first();
+            
+            if ($existing) {
+                $existing->delete();
+                return response()->json(['message' => 'Workout schedule deleted'], 200);
+            }
+            
+            return response()->json(['message' => 'No schedule to delete'], 404);
+        }
 
         $exercises = $validated['exercises'];
         if (empty($validated['skip_enrichment'])) {
@@ -78,7 +92,7 @@ class WorkoutScheduleController extends Controller
         $validated = $request->validate([
             'day_of_week' => ['required', Rule::in(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])],
             'scheduled_time' => 'nullable|date_format:H:i',
-            'exercises' => 'required|array|min:1',
+            'exercises' => 'required|array|min:0',
             'exercises.*.name' => 'required|string|max:255',
             'exercises.*.sets' => 'nullable|integer|min:1',
             'exercises.*.reps' => 'nullable|integer|min:1',
@@ -89,6 +103,11 @@ class WorkoutScheduleController extends Controller
             'exercises.*.estimated_calories' => 'nullable|integer|min:0',
             'skip_enrichment' => 'nullable|boolean',
         ]);
+
+        if (empty($validated['exercises'])) {
+            $workoutSchedule->delete();
+            return response()->json(['message' => 'Workout schedule deleted'], 200);
+        }
 
         $exercises = $validated['exercises'];
         if (empty($validated['skip_enrichment'])) {
